@@ -1,1624 +1,1338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEXOR Network | Store</title>
-
-    <style>
-        :root {
-            --purple: #8b5cf6;
-            --purple-light: #a78bfa;
-            --purple-dark: #5b21b6;
-            --cyan: #22d3ee;
-            --bg: #05060a;
-            --bg2: #0a0d14;
-            --card: #10141e;
-            --card-hover: #171d2b;
-            --border: #282f40;
-            --muted: #9299aa;
-            --green: #22c55e;
-            --red: #ef4444;
-            --yellow: #facc15;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--bg);
-            color: white;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -2;
-
-            background-image:
-                linear-gradient(#8b5cf608 1px, transparent 1px),
-                linear-gradient(90deg, #8b5cf608 1px, transparent 1px);
-
-            background-size: 50px 50px;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            width: 650px;
-            height: 650px;
-            left: 50%;
-            top: -300px;
-            transform: translateX(-50%);
-
-            background: radial-gradient(
-                circle,
-                #7c3aed28,
-                transparent 70%
-            );
-
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        input {
-            font-family: inherit;
-        }
-
-        /* ==============================
-           HEADER
-        ============================== */
-
-        header {
-            height: 72px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 6%;
-
-            background: #05060aec;
-            backdrop-filter: blur(15px);
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            font-size: 25px;
-            font-weight: 900;
-            letter-spacing: 3px;
-        }
-
-        .logo svg {
-            width: 43px;
-            height: 43px;
-
-            filter:
-                drop-shadow(
-                    0 0 10px #8b5cf677
-                );
-        }
-
-        .logo span {
-            color: var(--purple-light);
-        }
-
-        nav {
-            display: flex;
-            gap: 28px;
-        }
-
-        nav a {
-            color: #aeb4c2;
-            font-size: 14px;
-            font-weight: bold;
-            transition: .2s;
-        }
-
-        nav a:hover {
-            color: white;
-        }
-
-        .cart-button {
-            padding: 11px 17px;
-
-            background: #8b5cf622;
-            border: 1px solid #8b5cf655;
-            border-radius: 8px;
-
-            color: white;
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .cart-button:hover {
-            background: var(--purple);
-            transform: translateY(-2px);
-        }
-
-        /* ==============================
-           HERO
-        ============================== */
-
-        .hero {
-            min-height: 610px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-
-            padding: 80px 20px;
-
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-
-            padding: 8px 15px;
-
-            margin-bottom: 25px;
-
-            border: 1px solid #22c55e44;
-            background: #22c55e10;
-
-            border-radius: 100px;
-
-            color: #86efac;
-
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-
-            background: var(--green);
-
-            border-radius: 50%;
-
-            box-shadow:
-                0 0 10px #22c55e;
-        }
-
-        .hero h1 {
-            font-size: clamp(55px, 10vw, 105px);
-
-            line-height: .9;
-
-            letter-spacing: 9px;
-
-            margin-bottom: 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    white 20%,
-                    var(--purple-light),
-                    var(--purple)
-                );
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-        }
-
-        .hero p {
-            max-width: 650px;
-
-            margin: auto;
-
-            color: #aeb4c2;
-
-            font-size: 17px;
-
-            line-height: 1.7;
-        }
-
-        .ip {
-            display: inline-block;
-
-            margin-top: 28px;
-
-            padding: 13px 20px;
-
-            background: #0d1018;
-
-            border: 1px solid var(--border);
-
-            border-radius: 8px;
-
-            color: var(--purple-light);
-
-            font-family: monospace;
-
-            cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .ip:hover {
-            border-color: var(--purple);
-            background: #121725;
-        }
-
-        .hero-buttons {
-            margin-top: 28px;
-
-            display: flex;
-            justify-content: center;
-
-            gap: 12px;
-        }
-
-        .primary {
-            padding: 14px 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--purple),
-                    var(--purple-dark)
-                );
-
-            border: none;
-            border-radius: 8px;
-
-            color: white;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .primary:hover {
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 12px 30px #7c3aed44;
-        }
-
-        .secondary {
-            padding: 14px 25px;
-
-            background: #0d1018;
-
-            border: 1px solid var(--border);
-            border-radius: 8px;
-
-            color: white;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .secondary:hover {
-            border-color: var(--purple);
-        }
-
-        /* ==============================
-           SECTION
-        ============================== */
-
-        .section {
-            padding: 90px 7%;
-        }
-
-        .section-header {
-            margin-bottom: 40px;
-        }
-
-        .label {
-            color: var(--purple-light);
-
-            font-size: 12px;
-
-            font-weight: 900;
-
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-size: 36px;
-            margin-bottom: 8px;
-        }
-
-        .description {
-            color: var(--muted);
-        }
-
-        /* ==============================
-           SEARCH
-        ============================== */
-
-        .search-box {
-            margin-bottom: 30px;
-        }
-
-        .search-box input {
-            width: 100%;
-
-            padding: 14px 18px;
-
-            background: #0d1018;
-
-            border: 1px solid var(--border);
-
-            border-radius: 8px;
-
-            color: white;
-
-            outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: var(--purple);
-        }
-
-        /* ==============================
-           PRODUCTS
-        ============================== */
-
-        .products {
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(240px, 1fr));
-
-            gap: 20px;
-        }
-
-        .product {
-            position: relative;
-
-            padding: 26px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #111520,
-                    #0b0e15
-                );
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-
-            text-align: center;
-
-            overflow: hidden;
-
-            transition: .25s;
-        }
-
-        .product:hover {
-            transform: translateY(-7px);
-
-            background: var(--card-hover);
-
-            border-color: var(--purple);
-
-            box-shadow:
-                0 15px 40px #00000055;
-        }
-
-        .product-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
-
-        .product h3 {
-            font-size: 23px;
-            margin-bottom: 10px;
-        }
-
-        .product p {
-            min-height: 48px;
-
-            color: var(--muted);
-
-            line-height: 1.5;
-
-            margin-bottom: 20px;
-        }
-
-        .price {
-            color: var(--purple-light);
-
-            font-size: 25px;
-
-            font-weight: 900;
-
-            margin-bottom: 20px;
-        }
-
-        .buy {
-            width: 100%;
-
-            padding: 12px;
-
-            background: var(--purple);
-
-            border: none;
-
-            border-radius: 7px;
-
-            color: white;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .buy:hover {
-            background: var(--purple-light);
-            color: #160b2d;
-        }
-
-        .badge {
-            position: absolute;
-
-            top: 14px;
-            right: 14px;
-
-            padding: 5px 8px;
-
-            border-radius: 5px;
-
-            background: var(--purple);
-
-            font-size: 10px;
-
-            font-weight: 900;
-        }
-
-        /* ==============================
-           FEATURES
-        ============================== */
-
-        .features {
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-
-            gap: 18px;
-        }
-
-        .feature {
-            padding: 25px;
-
-            background: var(--card);
-
-            border: 1px solid var(--border);
-
-            border-radius: 10px;
-        }
-
-        .feature-icon {
-            font-size: 30px;
-            margin-bottom: 15px;
-        }
-
-        .feature h3 {
-            margin-bottom: 8px;
-        }
-
-        .feature p {
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* ==============================
-           FAQ
-        ============================== */
-
-        .faq {
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .faq-item {
-            background: var(--card);
-
-            border: 1px solid var(--border);
-
-            border-radius: 8px;
-
-            margin-bottom: 10px;
-
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 18px;
-
-            cursor: pointer;
-
-            font-weight: bold;
-        }
-
-        .faq-answer {
-            display: none;
-
-            padding: 0 18px 18px;
-
-            color: var(--muted);
-
-            line-height: 1.6;
-        }
-
-        .faq-item.open .faq-answer {
-            display: block;
-        }
-
-        /* ==============================
-           MODAL
-        ============================== */
-
-        .modal {
-            display: none;
-
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 2000;
-
-            align-items: center;
-            justify-content: center;
-
-            padding: 20px;
-
-            background: #000000c9;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-box {
-            width: 100%;
-            max-width: 480px;
-
-            padding: 30px;
-
-            background: #111520;
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-
-            position: relative;
-
-            box-shadow:
-                0 25px 80px #000;
-        }
-
-        .close {
-            position: absolute;
-
-            right: 18px;
-            top: 14px;
-
-            font-size: 28px;
-
-            color: var(--muted);
-
-            cursor: pointer;
-        }
-
-        .close:hover {
-            color: white;
-        }
-
-        .modal-box h2 {
-            margin-bottom: 10px;
-        }
-
-        .modal-box p {
-            color: var(--muted);
-            margin-bottom: 20px;
-        }
-
-        .modal-box input {
-            width: 100%;
-
-            padding: 13px;
-
-            margin-bottom: 15px;
-
-            background: #080b11;
-
-            border: 1px solid var(--border);
-
-            border-radius: 7px;
-
-            color: white;
-
-            outline: none;
-        }
-
-        .modal-box input:focus {
-            border-color: var(--purple);
-        }
-
-        .confirm {
-            width: 100%;
-
-            padding: 13px;
-
-            background: var(--green);
-
-            border: none;
-
-            border-radius: 7px;
-
-            color: white;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        /* ==============================
-           CART
-        ============================== */
-
-        .cart-items {
-            max-height: 300px;
-            overflow-y: auto;
-
-            margin: 20px 0;
-        }
-
-        .cart-item {
-            display: flex;
-
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 12px;
-
-            margin-bottom: 8px;
-
-            background: #090c12;
-
-            border-radius: 7px;
-        }
-
-        .cart-item small {
-            color: var(--muted);
-        }
-
-        .remove {
-            padding: 6px 9px;
-
-            background: var(--red);
-
-            border: none;
-
-            border-radius: 5px;
-
-            color: white;
-
-            cursor: pointer;
-        }
-
-        .total {
-            display: flex;
-            justify-content: space-between;
-
-            padding-top: 15px;
-
-            border-top: 1px solid var(--border);
-
-            font-size: 20px;
-
-            font-weight: bold;
-        }
-
-        /* ==============================
-           FOOTER
-        ============================== */
-
-        footer {
-            padding: 40px 20px;
-
-            text-align: center;
-
-            background: #030408;
-
-            border-top: 1px solid var(--border);
-
-            color: var(--muted);
-        }
-
-        footer strong {
-            color: var(--purple-light);
-        }
-
-        /* ==============================
-           RESPONSIVE
-        ============================== */
-
-        @media (max-width: 800px) {
-
-            nav {
-                display: none;
-            }
-
-            header {
-                padding: 0 20px;
-            }
-
-            .hero h1 {
-                font-size: 60px;
-                letter-spacing: 5px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .section {
-                padding: 65px 20px;
-            }
-        }
-
-        @media (max-width: 450px) {
-
-            .logo {
-                font-size: 19px;
-            }
-
-            .logo svg {
-                width: 36px;
-                height: 36px;
-            }
-
-            .cart-button {
-                padding: 9px 11px;
-            }
-
-            .hero h1 {
-                font-size: 48px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vexor Network | Tienda</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+    --bg:#08090f;
+    --bg2:#0d0f18;
+    --panel:#11131e;
+    --panel2:#151827;
+    --border:#252a3c;
+    --purple:#8b5cf6;
+    --purple2:#a78bfa;
+    --blue:#6366f1;
+    --text:#f4f4f5;
+    --muted:#969aaa;
+    --green:#4ade80;
+    --red:#ef4444;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 50% -20%,rgba(124,58,237,.22),transparent 40%),
+        var(--bg);
+    color:var(--text);
+}
+
+/* ================= HEADER ================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    height:72px;
+    background:rgba(8,9,15,.92);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    max-width:1250px;
+    height:100%;
+    margin:auto;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.logo-mark{
+    width:39px;
+    height:39px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    box-shadow:0 0 25px rgba(124,58,237,.35);
+}
+
+.logo-mark span{
+    font-size:20px;
+    font-weight:900;
+}
+
+.logo small{
+    display:block;
+    color:var(--purple2);
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+nav a{
+    color:#c5c7d1;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.cart-button{
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.cart-count{
+    color:var(--purple2);
+    margin-left:5px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    max-width:1250px;
+    margin:auto;
+    padding:90px 22px 55px;
+    text-align:center;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border:1px solid rgba(139,92,246,.3);
+    background:rgba(139,92,246,.08);
+    border-radius:999px;
+    color:var(--purple2);
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(42px,7vw,78px);
+    line-height:.95;
+    font-weight:900;
+    letter-spacing:-3px;
+}
+
+.hero h1 span{
+    background:linear-gradient(90deg,#a78bfa,#6366f1);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:650px;
+    margin:25px auto;
+    color:var(--muted);
+    line-height:1.7;
+    font-size:15px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:13px 21px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn.primary{
+    border:none;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    box-shadow:0 10px 35px rgba(99,102,241,.25);
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+/* ================= SERVER STATUS ================= */
+
+.server-status{
+    max-width:850px;
+    margin:0 auto 70px;
+    padding:18px 22px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.status-left{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.status-dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+
+.status-text{
+    text-align:left;
+}
+
+.status-text strong{
+    display:block;
+    font-size:14px;
+}
+
+.status-text span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.ip{
+    font-family:monospace;
+    color:var(--purple2);
+    font-size:14px;
+}
+
+.copy-ip{
+    border:1px solid var(--border);
+    background:#0b0d15;
+    color:white;
+    padding:9px 13px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* ================= CONTENT ================= */
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:0 22px 80px;
+}
+
+.section-title{
+    margin:65px 0 25px;
+}
+
+.section-title h2{
+    font-size:26px;
+    font-weight:900;
+}
+
+.section-title p{
+    color:var(--muted);
+    margin-top:7px;
+    font-size:13px;
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+.category{
+    padding:21px 15px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:13px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.category:hover,
+.category.active{
+    border-color:rgba(139,92,246,.7);
+    background:linear-gradient(145deg,#151426,#11131e);
+    transform:translateY(-2px);
+}
+
+.category-icon{
+    font-size:27px;
+    margin-bottom:10px;
+}
+
+.category strong{
+    font-size:13px;
+}
+
+.category p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:5px;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:17px;
+}
+
+.product{
+    position:relative;
+    background:linear-gradient(145deg,#11131e,#0d0f17);
+    border:1px solid var(--border);
+    border-radius:15px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.product:hover{
+    transform:translateY(-4px);
+    border-color:rgba(139,92,246,.55);
+}
+
+.product-image{
+    height:170px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle,#272044 0%,transparent 65%),
+        #0d0f18;
+    font-size:70px;
+}
+
+.product-content{
+    padding:20px;
+}
+
+.product-tag{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:5px;
+    background:rgba(139,92,246,.12);
+    color:var(--purple2);
+    font-size:9px;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.product h3{
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.product p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    min-height:39px;
+}
+
+.price-row{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.price{
+    font-size:19px;
+    font-weight:900;
+}
+
+.old-price{
+    color:#686b78;
+    font-size:11px;
+    text-decoration:line-through;
+    margin-left:5px;
+}
+
+.buy{
+    border:0;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    color:white;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:800;
+    font-size:12px;
+}
+
+/* ================= INFO ================= */
+
+.info{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.info-box{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:25px;
+    border-radius:14px;
+}
+
+.info-box .icon{
+    font-size:28px;
+    margin-bottom:14px;
+}
+
+.info-box h3{
+    font-size:15px;
+    margin-bottom:8px;
+}
+
+.info-box p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+/* ================= FAQ ================= */
+
+.faq{
+    max-width:850px;
+    margin:auto;
+}
+
+.faq-item{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:11px;
+    margin-bottom:9px;
+    overflow:hidden;
+}
+
+.faq-question{
+    padding:17px;
+    display:flex;
+    justify-content:space-between;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:700;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 17px 17px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.faq-item.open .faq-answer{
+    display:block;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid var(--border);
+    background:#07080d;
+    padding:45px 22px;
+}
+
+.footer-inner{
+    max-width:1250px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+footer p{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.7;
+}
+
+.footer-title{
+    font-weight:800;
+    color:white;
+    margin-bottom:10px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:430px;
+    background:#10121c;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:25px;
+    box-shadow:0 25px 80px rgba(0,0,0,.6);
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.close{
+    border:0;
+    background:transparent;
+    color:#aaa;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.input{
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#080a11;
+    color:white;
+    outline:none;
+    margin:9px 0 15px;
+}
+
+.input:focus{
+    border-color:var(--purple);
+}
+
+.checkout{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:9px;
+    color:white;
+    background:linear-gradient(135deg,#7c3aed,#4f46e5);
+    font-weight:800;
+    cursor:pointer;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#151827;
+    border:1px solid var(--border);
+    padding:14px 18px;
+    border-radius:10px;
+    color:white;
+    font-size:12px;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.3s;
+    z-index:3000;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:850px){
+
+    nav{
+        display:none;
+    }
+
+    .categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .products{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .info{
+        grid-template-columns:1fr;
+    }
+
+    .server-status{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+    }
+}
+
+@media(max-width:550px){
+
+    .hero{
+        padding-top:60px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .categories{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- ================= HEADER ================= -->
 
 <header>
+    <div class="nav">
 
-    <a href="#inicio" class="logo">
+        <div class="logo">
+            <div class="logo-mark">
+                <span>V</span>
+            </div>
 
-        <!-- LOGO SVG VEXOR -->
-
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-
-            <defs>
-                <linearGradient id="logoGradient"
-                    x1="0%" y1="0%"
-                    x2="100%" y2="100%">
-
-                    <stop offset="0%"
-                        stop-color="#a78bfa"/>
-
-                    <stop offset="100%"
-                        stop-color="#5b21b6"/>
-                </linearGradient>
-            </defs>
-
-            <path
-                d="M50 4 L94 28 L82 82 L50 97 L18 82 L6 28 Z"
-                fill="#0b0d14"
-                stroke="url(#logoGradient)"
-                stroke-width="5"/>
-
-            <path
-                d="M22 28 L39 70 L50 48 L61 70 L78 28"
-                fill="none"
-                stroke="url(#logoGradient)"
-                stroke-width="9"
-                stroke-linecap="square"
-                stroke-linejoin="miter"/>
-
-        </svg>
-
-        <div class="logo-text">
-            VEX<span>OR</span>
+            <div>
+                VEXOR
+                <small>NETWORK</small>
+            </div>
         </div>
 
-    </a>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#tienda">Tienda</a>
+            <a href="#ayuda">Ayuda</a>
+            <a href="#faq">Preguntas</a>
+        </nav>
 
+        <button class="cart-button" onclick="openCart()">
+            🛒 Carrito
+            <span class="cart-count" id="cartCount">0</span>
+        </button>
 
-    <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="#rangos">Rangos</a>
-        <a href="#coins">Coins</a>
-        <a href="#kits">Kits</a>
-        <a href="#faq">FAQ</a>
-    </nav>
-
-
-    <button class="cart-button" onclick="openCart()">
-        🛒 Carrito
-        <span id="cartCount">0</span>
-    </button>
-
+    </div>
 </header>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+<!-- ================= HERO ================= -->
 
 <section class="hero" id="inicio">
 
-    <div class="hero-content">
+    <div class="hero-badge">
+        ● TIENDA OFICIAL DE VEXOR
+    </div>
 
-        <div class="status">
-            <span class="dot"></span>
-            SERVIDOR ONLINE
+    <h1>
+        POTENCIA TU<br>
+        <span>AVENTURA</span>
+    </h1>
+
+    <p>
+        Descubre rangos exclusivos, monedas, kits y beneficios
+        para disfrutar de una experiencia única dentro de Vexor Network.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="#tienda" class="btn primary">
+            🛒 Ver tienda
+        </a>
+
+        <button class="btn" onclick="copyIP()">
+            🎮 Copiar IP
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SERVER STATUS ================= -->
+
+<div class="server-status">
+
+    <div class="status-left">
+
+        <div class="status-dot"></div>
+
+        <div class="status-text">
+            <strong>Vexor Network</strong>
+            <span>Servidor disponible</span>
         </div>
 
+    </div>
 
-        <h1>VEXOR</h1>
+    <div class="ip">
+        mc.vexors.live
+    </div>
 
+    <button class="copy-ip" onclick="copyIP()">
+        Copiar
+    </button>
 
-        <p>
-            Lleva tu experiencia al siguiente nivel.
-            Consigue rangos, monedas, kits y objetos
-            exclusivos para nuestra network de Minecraft.
-        </p>
-
-
-        <div
-            class="ip"
-            onclick="copyIP()"
-            title="Haz clic para copiar">
-
-            🎮 play.vexor.cl
-
-        </div>
+</div>
 
 
-        <div class="hero-buttons">
+<main class="container" id="tienda">
 
-            <a href="#rangos">
+<!-- ================= CATEGORIES ================= -->
 
-                <button class="primary">
-                    🛒 VER TIENDA
+<div class="section-title">
+    <h2>Categorías</h2>
+    <p>Encuentra exactamente lo que buscas para tu cuenta.</p>
+</div>
+
+<div class="categories">
+
+    <div class="category active" onclick="filterProducts('all')">
+        <div class="category-icon">🔥</div>
+        <strong>Ofertas</strong>
+        <p>Promociones</p>
+    </div>
+
+    <div class="category" onclick="filterProducts('rank')">
+        <div class="category-icon">👑</div>
+        <strong>Rangos</strong>
+        <p>Beneficios VIP</p>
+    </div>
+
+    <div class="category" onclick="filterProducts('coins')">
+        <div class="category-icon">💎</div>
+        <strong>VexorCoins</strong>
+        <p>Moneda del servidor</p>
+    </div>
+
+    <div class="category" onclick="filterProducts('kit')">
+        <div class="category-icon">⚔️</div>
+        <strong>Kits</strong>
+        <p>Equipo exclusivo</p>
+    </div>
+
+    <div class="category" onclick="filterProducts('cosmetic')">
+        <div class="category-icon">✨</div>
+        <strong>Cosméticos</strong>
+        <p>Personaliza tu cuenta</p>
+    </div>
+
+</div>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<div class="section-title">
+    <h2>Artículos destacados</h2>
+    <p>Los productos más populares de Vexor.</p>
+</div>
+
+<div class="products" id="products">
+
+    <!-- RANGO -->
+
+    <article class="product" data-category="rank">
+
+        <div class="product-image">👑</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Rango</span>
+
+            <h3>Rango VIP</h3>
+
+            <p>
+                Obtén beneficios especiales y destaca frente
+                a los demás jugadores.
+            </p>
+
+            <div class="price-row">
+
+                <div class="price">
+                    $4.990
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('Rango VIP',4990)">
+                    Comprar
                 </button>
 
-            </a>
+            </div>
+
+        </div>
+
+    </article>
 
 
-            <a href="#faq">
+    <!-- RANGO PREMIUM -->
 
-                <button class="secondary">
-                    ❓ INFORMACIÓN
+    <article class="product" data-category="rank">
+
+        <div class="product-image">💜</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Premium</span>
+
+            <h3>Rango Vexor</h3>
+
+            <p>
+                Beneficios premium para quienes quieren
+                llevar su experiencia al siguiente nivel.
+            </p>
+
+            <div class="price-row">
+
+                <div class="price">
+                    $9.990
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('Rango Vexor',9990)">
+                    Comprar
                 </button>
 
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     RANGOS
-===================================================== -->
-
-<section class="section" id="rangos">
-
-    <div class="section-header">
-
-        <div class="label">
-            VEXOR STORE
-        </div>
-
-        <h2 class="section-title">
-            👑 Rangos
-        </h2>
-
-        <p class="description">
-            Desbloquea ventajas y beneficios exclusivos.
-        </p>
-
-    </div>
-
-
-    <div class="search-box">
-
-        <input
-            type="text"
-            id="search"
-            placeholder="🔎 Buscar un producto..."
-            oninput="searchProducts()">
-
-    </div>
-
-
-    <div class="products" id="products">
-
-
-        <!-- VIP -->
-
-        <div class="product"
-             data-name="VIP">
-
-            <div class="product-icon">
-                🟣
             </div>
 
-            <h3>VIP</h3>
+        </div>
+
+    </article>
+
+
+    <!-- COINS -->
+
+    <article class="product" data-category="coins">
+
+        <div class="product-image">💎</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Monedas</span>
+
+            <h3>1.000 VexorCoins</h3>
 
             <p>
-                Rango inicial con beneficios
-                especiales dentro de VEXOR.
+                Utiliza tus VexorCoins para conseguir
+                artículos y beneficios dentro del servidor.
             </p>
 
-            <div class="price">
-                $2.990 CLP
+            <div class="price-row">
+
+                <div class="price">
+                    $2.990
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('1.000 VexorCoins',2990)">
+                    Comprar
+                </button>
+
             </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('Rango VIP',2990)">
-
-                Comprar
-
-            </button>
 
         </div>
 
+    </article>
 
-        <!-- MVP -->
 
-        <div class="product"
-             data-name="MVP">
+    <!-- COINS -->
 
-            <div class="product-icon">
-                🔵
-            </div>
+    <article class="product" data-category="coins">
 
-            <h3>MVP</h3>
+        <div class="product-image">💰</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Oferta</span>
+
+            <h3>5.000 VexorCoins</h3>
 
             <p>
-                Más ventajas, comandos y
-                características especiales.
+                Un paquete de monedas para disfrutar
+                de todo lo que ofrece Vexor.
             </p>
 
-            <div class="price">
-                $5.990 CLP
+            <div class="price-row">
+
+                <div class="price">
+                    $9.990
+                    <span class="old-price">$12.990</span>
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('5.000 VexorCoins',9990)">
+                    Comprar
+                </button>
+
             </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('Rango MVP',5990)">
-
-                Comprar
-
-            </button>
 
         </div>
 
+    </article>
 
-        <!-- MVP+ -->
 
-        <div class="product"
-             data-name="MVP+">
+    <!-- KIT -->
 
-            <div class="badge">
-                POPULAR
-            </div>
+    <article class="product" data-category="kit">
 
-            <div class="product-icon">
-                🟡
-            </div>
+        <div class="product-image">⚔️</div>
 
-            <h3>MVP+</h3>
+        <div class="product-content">
 
-            <p>
-                Rango avanzado para jugadores
-                que quieren más ventajas.
-            </p>
-
-            <div class="price">
-                $9.990 CLP
-            </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('Rango MVP+',9990)">
-
-                Comprar
-
-            </button>
-
-        </div>
-
-
-        <!-- LEGEND -->
-
-        <div class="product"
-             data-name="LEGEND">
-
-            <div class="product-icon">
-                💎
-            </div>
-
-            <h3>LEGEND</h3>
-
-            <p>
-                El rango premium con
-                beneficios exclusivos.
-            </p>
-
-            <div class="price">
-                $14.990 CLP
-            </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('Rango LEGEND',14990)">
-
-                Comprar
-
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     COINS
-===================================================== -->
-
-<section class="section" id="coins">
-
-    <div class="section-header">
-
-        <div class="label">
-            MONEDA VEXOR
-        </div>
-
-        <h2 class="section-title">
-            💰 Coins
-        </h2>
-
-        <p class="description">
-            Compra Coins para utilizar dentro del servidor.
-        </p>
-
-    </div>
-
-
-    <div class="products">
-
-        <div class="product">
-
-            <div class="product-icon">
-                🪙
-            </div>
-
-            <h3>1.000 Coins</h3>
-
-            <p>
-                Paquete básico de Coins.
-            </p>
-
-            <div class="price">
-                $1.990 CLP
-            </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('1.000 Coins',1990)">
-
-                Comprar
-
-            </button>
-
-        </div>
-
-
-        <div class="product">
-
-            <div class="product-icon">
-                💰
-            </div>
-
-            <h3>5.000 Coins</h3>
-
-            <p>
-                Paquete mediano de Coins.
-            </p>
-
-            <div class="price">
-                $7.990 CLP
-            </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('5.000 Coins',7990)">
-
-                Comprar
-
-            </button>
-
-        </div>
-
-
-        <div class="product">
-
-            <div class="product-icon">
-                💎
-            </div>
-
-            <h3>15.000 Coins</h3>
-
-            <p>
-                Paquete grande para gastar
-                dentro de VEXOR.
-            </p>
-
-            <div class="price">
-                $19.990 CLP
-            </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('15.000 Coins',19990)">
-
-                Comprar
-
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     KITS
-===================================================== -->
-
-<section class="section" id="kits">
-
-    <div class="section-header">
-
-        <div class="label">
-            EQUIPAMIENTO
-        </div>
-
-        <h2 class="section-title">
-            ⚔️ Kits
-        </h2>
-
-        <p class="description">
-            Equípate para comenzar tu aventura.
-        </p>
-
-    </div>
-
-
-    <div class="products">
-
-        <div class="product">
-
-            <div class="product-icon">
-                ⚔️
-            </div>
+            <span class="product-tag">Kit</span>
 
             <h3>Kit Guerrero</h3>
 
             <p>
-                Equipo preparado para el combate.
+                Recibe equipamiento especial para comenzar
+                tu aventura preparado.
             </p>
 
-            <div class="price">
-                $2.990 CLP
+            <div class="price-row">
+
+                <div class="price">
+                    $3.990
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('Kit Guerrero',3990)">
+                    Comprar
+                </button>
+
             </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('Kit Guerrero',2990)">
-
-                Comprar
-
-            </button>
 
         </div>
 
+    </article>
 
-        <div class="product">
 
-            <div class="product-icon">
-                🏹
-            </div>
+    <!-- KIT -->
 
-            <h3>Kit Arquero</h3>
+    <article class="product" data-category="kit">
+
+        <div class="product-image">🔥</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Exclusivo</span>
+
+            <h3>Kit Legendario</h3>
 
             <p>
-                Arco, flechas y equipamiento.
+                Un kit especial pensado para jugadores
+                que buscan equipamiento superior.
             </p>
 
-            <div class="price">
-                $2.990 CLP
+            <div class="price-row">
+
+                <div class="price">
+                    $7.990
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('Kit Legendario',7990)">
+                    Comprar
+                </button>
+
             </div>
-
-            <button
-                class="buy"
-                onclick="addToCart('Kit Arquero',2990)">
-
-                Comprar
-
-            </button>
 
         </div>
 
+    </article>
 
-        <div class="product">
 
-            <div class="product-icon">
-                🎁
-            </div>
+    <!-- COSMETIC -->
 
-            <h3>Caja Legendaria</h3>
+    <article class="product" data-category="cosmetic">
+
+        <div class="product-image">✨</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Cosmético</span>
+
+            <h3>Efecto Vexor</h3>
 
             <p>
-                Caja con recompensas aleatorias.
+                Añade un efecto visual especial a tu
+                personaje dentro del servidor.
             </p>
 
-            <div class="price">
-                $3.990 CLP
+            <div class="price-row">
+
+                <div class="price">
+                    $2.490
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('Efecto Vexor',2490)">
+                    Comprar
+                </button>
+
             </div>
 
-            <button
-                class="buy"
-                onclick="addToCart('Caja Legendaria',3990)">
+        </div>
 
-                Comprar
+    </article>
 
-            </button>
 
+    <!-- COSMETIC -->
+
+    <article class="product" data-category="cosmetic">
+
+        <div class="product-image">🌌</div>
+
+        <div class="product-content">
+
+            <span class="product-tag">Cosmético</span>
+
+            <h3>Aura Vexor</h3>
+
+            <p>
+                Personaliza tu presencia con una
+                aura exclusiva.
+            </p>
+
+            <div class="price-row">
+
+                <div class="price">
+                    $4.490
+                </div>
+
+                <button class="buy"
+                    onclick="addToCart('Aura Vexor',4490)">
+                    Comprar
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+<!-- ================= INFORMATION ================= -->
+
+<div class="section-title" id="ayuda">
+
+    <h2>¿Cómo funciona?</h2>
+
+    <p>
+        Comprar en la tienda de Vexor es sencillo.
+    </p>
+
+</div>
+
+<div class="info">
+
+    <div class="info-box">
+
+        <div class="icon">🎮</div>
+
+        <h3>1. Introduce tu nick</h3>
+
+        <p>
+            Utiliza exactamente el nombre de Minecraft
+            de la cuenta que recibirá el producto.
+        </p>
+
+    </div>
+
+    <div class="info-box">
+
+        <div class="icon">🛒</div>
+
+        <h3>2. Elige tu producto</h3>
+
+        <p>
+            Selecciona el rango, monedas, kit o
+            cosmético que quieras adquirir.
+        </p>
+
+    </div>
+
+    <div class="info-box">
+
+        <div class="icon">⚡</div>
+
+        <h3>3. Recibe tu beneficio</h3>
+
+        <p>
+            Una vez configurado el sistema de pagos,
+            el producto podrá entregarse automáticamente.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FAQ ================= -->
+
+<div class="section-title" id="faq">
+
+    <h2>Preguntas frecuentes</h2>
+
+    <p>
+        Algunas respuestas antes de comprar.
+    </p>
+
+</div>
+
+<div class="faq">
+
+    <div class="faq-item">
+
+        <div class="faq-question"
+             onclick="toggleFAQ(this)">
+            ¿Cuál es la IP del servidor?
+            <span>+</span>
+        </div>
+
+        <div class="faq-answer">
+            La IP de Vexor Network es
+            <strong>mc.vexors.live</strong>.
         </div>
 
     </div>
 
-</section>
 
+    <div class="faq-item">
 
-<!-- =====================================================
-     FEATURES
-===================================================== -->
-
-<section class="section">
-
-    <div class="section-header">
-
-        <div class="label">
-            VEXOR NETWORK
+        <div class="faq-question"
+             onclick="toggleFAQ(this)">
+            ¿Dónde recibo mis productos?
+            <span>+</span>
         </div>
 
-        <h2 class="section-title">
-            ¿Por qué VEXOR?
-        </h2>
-
-    </div>
-
-
-    <div class="features">
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                ⚡
-            </div>
-
-            <h3>Entrega rápida</h3>
-
-            <p>
-                Los productos pueden entregarse
-                automáticamente al jugador.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                🔒
-            </div>
-
-            <h3>Compras seguras</h3>
-
-            <p>
-                Sistema preparado para integrar
-                una plataforma de pagos real.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                🎮
-            </div>
-
-            <h3>Compatible con Minecraft</h3>
-
-            <p>
-                Los productos están diseñados
-                para utilizarse dentro de VEXOR.
-            </p>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                🛡️
-            </div>
-
-            <h3>Soporte</h3>
-
-            <p>
-                Atención para problemas relacionados
-                con compras y productos.
-            </p>
-
+        <div class="faq-answer">
+            Los productos están pensados para ser
+            entregados dentro del servidor Vexor.
         </div>
 
     </div>
 
-</section>
 
+    <div class="faq-item">
 
-<!-- =====================================================
-     FAQ
-===================================================== -->
-
-<section class="section" id="faq">
-
-    <div class="section-header">
-
-        <div class="label">
-            AYUDA
+        <div class="faq-question"
+             onclick="toggleFAQ(this)">
+            ¿Puedo comprar para otra cuenta?
+            <span>+</span>
         </div>
 
-        <h2 class="section-title">
-            Preguntas frecuentes
-        </h2>
-
-    </div>
-
-
-    <div class="faq">
-
-
-        <div class="faq-item">
-
-            <div
-                class="faq-question"
-                onclick="toggleFAQ(this)">
-
-                ¿Cómo recibo mi compra?
-
-            </div>
-
-            <div class="faq-answer">
-
-                En esta versión la compra es simulada.
-                Más adelante podemos conectar la tienda
-                con el servidor para entregar los productos
-                automáticamente.
-
-            </div>
-
-        </div>
-
-
-        <div class="faq-item">
-
-            <div
-                class="faq-question"
-                onclick="toggleFAQ(this)">
-
-                ¿Necesito estar conectado?
-
-            </div>
-
-            <div class="faq-answer">
-
-                No necesariamente. Una versión conectada
-                al servidor podría entregar el producto
-                cuando el jugador vuelva a entrar.
-
-            </div>
-
-        </div>
-
-
-        <div class="faq-item">
-
-            <div
-                class="faq-question"
-                onclick="toggleFAQ(this)">
-
-                ¿Esta tienda utiliza dinero real?
-
-            </div>
-
-            <div class="faq-answer">
-
-                No. Esta página es una demostración y
-                no realiza cobros reales.
-
-            </div>
-
-        </div>
-
-
-        <div class="faq-item">
-
-            <div
-                class="faq-question"
-                onclick="toggleFAQ(this)">
-
-                ¿Cuál es la IP del servidor?
-
-            </div>
-
-            <div class="faq-answer">
-
-                La IP configurada actualmente en esta
-                demostración es:
-
-                <br><br>
-
-                <strong>
-                    play.vexor.cl
-                </strong>
-
-            </div>
-
+        <div class="faq-answer">
+            Antes de completar una compra debes comprobar
+            que el nick introducido corresponde a la cuenta
+            que quieres beneficiar.
         </div>
 
     </div>
 
-</section>
+
+    <div class="faq-item">
+
+        <div class="faq-question"
+             onclick="toggleFAQ(this)">
+            ¿Los pagos ya están habilitados?
+            <span>+</span>
+        </div>
+
+        <div class="faq-answer">
+            Esta versión de la página es una tienda visual
+            y el botón de compra funciona como demostración.
+            Para aceptar pagos reales será necesario conectar
+            un proveedor de pagos y un sistema de entrega.
+        </div>
+
+    </div>
+
+</div>
+
+</main>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    <p>
-        © 2026 <strong>VEXOR Network</strong>.
-        Todos los derechos reservados.
-    </p>
+    <div class="footer-inner">
 
-    <br>
+        <div>
 
-    <p>
-        Tienda de demostración.
-    </p>
+            <div class="footer-title">
+                VEXOR NETWORK
+            </div>
+
+            <p>
+                Una nueva experiencia de Minecraft.<br>
+                IP: mc.vexors.live
+            </p>
+
+        </div>
+
+        <div>
+
+            <div class="footer-title">
+                Tienda
+            </div>
+
+            <p>
+                Rangos<br>
+                VexorCoins<br>
+                Kits<br>
+                Cosméticos
+            </p>
+
+        </div>
+
+        <div>
+
+            <div class="footer-title">
+                Soporte
+            </div>
+
+            <p>
+                Si tienes problemas con una compra,
+                contacta con el equipo de Vexor.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div style="
+        max-width:1250px;
+        margin:35px auto 0;
+        padding-top:20px;
+        border-top:1px solid #1d2030;
+        text-align:center;
+    ">
+
+        <p>
+            © 2026 Vexor Network. Todos los derechos reservados.
+        </p>
+
+    </div>
 
 </footer>
 
 
-<!-- =====================================================
-     MODAL COMPRA
-===================================================== -->
+<!-- ================= CART MODAL ================= -->
 
-<div
-    class="modal"
-    id="buyModal">
+<div class="modal" id="cartModal">
 
     <div class="modal-box">
 
-        <span
-            class="close"
-            onclick="closeBuyModal()">
+        <div class="modal-header">
 
-            ×
+            <h2>🛒 Tu carrito</h2>
 
-        </span>
+            <button class="close"
+                    onclick="closeCart()">
+                ×
+            </button>
 
+        </div>
 
-        <h2>
-            🛒 Confirmar compra
-        </h2>
+        <div id="cartItems">
 
+            <p style="
+                color:#969aaa;
+                font-size:13px;
+                margin-bottom:20px;
+            ">
+                Tu carrito está vacío.
+            </p>
 
-        <p id="selectedProduct">
-            Producto
-        </p>
+        </div>
 
+        <div id="cartTotal"
+             style="
+                margin:15px 0;
+                font-size:18px;
+                font-weight:900;
+             ">
+            Total: $0
+        </div>
 
-        <input
-            id="minecraftName"
-            type="text"
-            placeholder="Tu Nick de Minecraft">
-
-
-        <button
-            class="confirm"
-            onclick="simulatePurchase()">
-
-            Confirmar compra
-
+        <button class="checkout"
+                onclick="checkout()">
+            Continuar
         </button>
 
     </div>
@@ -1626,514 +1340,348 @@
 </div>
 
 
-<!-- =====================================================
-     MODAL CARRITO
-===================================================== -->
+<!-- ================= CHECKOUT MODAL ================= -->
 
-<div
-    class="modal"
-    id="cartModal">
+<div class="modal" id="checkoutModal">
 
     <div class="modal-box">
 
-        <span
-            class="close"
-            onclick="closeCart()">
+        <div class="modal-header">
 
-            ×
+            <h2>Comprar</h2>
 
-        </span>
-
-
-        <h2>
-            🛒 Carrito
-        </h2>
-
-
-        <div
-            class="cart-items"
-            id="cartItems">
+            <button class="close"
+                    onclick="closeCheckout()">
+                ×
+            </button>
 
         </div>
 
+        <p style="
+            color:#969aaa;
+            font-size:12px;
+            line-height:1.6;
+        ">
+            Introduce tu nick de Minecraft para
+            identificar la cuenta que recibirá el producto.
+        </p>
 
-        <div class="total">
+        <input
+            id="minecraftNick"
+            class="input"
+            placeholder="Tu nick de Minecraft"
+            maxlength="16"
+        >
 
-            <span>
-                Total
-            </span>
-
-            <span id="cartTotal">
-                $0 CLP
-            </span>
-
-        </div>
-
-
-        <br>
-
-
-        <button
-            class="confirm"
-            onclick="checkout()">
-
-            Continuar
-
+        <button class="checkout"
+                onclick="finishPurchase()">
+            Continuar con la compra
         </button>
 
     </div>
 
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast">
+    Copiado correctamente
 </div>
 
 
 <script>
 
-    /* =====================================================
-       CARRITO
-    ===================================================== */
+/* ================= CART ================= */
 
-    let cart = [];
+let cart = [];
 
-    let selectedProduct = null;
+function addToCart(name, price){
+
+    cart.push({
+        name:name,
+        price:price
+    });
+
+    updateCart();
+
+    showToast(name + " añadido al carrito");
+}
 
 
-    /* =====================================================
-       FORMATO DE PRECIO
-    ===================================================== */
+function updateCart(){
 
-    function formatPrice(price) {
+    document.getElementById("cartCount").textContent = cart.length;
 
-        return price.toLocaleString("es-CL");
+    const container =
+        document.getElementById("cartItems");
 
+    const totalElement =
+        document.getElementById("cartTotal");
+
+    if(cart.length === 0){
+
+        container.innerHTML = `
+            <p style="
+                color:#969aaa;
+                font-size:13px;
+            ">
+                Tu carrito está vacío.
+            </p>
+        `;
+
+        totalElement.textContent =
+            "Total: $0";
+
+        return;
     }
 
+    let total = 0;
 
-    /* =====================================================
-       AGREGAR AL CARRITO
-    ===================================================== */
+    container.innerHTML = "";
 
-    function addToCart(name, price) {
+    cart.forEach((item,index)=>{
 
-        cart.push({
-            name: name,
-            price: price
+        total += item.price;
+
+        const element =
+            document.createElement("div");
+
+        element.style.cssText = `
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:12px 0;
+            border-bottom:1px solid #252a3c;
+            font-size:12px;
+        `;
+
+        element.innerHTML = `
+            <span>
+                ${item.name}
+            </span>
+
+            <span>
+                $${item.price.toLocaleString("es-CL")}
+
+                <button
+                    onclick="removeItem(${index})"
+                    style="
+                        margin-left:8px;
+                        border:0;
+                        background:none;
+                        color:#ef4444;
+                        cursor:pointer;
+                    "
+                >
+                    ✕
+                </button>
+            </span>
+        `;
+
+        container.appendChild(element);
+
+    });
+
+    totalElement.textContent =
+        "Total: $" + total.toLocaleString("es-CL");
+}
+
+
+function removeItem(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+}
+
+
+/* ================= MODALS ================= */
+
+function openCart(){
+
+    updateCart();
+
+    document
+        .getElementById("cartModal")
+        .classList.add("active");
+}
+
+
+function closeCart(){
+
+    document
+        .getElementById("cartModal")
+        .classList.remove("active");
+}
+
+
+function checkout(){
+
+    if(cart.length === 0){
+
+        showToast("Tu carrito está vacío");
+
+        return;
+    }
+
+    closeCart();
+
+    document
+        .getElementById("checkoutModal")
+        .classList.add("active");
+}
+
+
+function closeCheckout(){
+
+    document
+        .getElementById("checkoutModal")
+        .classList.remove("active");
+}
+
+
+function finishPurchase(){
+
+    const nick =
+        document
+        .getElementById("minecraftNick")
+        .value
+        .trim();
+
+    if(!nick){
+
+        showToast("Introduce tu nick de Minecraft");
+
+        return;
+    }
+
+    /*
+       AQUÍ posteriormente se conectará
+       el sistema de pagos real.
+    */
+
+    showToast(
+        "Compra preparada para " + nick
+    );
+
+    closeCheckout();
+
+}
+
+
+/* ================= COPY IP ================= */
+
+function copyIP(){
+
+    navigator.clipboard
+        .writeText("mc.vexors.live")
+        .then(()=>{
+
+            showToast(
+                "IP copiada: mc.vexors.live"
+            );
+
+        })
+        .catch(()=>{
+
+            showToast(
+                "IP: mc.vexors.live"
+            );
+
         });
 
-        updateCart();
+}
 
-        selectedProduct = {
-            name: name,
-            price: price
-        };
 
-        document.getElementById(
-            "selectedProduct"
-        ).innerHTML =
+/* ================= TOAST ================= */
 
-            "<strong>" +
-            name +
-            "</strong><br><br>" +
+function showToast(message){
 
-            "Precio: $" +
-            formatPrice(price) +
-            " CLP";
+    const toast =
+        document.getElementById("toast");
 
+    toast.textContent = message;
 
-        document
-            .getElementById("buyModal")
-            .classList
-            .add("active");
+    toast.classList.add("show");
 
-    }
+    setTimeout(()=>{
 
+        toast.classList.remove("show");
 
-    /* =====================================================
-       ACTUALIZAR CARRITO
-    ===================================================== */
+    },2500);
 
-    function updateCart() {
+}
 
-        document.getElementById(
-            "cartCount"
-        ).textContent = cart.length;
 
+/* ================= FAQ ================= */
 
-        const container =
-            document.getElementById(
-                "cartItems"
-            );
+function toggleFAQ(element){
 
+    const item =
+        element.parentElement;
 
-        container.innerHTML = "";
+    item.classList.toggle("open");
 
+    const symbol =
+        element.querySelector("span");
 
-        let total = 0;
+    symbol.textContent =
+        item.classList.contains("open")
+        ? "−"
+        : "+";
+}
 
 
-        cart.forEach(
-            function(item, index) {
+/* ================= FILTER ================= */
 
-                total += item.price;
+function filterProducts(category){
 
+    const products =
+        document.querySelectorAll(".product");
 
-                const div =
-                    document.createElement(
-                        "div"
-                    );
+    const categories =
+        document.querySelectorAll(".category");
 
+    categories.forEach(cat=>{
+        cat.classList.remove("active");
+    });
 
-                div.className =
-                    "cart-item";
+    event.currentTarget.classList.add("active");
 
+    products.forEach(product=>{
 
-                div.innerHTML = `
+        if(
+            category === "all" ||
+            product.dataset.category === category
+        ){
 
-                    <div>
+            product.style.display = "";
 
-                        <strong>
-                            ${item.name}
-                        </strong>
+        }else{
 
-                        <br>
-
-                        <small>
-                            $${formatPrice(item.price)} CLP
-                        </small>
-
-                    </div>
-
-                    <button
-                        class="remove"
-                        onclick="removeItem(${index})">
-
-                        X
-
-                    </button>
-
-                `;
-
-
-                container.appendChild(div);
-
-            }
-        );
-
-
-        document.getElementById(
-            "cartTotal"
-        ).textContent =
-
-            "$" +
-            formatPrice(total) +
-            " CLP";
-
-    }
-
-
-    /* =====================================================
-       ELIMINAR
-    ===================================================== */
-
-    function removeItem(index) {
-
-        cart.splice(index, 1);
-
-        updateCart();
-
-    }
-
-
-    /* =====================================================
-       ABRIR CARRITO
-    ===================================================== */
-
-    function openCart() {
-
-        updateCart();
-
-        document
-            .getElementById("cartModal")
-            .classList
-            .add("active");
-
-    }
-
-
-    /* =====================================================
-       CERRAR CARRITO
-    ===================================================== */
-
-    function closeCart() {
-
-        document
-            .getElementById("cartModal")
-            .classList
-            .remove("active");
-
-    }
-
-
-    /* =====================================================
-       CERRAR COMPRA
-    ===================================================== */
-
-    function closeBuyModal() {
-
-        document
-            .getElementById("buyModal")
-            .classList
-            .remove("active");
-
-    }
-
-
-    /* =====================================================
-       COMPRA SIMULADA
-    ===================================================== */
-
-    function simulatePurchase() {
-
-        const nick =
-            document
-                .getElementById(
-                    "minecraftName"
-                )
-                .value
-                .trim();
-
-
-        if (!nick) {
-
-            alert(
-                "⚠️ Escribe tu Nick de Minecraft."
-            );
-
-            return;
+            product.style.display = "none";
 
         }
 
+    });
 
-        alert(
-
-            "✅ COMPRA SIMULADA\n\n" +
-
-            "Jugador: " +
-            nick +
-
-            "\nProducto: " +
-            selectedProduct.name +
-
-            "\nPrecio: $" +
-            formatPrice(
-                selectedProduct.price
-            ) +
-
-            " CLP\n\n" +
-
-            "Esta tienda no realiza cobros reales."
-
-        );
+}
 
 
-        document.getElementById(
-            "minecraftName"
-        ).value = "";
+/* ================= CLOSE MODALS ================= */
 
+window.addEventListener("click",function(e){
 
-        closeBuyModal();
-
-    }
-
-
-    /* =====================================================
-       CHECKOUT
-    ===================================================== */
-
-    function checkout() {
-
-        if (cart.length === 0) {
-
-            alert(
-                "🛒 El carrito está vacío."
-            );
-
-            return;
-
-        }
-
-
-        const nick =
-            prompt(
-                "Escribe tu Nick de Minecraft:"
-            );
-
-
-        if (!nick) {
-            return;
-        }
-
-
-        let total = 0;
-
-
-        cart.forEach(
-            function(item) {
-                total += item.price;
-            }
-        );
-
-
-        alert(
-
-            "💳 PAGO SIMULADO\n\n" +
-
-            "Jugador: " +
-            nick +
-
-            "\nProductos: " +
-            cart.length +
-
-            "\nTotal: $" +
-            formatPrice(total) +
-
-            " CLP\n\n" +
-
-            "Esta tienda es solamente una demostración."
-
-        );
-
-
-        cart = [];
-
-        updateCart();
-
+    if(e.target.id === "cartModal"){
         closeCart();
-
     }
 
-
-    /* =====================================================
-       BUSCADOR
-    ===================================================== */
-
-    function searchProducts() {
-
-        const search =
-            document
-                .getElementById("search")
-                .value
-                .toLowerCase();
-
-
-        const products =
-            document.querySelectorAll(
-                ".product"
-            );
-
-
-        products.forEach(
-            function(product) {
-
-                const name =
-                    product
-                        .dataset
-                        .name
-                        .toLowerCase();
-
-
-                if (
-                    name.includes(search)
-                ) {
-
-                    product.style.display =
-                        "block";
-
-                } else {
-
-                    product.style.display =
-                        "none";
-
-                }
-
-            }
-        );
-
+    if(e.target.id === "checkoutModal"){
+        closeCheckout();
     }
 
-
-    /* =====================================================
-       FAQ
-    ===================================================== */
-
-    function toggleFAQ(element) {
-
-        const item =
-            element.parentElement;
-
-
-        item.classList.toggle(
-            "open"
-        );
-
-    }
-
-
-    /* =====================================================
-       COPIAR IP
-    ===================================================== */
-
-    function copyIP() {
-
-        navigator.clipboard.writeText(
-            "play.vexor.cl"
-        );
-
-
-        alert(
-            "✅ IP copiada: play.vexor.cl"
-        );
-
-    }
-
-
-    /* =====================================================
-       CERRAR MODALES AL HACER CLICK FUERA
-    ===================================================== */
-
-    window.addEventListener(
-        "click",
-        function(event) {
-
-            const buyModal =
-                document.getElementById(
-                    "buyModal"
-                );
-
-            const cartModal =
-                document.getElementById(
-                    "cartModal"
-                );
-
-
-            if (
-                event.target === buyModal
-            ) {
-
-                closeBuyModal();
-
-            }
-
-
-            if (
-                event.target === cartModal
-            ) {
-
-                closeCart();
-
-            }
-
-        }
-    );
+});
 
 </script>
 
