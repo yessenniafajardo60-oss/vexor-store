@@ -130,12 +130,8 @@ button{
         transform:translate3d(0,-100px,0) rotate(0deg);
         opacity:0;
     }
-    10%{
-        opacity:.8;
-    }
-    90%{
-        opacity:.6;
-    }
+    10%{opacity:.8}
+    90%{opacity:.6}
     to{
         transform:translate3d(120px,110vh,0) rotate(360deg);
         opacity:0;
@@ -274,8 +270,19 @@ button{
     position:absolute;
     inset:0;
     background:
-        linear-gradient(90deg,rgba(30,10,40,.8),transparent 25%,transparent 75%,rgba(30,10,40,.8)),
-        linear-gradient(to bottom,transparent 20%,rgba(16,11,24,.25) 55%,var(--bg) 100%);
+        linear-gradient(
+            90deg,
+            rgba(30,10,40,.8),
+            transparent 25%,
+            transparent 75%,
+            rgba(30,10,40,.8)
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 20%,
+            rgba(16,11,24,.25) 55%,
+            var(--bg) 100%
+        );
 }
 
 .minecraft-world{
@@ -283,7 +290,13 @@ button{
     inset:0;
     overflow:hidden;
     background:
-        linear-gradient(to bottom,#301a42 0%,#4a2b57 35%,#21162a 62%,#120d18 100%);
+        linear-gradient(
+            to bottom,
+            #301a42 0%,
+            #4a2b57 35%,
+            #21162a 62%,
+            #120d18 100%
+        );
 }
 
 .mountain{
@@ -348,7 +361,13 @@ button{
     left:25px;
     top:0;
     background:
-        linear-gradient(135deg,#52275b 25%,#713b70 25% 50%,#442047 50% 75%,#63315f 75%);
+        linear-gradient(
+            135deg,
+            #52275b 25%,
+            #713b70 25% 50%,
+            #442047 50% 75%,
+            #63315f 75%
+        );
     clip-path:polygon(
         0 30%,20% 20%,30% 0,50% 15%,
         67% 2%,75% 22%,100% 30%,88% 55%,
@@ -558,10 +577,12 @@ button{
     content:"›";
     margin-left:auto;
     color:#71687a;
+    transition:.2s;
 }
 
 .category:hover,
-.category.active{
+.category.active,
+.category.open{
     color:white;
     background:linear-gradient(
         90deg,
@@ -571,8 +592,14 @@ button{
     transform:translateX(4px);
 }
 
-.category.active{
+.category.active,
+.category.open{
     box-shadow:inset 3px 0 var(--purple);
+}
+
+.category.open::after{
+    transform:rotate(90deg);
+    color:var(--purple2);
 }
 
 .category-icon{
@@ -583,6 +610,7 @@ button{
     place-items:center;
     font-size:14px;
     background:#31243c;
+    flex-shrink:0;
 }
 
 .badge{
@@ -595,11 +623,51 @@ button{
     border:1px solid rgba(53,224,138,.2);
 }
 
-.category .badge + *{
-    margin-left:0;
+/* =========================================================
+   SUBCATEGORÍAS
+========================================================= */
+
+.subcategory-group{
+    display:none;
+    padding:4px 5px 7px 24px;
+    border-left:1px solid rgba(155,92,255,.2);
+    margin-left:20px;
 }
 
-/* DONADOR */
+.subcategory-group.show{
+    display:block;
+}
+
+.subcategory{
+    width:100%;
+    border:0;
+    color:#a99eaf;
+    background:transparent;
+    padding:8px 7px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    text-align:left;
+    font-size:9px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.subcategory:hover,
+.subcategory.active{
+    color:white;
+    background:rgba(155,92,255,.14);
+    transform:translateX(3px);
+}
+
+.subcategory.active{
+    box-shadow:inset 2px 0 var(--purple);
+}
+
+/* =========================================================
+   DONADOR
+========================================================= */
 
 .donor{
     padding:13px;
@@ -609,7 +677,11 @@ button{
     border-radius:9px;
     padding:13px;
     background:
-        radial-gradient(circle at 80% 20%,rgba(255,84,200,.28),transparent 40%),
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(255,84,200,.28),
+            transparent 40%
+        ),
         linear-gradient(135deg,#281538,#17101f);
     border:1px solid rgba(255,84,200,.2);
 }
@@ -647,7 +719,11 @@ button{
     display:block;
     width:72%;
     height:100%;
-    background:linear-gradient(90deg,var(--pink),var(--purple2));
+    background:linear-gradient(
+        90deg,
+        var(--pink),
+        var(--purple2)
+    );
     animation:progressPulse 2s infinite alternate;
 }
 
@@ -677,14 +753,20 @@ button{
     padding:17px;
 }
 
-/* OFERTA */
+/* =========================================================
+   OFERTA
+========================================================= */
 
 .offer{
     position:relative;
     min-height:125px;
     overflow:hidden;
     background:
-        radial-gradient(circle at 80% 50%,rgba(255,84,200,.3),transparent 35%),
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(255,84,200,.3),
+            transparent 35%
+        ),
         linear-gradient(120deg,#351343,#641b67 55%,#33134a);
     border:1px solid rgba(255,84,200,.25);
 }
@@ -769,7 +851,9 @@ button{
     transform:rotate(-15deg);
 }
 
-/* BIENVENIDA */
+/* =========================================================
+   BIENVENIDA
+========================================================= */
 
 .welcome-title{
     font-size:18px;
@@ -787,7 +871,9 @@ button{
     line-height:1.6;
 }
 
-/* FEATURES */
+/* =========================================================
+   FEATURES
+========================================================= */
 
 .features{
     display:grid;
@@ -866,7 +952,11 @@ button{
     padding:12px;
     border-radius:9px;
     background:
-        linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.04),
+            rgba(255,255,255,.015)
+        );
     border:1px solid var(--border);
     transition:.3s cubic-bezier(.2,.8,.2,1);
     opacity:0;
@@ -910,7 +1000,11 @@ button{
     place-items:center;
     border-radius:7px;
     background:
-        radial-gradient(circle,rgba(155,92,255,.2),transparent 55%),
+        radial-gradient(
+            circle,
+            rgba(155,92,255,.2),
+            transparent 55%
+        ),
         #17101f;
     font-size:55px;
     position:relative;
@@ -965,7 +1059,11 @@ button{
 .add{
     border:0;
     color:white;
-    background:linear-gradient(135deg,var(--purple),var(--purple3));
+    background:linear-gradient(
+        135deg,
+        var(--purple),
+        var(--purple3)
+    );
     padding:8px 10px;
     border-radius:6px;
     font-size:8px;
@@ -979,7 +1077,7 @@ button{
 }
 
 /* =========================================================
-   PAGOS / INFORMACIÓN
+   PAGOS
 ========================================================= */
 
 .payment-box{
@@ -1182,7 +1280,11 @@ button{
     padding:12px;
     border:0;
     border-radius:8px;
-    background:linear-gradient(135deg,var(--purple),var(--pink));
+    background:linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink)
+    );
     color:white;
     font-weight:900;
     font-size:10px;
@@ -1270,7 +1372,11 @@ button{
 }
 
 .modal-actions .confirm{
-    background:linear-gradient(135deg,var(--purple),var(--pink));
+    background:linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink)
+    );
     border:0;
 }
 
@@ -1350,6 +1456,10 @@ button{
         grid-template-columns:repeat(2,1fr);
     }
 
+    .subcategory-group{
+        grid-column:1 / -1;
+    }
+
     .features{
         grid-template-columns:repeat(2,1fr);
     }
@@ -1421,6 +1531,10 @@ button{
 
     .wrapper{
         width:calc(100% - 18px);
+    }
+
+    .subcategory-group{
+        grid-column:auto;
     }
 }
 
@@ -1503,14 +1617,16 @@ button{
 
         </a>
 
-
         <div class="header-right">
 
             <button class="header-btn login">
                 👤 INICIAR SESIÓN
             </button>
 
-            <button class="header-btn cart-button" onclick="openCart()">
+            <button
+                class="header-btn cart-button"
+                onclick="openCart()"
+            >
 
                 🛒 CARRITO
 
@@ -1541,17 +1657,13 @@ button{
             <div class="mountain m2"></div>
 
             <div class="block-tree left">
-
                 <div class="tree-leaves"></div>
                 <div class="tree-trunk"></div>
-
             </div>
 
             <div class="block-tree right">
-
                 <div class="tree-leaves"></div>
                 <div class="tree-trunk"></div>
-
             </div>
 
         </div>
@@ -1561,17 +1673,17 @@ button{
 
     <div class="hero-content">
 
-        <!-- LOGO VEXOR ORIGINAL -->
-
         <svg class="vexor-logo" viewBox="0 0 200 200">
 
             <defs>
 
-                <linearGradient id="shieldGradient"
+                <linearGradient
+                    id="shieldGradient"
                     x1="0"
                     y1="0"
                     x2="1"
-                    y2="1">
+                    y2="1"
+                >
 
                     <stop offset="0%" stop-color="#d09aff"/>
                     <stop offset="50%" stop-color="#9254ff"/>
@@ -1579,11 +1691,13 @@ button{
 
                 </linearGradient>
 
-                <linearGradient id="vGradient"
+                <linearGradient
+                    id="vGradient"
                     x1="0"
                     y1="0"
                     x2="1"
-                    y2="1">
+                    y2="1"
+                >
 
                     <stop offset="0%" stop-color="#ffffff"/>
                     <stop offset="100%" stop-color="#cda6ff"/>
@@ -1628,8 +1742,6 @@ button{
     </div>
 
 
-    <!-- BOTONES SOBRE EL BANNER -->
-
     <div class="quick-bar">
 
         <button class="quick-btn" onclick="copyIP()">
@@ -1642,7 +1754,9 @@ button{
 
                 <strong>MC.VEXORS.LIVE</strong>
 
-                <small>Haz clic para copiar la IP</small>
+                <small>
+                    Haz clic para copiar la IP
+                </small>
 
             </div>
 
@@ -1668,7 +1782,9 @@ button{
 
                 <strong>SERVIDOR DE DISCORD</strong>
 
-                <small>Haz clic para unirte</small>
+                <small>
+                    Haz clic para unirte
+                </small>
 
             </div>
 
@@ -1698,7 +1814,6 @@ button{
 
         <aside class="sidebar">
 
-
             <div class="side-box">
 
                 <div class="side-title">
@@ -1714,92 +1829,238 @@ button{
 
                 <div class="categories">
 
+                    <!-- TODO -->
+
                     <button
                         class="category active"
                         onclick="filterProducts('all',this)"
                     >
 
-                        <span class="category-icon">✦</span>
+                        <span class="category-icon">
+                            ✦
+                        </span>
 
                         Todo
 
                     </button>
 
 
+                    <!-- RANGOS GLOBALES -->
+
                     <button
                         class="category"
-                        onclick="filterProducts('rangos',this)"
+                        onclick="filterProducts('rangos-global',this)"
                     >
 
-                        <span class="category-icon">👑</span>
+                        <span class="category-icon">
+                            👑
+                        </span>
 
                         Rangos
 
                         <span class="badge">
-                            NUEVO
+                            GLOBAL
                         </span>
 
                     </button>
 
 
+                    <!-- PRACTICE -->
+
                     <button
                         class="category"
-                        onclick="filterProducts('coins',this)"
+                        onclick="toggleMode('practice',this)"
                     >
 
-                        <span class="category-icon">🪙</span>
+                        <span class="category-icon">
+                            ⚔️
+                        </span>
 
-                        Coins
+                        Practice
 
                     </button>
 
 
-                    <button
-                        class="category"
-                        onclick="filterProducts('kits',this)"
+                    <div
+                        class="subcategory-group"
+                        id="practice-menu"
                     >
 
-                        <span class="category-icon">🎁</span>
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('practice-rangos',this)"
+                        >
+                            👑 Rangos
+                        </button>
 
-                        Kits
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('practice-coins',this)"
+                        >
+                            🪙 Coins
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('practice-kits',this)"
+                        >
+                            🎁 Kits
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('practice-llaves',this)"
+                        >
+                            🔑 Llaves
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('practice-cosmeticos',this)"
+                        >
+                            ✨ Cosméticos
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('practice-extras',this)"
+                        >
+                            ⚡ Extras
+                        </button>
+
+                    </div>
+
+
+                    <!-- FULL PVP -->
+
+                    <button
+                        class="category"
+                        onclick="toggleMode('fullpvp',this)"
+                    >
+
+                        <span class="category-icon">
+                            🔥
+                        </span>
+
+                        Full PvP
 
                     </button>
 
 
-                    <button
-                        class="category"
-                        onclick="filterProducts('llaves',this)"
+                    <div
+                        class="subcategory-group"
+                        id="fullpvp-menu"
                     >
 
-                        <span class="category-icon">🔑</span>
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('fullpvp-rangos',this)"
+                        >
+                            👑 Rangos
+                        </button>
 
-                        Llaves
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('fullpvp-coins',this)"
+                        >
+                            🪙 Coins
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('fullpvp-kits',this)"
+                        >
+                            🎁 Kits
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('fullpvp-llaves',this)"
+                        >
+                            🔑 Llaves
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('fullpvp-cosmeticos',this)"
+                        >
+                            ✨ Cosméticos
+                        </button>
+
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('fullpvp-extras',this)"
+                        >
+                            ⚡ Extras
+                        </button>
+
+                    </div>
+
+
+                    <!-- BEDWARS -->
+
+                    <button
+                        class="category"
+                        onclick="toggleMode('bedwars',this)"
+                    >
+
+                        <span class="category-icon">
+                            🛏️
+                        </span>
+
+                        BedWars
 
                     </button>
 
 
-                    <button
-                        class="category"
-                        onclick="filterProducts('cosmeticos',this)"
+                    <div
+                        class="subcategory-group"
+                        id="bedwars-menu"
                     >
 
-                        <span class="category-icon">✨</span>
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('bedwars-rangos',this)"
+                        >
+                            👑 Rangos
+                        </button>
 
-                        Cosméticos
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('bedwars-coins',this)"
+                        >
+                            🪙 Coins
+                        </button>
 
-                    </button>
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('bedwars-kits',this)"
+                        >
+                            🎁 Kits
+                        </button>
 
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('bedwars-llaves',this)"
+                        >
+                            🔑 Llaves
+                        </button>
 
-                    <button
-                        class="category"
-                        onclick="filterProducts('extras',this)"
-                    >
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('bedwars-cosmeticos',this)"
+                        >
+                            ✨ Cosméticos
+                        </button>
 
-                        <span class="category-icon">⚡</span>
+                        <button
+                            class="subcategory"
+                            onclick="filterProducts('bedwars-extras',this)"
+                        >
+                            ⚡ Extras
+                        </button>
 
-                        Extras
-
-                    </button>
+                    </div>
 
                 </div>
 
@@ -1967,7 +2228,6 @@ button{
 
                     <div class="features">
 
-
                         <div class="feature">
 
                             <div class="feature-icon">
@@ -2039,7 +2299,6 @@ button{
 
                         </div>
 
-
                     </div>
 
                 </div>
@@ -2047,7 +2306,9 @@ button{
             </section>
 
 
-            <!-- PRODUCTOS -->
+            <!-- =================================================
+                 PRODUCTOS
+            ================================================== -->
 
             <section class="panel">
 
@@ -2055,25 +2316,32 @@ button{
 
                     <div class="section-heading">
 
-                        <h2>
+                        <h2 id="productsTitle">
                             Paquetes destacados
                         </h2>
 
-                        <span>
+                        <span id="productsSubtitle">
                             Productos VEXOR
                         </span>
 
                     </div>
 
 
-                    <div class="products" id="products">
+                    <div
+                        class="products"
+                        id="products"
+                    >
 
 
-                        <!-- RANGO -->
+                        <!-- =================================================
+                             RANGOS GLOBALES
+                        ================================================== -->
 
                         <article
                             class="product"
-                            data-category="rangos"
+                            data-category="rangos-global"
+                            data-modality="global"
+                            data-type="rango"
                         >
 
                             <div class="product-image">
@@ -2087,12 +2355,12 @@ button{
                             </div>
 
                             <h3>
-                                VEX
+                                GORDITO
                             </h3>
 
                             <p>
-                                Obtén ventajas y comandos
-                                exclusivos dentro del servidor.
+                                Rango global de VEXOR Network
+                                con beneficios exclusivos.
                             </p>
 
                             <div class="product-bottom">
@@ -2104,7 +2372,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('VEX','👑',4990)"
+                                    onclick="addToCart('Gordito','👑',4990)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2114,11 +2382,11 @@ button{
                         </article>
 
 
-                        <!-- RANGO PLUS -->
-
                         <article
                             class="product"
-                            data-category="rangos"
+                            data-category="rangos-global"
+                            data-modality="global"
+                            data-type="rango"
                         >
 
                             <div class="product-image">
@@ -2132,12 +2400,12 @@ button{
                             </div>
 
                             <h3>
-                                VEX+
+                                GORDITOPLUS
                             </h3>
 
                             <p>
-                                Más beneficios, comandos y
-                                contenido exclusivo.
+                                Una mejora del rango Gordito
+                                con beneficios adicionales.
                             </p>
 
                             <div class="product-bottom">
@@ -2149,7 +2417,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('VEX+','💎',7990)"
+                                    onclick="addToCart('GorditoPlus','💎',7990)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2159,11 +2427,11 @@ button{
                         </article>
 
 
-                        <!-- RANGO VEXOR -->
-
                         <article
                             class="product"
-                            data-category="rangos"
+                            data-category="rangos-global"
+                            data-modality="global"
+                            data-type="rango"
                         >
 
                             <div class="product-image">
@@ -2177,12 +2445,12 @@ button{
                             </div>
 
                             <h3>
-                                VEXOR
+                                GORDITOPREMIUM
                             </h3>
 
                             <p>
-                                El rango premium de la
-                                Network.
+                                Rango premium con beneficios
+                                y contenido exclusivo.
                             </p>
 
                             <div class="product-bottom">
@@ -2194,7 +2462,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('VEXOR','🟣',12990)"
+                                    onclick="addToCart('GorditoPremium','🟣',12990)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2204,21 +2472,67 @@ button{
                         </article>
 
 
-                        <!-- COINS -->
-
                         <article
                             class="product"
-                            data-category="coins"
+                            data-category="rangos-global"
+                            data-modality="global"
+                            data-type="rango"
                         >
 
                             <div class="product-image">
 
+                                🔥
+
+                                <span class="product-rank">
+                                    MATRIX
+                                </span>
+
+                            </div>
+
+                            <h3>
+                                GORDITOMATRIX
+                            </h3>
+
+                            <p>
+                                El rango superior de VEXOR Network
+                                con beneficios exclusivos.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $19.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('GorditoMatrix','🔥',19990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- =================================================
+                             PRACTICE - COINS
+                        ================================================== -->
+
+                        <article
+                            class="product"
+                            data-category="practice-coins"
+                            data-modality="practice"
+                        >
+
+                            <div class="product-image">
                                 🪙
 
                                 <span class="product-rank">
                                     COINS
                                 </span>
-
                             </div>
 
                             <h3>
@@ -2226,8 +2540,8 @@ button{
                             </h3>
 
                             <p>
-                                Moneda virtual para utilizar
-                                en la tienda del servidor.
+                                Monedas para utilizar dentro
+                                de Practice.
                             </p>
 
                             <div class="product-bottom">
@@ -2239,7 +2553,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('1.000 VEX Coins','🪙',1990)"
+                                    onclick="addToCart('1.000 VEX Coins - Practice','🪙',1990)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2249,75 +2563,31 @@ button{
                         </article>
 
 
-                        <!-- COINS GRANDE -->
+                        <!-- =================================================
+                             PRACTICE - KITS
+                        ================================================== -->
 
                         <article
                             class="product"
-                            data-category="coins"
+                            data-category="practice-kits"
+                            data-modality="practice"
                         >
 
                             <div class="product-image">
-
-                                💰
-
-                                <span class="product-rank">
-                                    COINS
-                                </span>
-
-                            </div>
-
-                            <h3>
-                                5.000 VEX COINS
-                            </h3>
-
-                            <p>
-                                Paquete de monedas para
-                                comprar contenido.
-                            </p>
-
-                            <div class="product-bottom">
-
-                                <div class="price">
-                                    $7.490
-                                    <small>CLP</small>
-                                </div>
-
-                                <button
-                                    class="add"
-                                    onclick="addToCart('5.000 VEX Coins','💰',7490)"
-                                >
-                                    AGREGAR
-                                </button>
-
-                            </div>
-
-                        </article>
-
-
-                        <!-- KIT -->
-
-                        <article
-                            class="product"
-                            data-category="kits"
-                        >
-
-                            <div class="product-image">
-
                                 🎁
 
                                 <span class="product-rank">
                                     KIT
                                 </span>
-
                             </div>
 
                             <h3>
-                                KIT GUERRERO
+                                KIT GORDITO
                             </h3>
 
                             <p>
-                                Equipo especial para comenzar
-                                tu aventura.
+                                Kit especial para jugadores
+                                de Practice.
                             </p>
 
                             <div class="product-bottom">
@@ -2329,7 +2599,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('Kit Guerrero','🎁',3490)"
+                                    onclick="addToCart('Kit Gordito - Practice','🎁',3490)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2339,21 +2609,148 @@ button{
                         </article>
 
 
-                        <!-- LLAVE -->
-
                         <article
                             class="product"
-                            data-category="llaves"
+                            data-category="practice-kits"
+                            data-modality="practice"
                         >
 
                             <div class="product-image">
+                                ⚔️
 
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT SUPREMO
+                            </h3>
+
+                            <p>
+                                Kit avanzado para dominar
+                                Practice.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $4.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Supremo - Practice','⚔️',4990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="practice-kits"
+                            data-modality="practice"
+                        >
+
+                            <div class="product-image">
+                                🧱
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT CONSTRUCTOR
+                            </h3>
+
+                            <p>
+                                Kit especial para construir
+                                y jugar estratégicamente.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Constructor - Practice','🧱',3990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="practice-kits"
+                            data-modality="practice"
+                        >
+
+                            <div class="product-image">
+                                ⛏️
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT MINERO
+                            </h3>
+
+                            <p>
+                                Kit pensado para conseguir
+                                recursos rápidamente.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Minero - Practice','⛏️',3490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- =================================================
+                             PRACTICE - LLAVES
+                        ================================================== -->
+
+                        <article
+                            class="product"
+                            data-category="practice-llaves"
+                            data-modality="practice"
+                        >
+
+                            <div class="product-image">
                                 🔑
 
                                 <span class="product-rank">
                                     KEY
                                 </span>
-
                             </div>
 
                             <h3>
@@ -2362,7 +2759,7 @@ button{
 
                             <p>
                                 Abre una caja con recompensas
-                                especiales.
+                                especiales de Practice.
                             </p>
 
                             <div class="product-bottom">
@@ -2374,7 +2771,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('Llave Legendaria','🔑',2490)"
+                                    onclick="addToCart('Llave Legendaria - Practice','🔑',2490)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2384,21 +2781,22 @@ button{
                         </article>
 
 
-                        <!-- COSMETICO -->
+                        <!-- =================================================
+                             PRACTICE - COSMÉTICOS
+                        ================================================== -->
 
                         <article
                             class="product"
-                            data-category="cosmeticos"
+                            data-category="practice-cosmeticos"
+                            data-modality="practice"
                         >
 
                             <div class="product-image">
-
                                 ✨
 
                                 <span class="product-rank">
                                     COSMÉTICO
                                 </span>
-
                             </div>
 
                             <h3>
@@ -2406,8 +2804,8 @@ button{
                             </h3>
 
                             <p>
-                                Dale un estilo único a
-                                tu personaje.
+                                Dale un estilo único a tu
+                                personaje en Practice.
                             </p>
 
                             <div class="product-bottom">
@@ -2419,7 +2817,7 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('Aura Violeta','✨',2990)"
+                                    onclick="addToCart('Aura Violeta - Practice','✨',2990)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2429,21 +2827,22 @@ button{
                         </article>
 
 
-                        <!-- EXTRA -->
+                        <!-- =================================================
+                             PRACTICE - EXTRAS
+                        ================================================== -->
 
                         <article
                             class="product"
-                            data-category="extras"
+                            data-category="practice-extras"
+                            data-modality="practice"
                         >
 
                             <div class="product-image">
-
                                 ⚡
 
                                 <span class="product-rank">
                                     EXTRA
                                 </span>
-
                             </div>
 
                             <h3>
@@ -2464,7 +2863,703 @@ button{
 
                                 <button
                                     class="add"
-                                    onclick="addToCart('Boost de XP','⚡',1490)"
+                                    onclick="addToCart('Boost de XP - Practice','⚡',1490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- =================================================
+                             FULL PVP - COINS
+                        ================================================== -->
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-coins"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                🪙
+
+                                <span class="product-rank">
+                                    COINS
+                                </span>
+                            </div>
+
+                            <h3>
+                                1.000 VEX COINS
+                            </h3>
+
+                            <p>
+                                Monedas para utilizar dentro
+                                de Full PvP.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $1.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('1.000 VEX Coins - Full PvP','🪙',1990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- =================================================
+                             FULL PVP - KITS
+                        ================================================== -->
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-kits"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                🎁
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT GORDITO
+                            </h3>
+
+                            <p>
+                                Kit especial para Full PvP.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Gordito - Full PvP','🎁',3490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-kits"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                ⚔️
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT SUPREMO
+                            </h3>
+
+                            <p>
+                                Kit avanzado para combates
+                                de Full PvP.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $4.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Supremo - Full PvP','⚔️',4990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-kits"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                🧱
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT CONSTRUCTOR
+                            </h3>
+
+                            <p>
+                                Kit especial para construcción
+                                en Full PvP.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Constructor - Full PvP','🧱',3990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-kits"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                ⛏️
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT MINERO
+                            </h3>
+
+                            <p>
+                                Kit para conseguir recursos
+                                en Full PvP.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Minero - Full PvP','⛏️',3490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- FULL PVP - LLAVES -->
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-llaves"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                🔑
+
+                                <span class="product-rank">
+                                    KEY
+                                </span>
+                            </div>
+
+                            <h3>
+                                LLAVE LEGENDARIA
+                            </h3>
+
+                            <p>
+                                Recompensas especiales
+                                para Full PvP.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $2.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Llave Legendaria - Full PvP','🔑',2490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- FULL PVP - COSMÉTICOS -->
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-cosmeticos"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                ✨
+
+                                <span class="product-rank">
+                                    COSMÉTICO
+                                </span>
+                            </div>
+
+                            <h3>
+                                AURA VIOLETA
+                            </h3>
+
+                            <p>
+                                Dale estilo único a tu
+                                personaje.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $2.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Aura Violeta - Full PvP','✨',2990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- FULL PVP - EXTRAS -->
+
+                        <article
+                            class="product"
+                            data-category="fullpvp-extras"
+                            data-modality="fullpvp"
+                        >
+
+                            <div class="product-image">
+                                ⚡
+
+                                <span class="product-rank">
+                                    EXTRA
+                                </span>
+                            </div>
+
+                            <h3>
+                                BOOST DE XP
+                            </h3>
+
+                            <p>
+                                Aumenta temporalmente la
+                                experiencia obtenida.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $1.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Boost de XP - Full PvP','⚡',1490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- =================================================
+                             BEDWARS - COINS
+                        ================================================== -->
+
+                        <article
+                            class="product"
+                            data-category="bedwars-coins"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                🪙
+
+                                <span class="product-rank">
+                                    COINS
+                                </span>
+                            </div>
+
+                            <h3>
+                                1.000 VEX COINS
+                            </h3>
+
+                            <p>
+                                Monedas para utilizar dentro
+                                de BedWars.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $1.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('1.000 VEX Coins - BedWars','🪙',1990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- BEDWARS - KITS -->
+
+                        <article
+                            class="product"
+                            data-category="bedwars-kits"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                🎁
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT GORDITO
+                            </h3>
+
+                            <p>
+                                Kit especial para BedWars.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Gordito - BedWars','🎁',3490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="bedwars-kits"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                ⚔️
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT SUPREMO
+                            </h3>
+
+                            <p>
+                                Kit avanzado para enfrentarte
+                                a otros equipos.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $4.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Supremo - BedWars','⚔️',4990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="bedwars-kits"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                🧱
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT CONSTRUCTOR
+                            </h3>
+
+                            <p>
+                                Kit para construir defensas
+                                rápidamente.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Constructor - BedWars','🧱',3990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <article
+                            class="product"
+                            data-category="bedwars-kits"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                ⛏️
+
+                                <span class="product-rank">
+                                    KIT
+                                </span>
+                            </div>
+
+                            <h3>
+                                KIT MINERO
+                            </h3>
+
+                            <p>
+                                Kit para obtener recursos
+                                rápidamente.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $3.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Kit Minero - BedWars','⛏️',3490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- BEDWARS - LLAVES -->
+
+                        <article
+                            class="product"
+                            data-category="bedwars-llaves"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                🔑
+
+                                <span class="product-rank">
+                                    KEY
+                                </span>
+                            </div>
+
+                            <h3>
+                                LLAVE LEGENDARIA
+                            </h3>
+
+                            <p>
+                                Recompensas especiales
+                                para BedWars.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $2.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Llave Legendaria - BedWars','🔑',2490)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- BEDWARS - COSMÉTICOS -->
+
+                        <article
+                            class="product"
+                            data-category="bedwars-cosmeticos"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                ✨
+
+                                <span class="product-rank">
+                                    COSMÉTICO
+                                </span>
+                            </div>
+
+                            <h3>
+                                AURA VIOLETA
+                            </h3>
+
+                            <p>
+                                Dale un estilo único a
+                                tu personaje.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $2.990
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Aura Violeta - BedWars','✨',2990)"
+                                >
+                                    AGREGAR
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- BEDWARS - EXTRAS -->
+
+                        <article
+                            class="product"
+                            data-category="bedwars-extras"
+                            data-modality="bedwars"
+                        >
+
+                            <div class="product-image">
+                                ⚡
+
+                                <span class="product-rank">
+                                    EXTRA
+                                </span>
+                            </div>
+
+                            <h3>
+                                BOOST DE XP
+                            </h3>
+
+                            <p>
+                                Aumenta temporalmente la
+                                experiencia obtenida.
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="price">
+                                    $1.490
+                                    <small>CLP</small>
+                                </div>
+
+                                <button
+                                    class="add"
+                                    onclick="addToCart('Boost de XP - BedWars','⚡',1490)"
                                 >
                                     AGREGAR
                                 </button>
@@ -2481,7 +3576,9 @@ button{
             </section>
 
 
-            <!-- MÉTODOS DE PAGO -->
+            <!-- =================================================
+                 MÉTODOS DE PAGO
+            ================================================== -->
 
             <section class="panel">
 
@@ -2564,7 +3661,9 @@ button{
             </section>
 
 
-            <!-- INFORMACIÓN -->
+            <!-- =================================================
+                 INFORMACIÓN
+            ================================================== -->
 
             <section class="panel">
 
@@ -2734,7 +3833,7 @@ button{
 
 
 <!-- =====================================================
-     MODAL DE COMPRA
+     MODAL
 ===================================================== -->
 
 <div
@@ -2803,12 +3902,23 @@ button{
 
 let cart = [];
 
-const cartDrawer = document.getElementById("cartDrawer");
-const overlay = document.getElementById("overlay");
-const cartItems = document.getElementById("cartItems");
-const cartCount = document.getElementById("cartCount");
-const cartTotal = document.getElementById("cartTotal");
-const toast = document.getElementById("toast");
+const cartDrawer =
+    document.getElementById("cartDrawer");
+
+const overlay =
+    document.getElementById("overlay");
+
+const cartItems =
+    document.getElementById("cartItems");
+
+const cartCount =
+    document.getElementById("cartCount");
+
+const cartTotal =
+    document.getElementById("cartTotal");
+
+const toast =
+    document.getElementById("toast");
 
 
 /* =========================================================
@@ -2819,27 +3929,49 @@ function copyIP(){
 
     const ip = "mc.vexors.live";
 
-    navigator.clipboard.writeText(ip)
-        .then(() => {
-            showToast("IP copiada: mc.vexors.live");
-        })
-        .catch(() => {
+    if(navigator.clipboard){
 
-            const temp = document.createElement("input");
+        navigator.clipboard.writeText(ip)
+            .then(() => {
 
-            temp.value = ip;
+                showToast(
+                    "IP copiada: mc.vexors.live"
+                );
 
-            document.body.appendChild(temp);
+            })
+            .catch(() => {
 
-            temp.select();
+                fallbackCopy(ip);
 
-            document.execCommand("copy");
+            });
 
-            temp.remove();
+    }else{
 
-            showToast("IP copiada: mc.vexors.live");
+        fallbackCopy(ip);
 
-        });
+    }
+
+}
+
+
+function fallbackCopy(ip){
+
+    const temp =
+        document.createElement("input");
+
+    temp.value = ip;
+
+    document.body.appendChild(temp);
+
+    temp.select();
+
+    document.execCommand("copy");
+
+    temp.remove();
+
+    showToast(
+        "IP copiada: mc.vexors.live"
+    );
 
 }
 
@@ -2881,7 +4013,9 @@ function addToCart(name,icon,price){
 
     updateCart();
 
-    showToast(name + " agregado al carrito");
+    showToast(
+        name + " agregado al carrito"
+    );
 
 }
 
@@ -2897,7 +4031,8 @@ function removeFromCart(index){
 
 function updateCart(){
 
-    cartCount.textContent = cart.length;
+    cartCount.textContent =
+        cart.length;
 
 
     if(cart.length === 0){
@@ -2911,7 +4046,8 @@ function updateCart(){
             </div>
         `;
 
-        cartTotal.textContent = "$0";
+        cartTotal.textContent =
+            "$0";
 
         return;
 
@@ -2921,42 +4057,43 @@ function updateCart(){
     let total = 0;
 
 
-    cartItems.innerHTML = cart.map((item,index) => {
+    cartItems.innerHTML =
+        cart.map((item,index) => {
 
-        total += item.price;
+            total += item.price;
 
-        return `
+            return `
 
-            <div class="cart-item">
+                <div class="cart-item">
 
-                <div class="cart-item-icon">
-                    ${item.icon}
+                    <div class="cart-item-icon">
+                        ${item.icon}
+                    </div>
+
+                    <div class="cart-item-info">
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                        <p>
+                            $${item.price.toLocaleString("es-CL")}
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="remove"
+                        onclick="removeFromCart(${index})"
+                    >
+                        ✕
+                    </button>
+
                 </div>
 
-                <div class="cart-item-info">
+            `;
 
-                    <strong>
-                        ${item.name}
-                    </strong>
-
-                    <p>
-                        $${item.price.toLocaleString("es-CL")}
-                    </p>
-
-                </div>
-
-                <button
-                    class="remove"
-                    onclick="removeFromCart(${index})"
-                >
-                    ✕
-                </button>
-
-            </div>
-
-        `;
-
-    }).join("");
+        }).join("");
 
 
     cartTotal.textContent =
@@ -2991,7 +4128,9 @@ function checkout(){
 
     if(cart.length === 0){
 
-        showToast("Tu carrito está vacío");
+        showToast(
+            "Tu carrito está vacío"
+        );
 
         return;
 
@@ -3017,14 +4156,16 @@ function confirmPurchase(){
 
     const username =
         document
-        .getElementById("minecraftName")
-        .value
-        .trim();
+            .getElementById("minecraftName")
+            .value
+            .trim();
 
 
     if(!username){
 
-        showToast("Introduce tu nombre de Minecraft");
+        showToast(
+            "Introduce tu nombre de Minecraft"
+        );
 
         return;
 
@@ -3033,25 +4174,14 @@ function confirmPurchase(){
 
     if(username.includes(" ")){
 
-        showToast("El nombre no puede contener espacios");
+        showToast(
+            "El nombre no puede contener espacios"
+        );
 
         return;
 
     }
 
-
-    /*
-        DEMO:
-
-        Esta versión solamente simula el checkout.
-        Aquí posteriormente se puede conectar:
-        - Tebex
-        - Webpay
-        - Flow
-        - Mercado Pago
-        - Stripe
-        - backend propio
-    */
 
     closePurchase();
 
@@ -3065,16 +4195,107 @@ function confirmPurchase(){
 
 
 /* =========================================================
+   MODALIDADES
+========================================================= */
+
+function toggleMode(mode,button){
+
+    const menu =
+        document.getElementById(
+            mode + "-menu"
+        );
+
+
+    const isOpen =
+        menu.classList.contains("show");
+
+
+    /*
+        Cerramos todos los menús
+    */
+
+    document
+        .querySelectorAll(".subcategory-group")
+        .forEach(group => {
+
+            group.classList.remove("show");
+
+        });
+
+
+    document
+        .querySelectorAll(".category")
+        .forEach(category => {
+
+            category.classList.remove("open");
+
+        });
+
+
+    /*
+        Si estaba cerrado, lo abrimos.
+    */
+
+    if(!isOpen){
+
+        menu.classList.add("show");
+
+        button.classList.add("open");
+
+    }
+
+}
+
+
+/* =========================================================
    FILTRO DE PRODUCTOS
 ========================================================= */
 
 function filterProducts(category,button){
 
+    /*
+        Quitamos activos de subcategorías
+    */
+
+    document
+        .querySelectorAll(".subcategory")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    /*
+        Quitamos activo de categorías
+    */
+
     document
         .querySelectorAll(".category")
-        .forEach(btn => btn.classList.remove("active"));
+        .forEach(btn => {
 
-    button.classList.add("active");
+            btn.classList.remove("active");
+
+        });
+
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
+
+    /*
+        RANGOS DE MODALIDAD
+        utilizan los mismos rangos globales.
+    */
+
+    const rankCategories = [
+        "practice-rangos",
+        "fullpvp-rangos",
+        "bedwars-rangos"
+    ];
 
 
     document
@@ -3084,28 +4305,239 @@ function filterProducts(category,button){
             const productCategory =
                 product.dataset.category;
 
-            if(
-                category === "all" ||
-                productCategory === category
+            const modality =
+                product.dataset.modality;
+
+            let show = false;
+
+
+            /*
+                TODO
+            */
+
+            if(category === "all"){
+
+                show = true;
+
+            }
+
+
+            /*
+                RANGOS GLOBALES
+            */
+
+            else if(
+                category === "rangos-global"
             ){
 
-                product.style.display = "block";
+                show =
+                    product.dataset.type === "rango";
+
+            }
+
+
+            /*
+                RANGOS DE CUALQUIER MODALIDAD
+                = mismos rangos globales
+            */
+
+            else if(
+                rankCategories.includes(category)
+            ){
+
+                show =
+                    product.dataset.type === "rango";
+
+            }
+
+
+            /*
+                MODALIDAD COMPLETA
+            */
+
+            else if(
+                category === "practice"
+            ){
+
+                show =
+                    modality === "practice" ||
+                    product.dataset.type === "rango";
+
+            }
+
+
+            else if(
+                category === "fullpvp"
+            ){
+
+                show =
+                    modality === "fullpvp" ||
+                    product.dataset.type === "rango";
+
+            }
+
+
+            else if(
+                category === "bedwars"
+            ){
+
+                show =
+                    modality === "bedwars" ||
+                    product.dataset.type === "rango";
+
+            }
+
+
+            /*
+                SUBCATEGORÍAS
+            */
+
+            else{
+
+                show =
+                    productCategory === category;
+
+            }
+
+
+            if(show){
+
+                product.style.display =
+                    "block";
 
                 setTimeout(() => {
 
-                    product.classList.add("visible");
+                    product.classList.add(
+                        "visible"
+                    );
 
                 },30);
 
             }else{
 
-                product.style.display = "none";
+                product.style.display =
+                    "none";
 
-                product.classList.remove("visible");
+                product.classList.remove(
+                    "visible"
+                );
 
             }
 
         });
+
+
+    /*
+        Cambiamos el título
+    */
+
+    updateSectionTitle(category);
+
+}
+
+
+/* =========================================================
+   TÍTULOS DE SECCIÓN
+========================================================= */
+
+function updateSectionTitle(category){
+
+    const title =
+        document.getElementById(
+            "productsTitle"
+        );
+
+    const subtitle =
+        document.getElementById(
+            "productsSubtitle"
+        );
+
+
+    const titles = {
+
+        "all":[
+            "Paquetes destacados",
+            "Productos VEXOR"
+        ],
+
+        "rangos-global":[
+            "Rangos globales",
+            "Rangos VEXOR"
+        ],
+
+        "practice":[
+            "Practice",
+            "Productos de Practice"
+        ],
+
+        "fullpvp":[
+            "Full PvP",
+            "Productos de Full PvP"
+        ],
+
+        "bedwars":[
+            "BedWars",
+            "Productos de BedWars"
+        ],
+
+        "practice-rangos":[
+            "Rangos · Practice",
+            "Rangos globales"
+        ],
+
+        "fullpvp-rangos":[
+            "Rangos · Full PvP",
+            "Rangos globales"
+        ],
+
+        "bedwars-rangos":[
+            "Rangos · BedWars",
+            "Rangos globales"
+        ]
+
+    };
+
+
+    if(titles[category]){
+
+        title.textContent =
+            titles[category][0];
+
+        subtitle.textContent =
+            titles[category][1];
+
+    }else{
+
+        const parts =
+            category.split("-");
+
+        let mode =
+            parts[0];
+
+        let type =
+            parts.slice(1).join(" ");
+
+
+        mode =
+            mode === "practice"
+                ? "Practice"
+                : mode === "fullpvp"
+                    ? "Full PvP"
+                    : "BedWars";
+
+
+        type =
+            type.charAt(0).toUpperCase() +
+            type.slice(1);
+
+
+        title.textContent =
+            type + " · " + mode;
+
+        subtitle.textContent =
+            "Productos de " + mode;
+
+    }
 
 }
 
@@ -3115,24 +4547,26 @@ function filterProducts(category,button){
 ========================================================= */
 
 const observer =
-new IntersectionObserver(
-    entries => {
+    new IntersectionObserver(
+        entries => {
 
-        entries.forEach(entry => {
+            entries.forEach(entry => {
 
-            if(entry.isIntersecting){
+                if(entry.isIntersecting){
 
-                entry.target.classList.add("visible");
+                    entry.target.classList.add(
+                        "visible"
+                    );
 
-            }
+                }
 
-        });
+            });
 
-    },
-    {
-        threshold:.12
-    }
-);
+        },
+        {
+            threshold:.12
+        }
+    );
 
 
 document
@@ -3148,37 +4582,51 @@ document
    PARALLAX DEL BANNER
 ========================================================= */
 
-const hero = document.querySelector(".hero");
-const heroBg = document.getElementById("heroBg");
+const hero =
+    document.querySelector(".hero");
 
-hero.addEventListener("mousemove",(event) => {
-
-    const rect = hero.getBoundingClientRect();
-
-    const x =
-        (event.clientX - rect.left) /
-        rect.width -
-        .5;
-
-    const y =
-        (event.clientY - rect.top) /
-        rect.height -
-        .5;
+const heroBg =
+    document.getElementById("heroBg");
 
 
-    heroBg.style.transform =
-        `scale(1.07)
-         translate(${x * -10}px,${y * -8}px)`;
+hero.addEventListener(
+    "mousemove",
+    event => {
 
-});
+        const rect =
+            hero.getBoundingClientRect();
 
 
-hero.addEventListener("mouseleave",() => {
+        const x =
+            (event.clientX - rect.left) /
+            rect.width -
+            .5;
 
-    heroBg.style.transform =
-        "scale(1.05)";
 
-});
+        const y =
+            (event.clientY - rect.top) /
+            rect.height -
+            .5;
+
+
+        heroBg.style.transform =
+            `scale(1.07)
+             translate(${x * -10}px,
+                        ${y * -8}px)`;
+
+    }
+);
+
+
+hero.addEventListener(
+    "mouseleave",
+    () => {
+
+        heroBg.style.transform =
+            "scale(1.05)";
+
+    }
+);
 
 
 /* =========================================================
@@ -3229,8 +4677,7 @@ function updateTimer(){
     const minutes =
         Math.floor(
             difference /
-            (1000 * 60
-            )
+            (1000 * 60)
         ) % 60;
 
 
@@ -3263,7 +4710,10 @@ function updateTimer(){
 }
 
 
-setInterval(updateTimer,1000);
+setInterval(
+    updateTimer,
+    1000
+);
 
 updateTimer();
 
@@ -3272,17 +4722,20 @@ updateTimer();
    ESC PARA CERRAR
 ========================================================= */
 
-document.addEventListener("keydown",(event) => {
+document.addEventListener(
+    "keydown",
+    event => {
 
-    if(event.key === "Escape"){
+        if(event.key === "Escape"){
 
-        closeCart();
+            closeCart();
 
-        closePurchase();
+            closePurchase();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
@@ -3290,6 +4743,29 @@ document.addEventListener("keydown",(event) => {
 ========================================================= */
 
 updateCart();
+
+
+/*
+    Al cargar:
+    mostramos todos los productos.
+*/
+
+document
+    .querySelectorAll(".product")
+    .forEach(product => {
+
+        product.style.display =
+            "block";
+
+        setTimeout(() => {
+
+            product.classList.add(
+                "visible"
+            );
+
+        },30);
+
+    });
 
 </script>
 
