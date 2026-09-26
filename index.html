@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEXOR Network | Store</title>
+
+    <style>
+        :root {
+            --purple: #8b5cf6;
+            --purple-light: #a78bfa;
+            --purple-dark: #5b21b6;
+            --cyan: #22d3ee;
+            --bg: #05060a;
+            --bg2: #0a0d14;
+            --card: #10141e;
+            --card-hover: #171d2b;
+            --border: #282f40;
+            --muted: #9299aa;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #facc15;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+
+            background-image:
+                linear-gradient(#8b5cf608 1px, transparent 1px),
+                linear-gradient(90deg, #8b5cf608 1px, transparent 1px);
+
+            background-size: 50px 50px;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 650px;
+            height: 650px;
+            left: 50%;
+            top: -300px;
+            transform: translateX(-50%);
+
+            background: radial-gradient(
+                circle,
+                #7c3aed28,
+                transparent 70%
+            );
+
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        header {
+            height: 72px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: #05060aec;
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .logo svg {
+            width: 43px;
+            height: 43px;
+
+            filter:
+                drop-shadow(
+                    0 0 10px #8b5cf677
+                );
+        }
+
+        .logo span {
+            color: var(--purple-light);
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #aeb4c2;
+            font-size: 14px;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .cart-button {
+            padding: 11px 17px;
+
+            background: #8b5cf622;
+            border: 1px solid #8b5cf655;
+            border-radius: 8px;
+
+            color: white;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .cart-button:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+            min-height: 610px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 15px;
+
+            margin-bottom: 25px;
+
+            border: 1px solid #22c55e44;
+            background: #22c55e10;
+
+            border-radius: 100px;
+
+            color: #86efac;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+
+            background: var(--green);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px #22c55e;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 10vw, 105px);
+
+            line-height: .9;
+
+            letter-spacing: 9px;
+
+            margin-bottom: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    white 20%,
+                    var(--purple-light),
+                    var(--purple)
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #aeb4c2;
+
+            font-size: 17px;
+
+            line-height: 1.7;
+        }
+
+        .ip {
+            display: inline-block;
+
+            margin-top: 28px;
+
+            padding: 13px 20px;
+
+            background: #0d1018;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            color: var(--purple-light);
+
+            font-family: monospace;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .ip:hover {
+            border-color: var(--purple);
+            background: #121725;
+        }
+
+        .hero-buttons {
+            margin-top: 28px;
+
+            display: flex;
+            justify-content: center;
+
+            gap: 12px;
+        }
+
+        .primary {
+            padding: 14px 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-dark)
+                );
+
+            border: none;
+            border-radius: 8px;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .primary:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px #7c3aed44;
+        }
+
+        .secondary {
+            padding: 14px 25px;
+
+            background: #0d1018;
+
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .secondary:hover {
+            border-color: var(--purple);
+        }
+
+        /* ==============================
+           SECTION
+        ============================== */
+
+        .section {
+            padding: 90px 7%;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .label {
+            color: var(--purple-light);
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            color: var(--muted);
+        }
+
+        /* ==============================
+           SEARCH
+        ============================== */
+
+        .search-box {
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            padding: 14px 18px;
+
+            background: #0d1018;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            color: white;
+
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--purple);
+        }
+
+        /* ==============================
+           PRODUCTS
+        ============================== */
+
+        .products {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 20px;
+        }
+
+        .product {
+            position: relative;
+
+            padding: 26px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111520,
+                    #0b0e15
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            transition: .25s;
+        }
+
+        .product:hover {
+            transform: translateY(-7px);
+
+            background: var(--card-hover);
+
+            border-color: var(--purple);
+
+            box-shadow:
+                0 15px 40px #00000055;
+        }
+
+        .product-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            min-height: 48px;
+
+            color: var(--muted);
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+        .price {
+            color: var(--purple-light);
+
+            font-size: 25px;
+
+            font-weight: 900;
+
+            margin-bottom: 20px;
+        }
+
+        .buy {
+            width: 100%;
+
+            padding: 12px;
+
+            background: var(--purple);
+
+            border: none;
+
+            border-radius: 7px;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .buy:hover {
+            background: var(--purple-light);
+            color: #160b2d;
+        }
+
+        .badge {
+            position: absolute;
+
+            top: 14px;
+            right: 14px;
+
+            padding: 5px 8px;
+
+            border-radius: 5px;
+
+            background: var(--purple);
+
+            font-size: 10px;
+
+            font-weight: 900;
+        }
+
+        /* ==============================
+           FEATURES
+        ============================== */
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 25px;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* ==============================
+           FAQ
+        ============================== */
+
+        .faq {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .faq-item {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            margin-bottom: 10px;
+
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 18px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            display: none;
+
+            padding: 0 18px 18px;
+
+            color: var(--muted);
+
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* ==============================
+           MODAL
+        ============================== */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 2000;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: #000000c9;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 480px;
+
+            padding: 30px;
+
+            background: #111520;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            position: relative;
+
+            box-shadow:
+                0 25px 80px #000;
+        }
+
+        .close {
+            position: absolute;
+
+            right: 18px;
+            top: 14px;
+
+            font-size: 28px;
+
+            color: var(--muted);
+
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .modal-box input {
+            width: 100%;
+
+            padding: 13px;
+
+            margin-bottom: 15px;
+
+            background: #080b11;
+
+            border: 1px solid var(--border);
+
+            border-radius: 7px;
+
+            color: white;
+
+            outline: none;
+        }
+
+        .modal-box input:focus {
+            border-color: var(--purple);
+        }
+
+        .confirm {
+            width: 100%;
+
+            padding: 13px;
+
+            background: var(--green);
+
+            border: none;
+
+            border-radius: 7px;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        /* ==============================
+           CART
+        ============================== */
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+
+            margin: 20px 0;
+        }
+
+        .cart-item {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px;
+
+            margin-bottom: 8px;
+
+            background: #090c12;
+
+            border-radius: 7px;
+        }
+
+        .cart-item small {
+            color: var(--muted);
+        }
+
+        .remove {
+            padding: 6px 9px;
+
+            background: var(--red);
+
+            border: none;
+
+            border-radius: 5px;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+
+            padding-top: 15px;
+
+            border-top: 1px solid var(--border);
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+            padding: 40px 20px;
+
+            text-align: center;
+
+            background: #030408;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--muted);
+        }
+
+        footer strong {
+            color: var(--purple-light);
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 800px) {
+
+            nav {
+                display: none;
+            }
+
+            header {
+                padding: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+                letter-spacing: 5px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 65px 20px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .logo svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .cart-button {
+                padding: 9px 11px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <a href="#inicio" class="logo">
+
+        <!-- LOGO SVG VEXOR -->
+
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+                <linearGradient id="logoGradient"
+                    x1="0%" y1="0%"
+                    x2="100%" y2="100%">
+
+                    <stop offset="0%"
+                        stop-color="#a78bfa"/>
+
+                    <stop offset="100%"
+                        stop-color="#5b21b6"/>
+                </linearGradient>
+            </defs>
+
+            <path
+                d="M50 4 L94 28 L82 82 L50 97 L18 82 L6 28 Z"
+                fill="#0b0d14"
+                stroke="url(#logoGradient)"
+                stroke-width="5"/>
+
+            <path
+                d="M22 28 L39 70 L50 48 L61 70 L78 28"
+                fill="none"
+                stroke="url(#logoGradient)"
+                stroke-width="9"
+                stroke-linecap="square"
+                stroke-linejoin="miter"/>
+
+        </svg>
+
+        <div class="logo-text">
+            VEX<span>OR</span>
+        </div>
+
+    </a>
+
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#rangos">Rangos</a>
+        <a href="#coins">Coins</a>
+        <a href="#kits">Kits</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+
+
+    <button class="cart-button" onclick="openCart()">
+        🛒 Carrito
+        <span id="cartCount">0</span>
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+        <div class="status">
+            <span class="dot"></span>
+            SERVIDOR ONLINE
+        </div>
+
+
+        <h1>VEXOR</h1>
+
+
+        <p>
+            Lleva tu experiencia al siguiente nivel.
+            Consigue rangos, monedas, kits y objetos
+            exclusivos para nuestra network de Minecraft.
+        </p>
+
+
+        <div
+            class="ip"
+            onclick="copyIP()"
+            title="Haz clic para copiar">
+
+            🎮 play.vexor.cl
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+            <a href="#rangos">
+
+                <button class="primary">
+                    🛒 VER TIENDA
+                </button>
+
+            </a>
+
+
+            <a href="#faq">
+
+                <button class="secondary">
+                    ❓ INFORMACIÓN
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RANGOS
+===================================================== -->
+
+<section class="section" id="rangos">
+
+    <div class="section-header">
+
+        <div class="label">
+            VEXOR STORE
+        </div>
+
+        <h2 class="section-title">
+            👑 Rangos
+        </h2>
+
+        <p class="description">
+            Desbloquea ventajas y beneficios exclusivos.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔎 Buscar un producto..."
+            oninput="searchProducts()">
+
+    </div>
+
+
+    <div class="products" id="products">
+
+
+        <!-- VIP -->
+
+        <div class="product"
+             data-name="VIP">
+
+            <div class="product-icon">
+                🟣
+            </div>
+
+            <h3>VIP</h3>
+
+            <p>
+                Rango inicial con beneficios
+                especiales dentro de VEXOR.
+            </p>
+
+            <div class="price">
+                $2.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Rango VIP',2990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <!-- MVP -->
+
+        <div class="product"
+             data-name="MVP">
+
+            <div class="product-icon">
+                🔵
+            </div>
+
+            <h3>MVP</h3>
+
+            <p>
+                Más ventajas, comandos y
+                características especiales.
+            </p>
+
+            <div class="price">
+                $5.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Rango MVP',5990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <!-- MVP+ -->
+
+        <div class="product"
+             data-name="MVP+">
+
+            <div class="badge">
+                POPULAR
+            </div>
+
+            <div class="product-icon">
+                🟡
+            </div>
+
+            <h3>MVP+</h3>
+
+            <p>
+                Rango avanzado para jugadores
+                que quieren más ventajas.
+            </p>
+
+            <div class="price">
+                $9.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Rango MVP+',9990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <!-- LEGEND -->
+
+        <div class="product"
+             data-name="LEGEND">
+
+            <div class="product-icon">
+                💎
+            </div>
+
+            <h3>LEGEND</h3>
+
+            <p>
+                El rango premium con
+                beneficios exclusivos.
+            </p>
+
+            <div class="price">
+                $14.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Rango LEGEND',14990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COINS
+===================================================== -->
+
+<section class="section" id="coins">
+
+    <div class="section-header">
+
+        <div class="label">
+            MONEDA VEXOR
+        </div>
+
+        <h2 class="section-title">
+            💰 Coins
+        </h2>
+
+        <p class="description">
+            Compra Coins para utilizar dentro del servidor.
+        </p>
+
+    </div>
+
+
+    <div class="products">
+
+        <div class="product">
+
+            <div class="product-icon">
+                🪙
+            </div>
+
+            <h3>1.000 Coins</h3>
+
+            <p>
+                Paquete básico de Coins.
+            </p>
+
+            <div class="price">
+                $1.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('1.000 Coins',1990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-icon">
+                💰
+            </div>
+
+            <h3>5.000 Coins</h3>
+
+            <p>
+                Paquete mediano de Coins.
+            </p>
+
+            <div class="price">
+                $7.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('5.000 Coins',7990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-icon">
+                💎
+            </div>
+
+            <h3>15.000 Coins</h3>
+
+            <p>
+                Paquete grande para gastar
+                dentro de VEXOR.
+            </p>
+
+            <div class="price">
+                $19.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('15.000 Coins',19990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     KITS
+===================================================== -->
+
+<section class="section" id="kits">
+
+    <div class="section-header">
+
+        <div class="label">
+            EQUIPAMIENTO
+        </div>
+
+        <h2 class="section-title">
+            ⚔️ Kits
+        </h2>
+
+        <p class="description">
+            Equípate para comenzar tu aventura.
+        </p>
+
+    </div>
+
+
+    <div class="products">
+
+        <div class="product">
+
+            <div class="product-icon">
+                ⚔️
+            </div>
+
+            <h3>Kit Guerrero</h3>
+
+            <p>
+                Equipo preparado para el combate.
+            </p>
+
+            <div class="price">
+                $2.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Kit Guerrero',2990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-icon">
+                🏹
+            </div>
+
+            <h3>Kit Arquero</h3>
+
+            <p>
+                Arco, flechas y equipamiento.
+            </p>
+
+            <div class="price">
+                $2.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Kit Arquero',2990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-icon">
+                🎁
+            </div>
+
+            <h3>Caja Legendaria</h3>
+
+            <p>
+                Caja con recompensas aleatorias.
+            </p>
+
+            <div class="price">
+                $3.990 CLP
+            </div>
+
+            <button
+                class="buy"
+                onclick="addToCart('Caja Legendaria',3990)">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="label">
+            VEXOR NETWORK
+        </div>
+
+        <h2 class="section-title">
+            ¿Por qué VEXOR?
+        </h2>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <h3>Entrega rápida</h3>
+
+            <p>
+                Los productos pueden entregarse
+                automáticamente al jugador.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔒
+            </div>
+
+            <h3>Compras seguras</h3>
+
+            <p>
+                Sistema preparado para integrar
+                una plataforma de pagos real.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🎮
+            </div>
+
+            <h3>Compatible con Minecraft</h3>
+
+            <p>
+                Los productos están diseñados
+                para utilizarse dentro de VEXOR.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🛡️
+            </div>
+
+            <h3>Soporte</h3>
+
+            <p>
+                Atención para problemas relacionados
+                con compras y productos.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section class="section" id="faq">
+
+    <div class="section-header">
+
+        <div class="label">
+            AYUDA
+        </div>
+
+        <h2 class="section-title">
+            Preguntas frecuentes
+        </h2>
+
+    </div>
+
+
+    <div class="faq">
+
+
+        <div class="faq-item">
+
+            <div
+                class="faq-question"
+                onclick="toggleFAQ(this)">
+
+                ¿Cómo recibo mi compra?
+
+            </div>
+
+            <div class="faq-answer">
+
+                En esta versión la compra es simulada.
+                Más adelante podemos conectar la tienda
+                con el servidor para entregar los productos
+                automáticamente.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <div
+                class="faq-question"
+                onclick="toggleFAQ(this)">
+
+                ¿Necesito estar conectado?
+
+            </div>
+
+            <div class="faq-answer">
+
+                No necesariamente. Una versión conectada
+                al servidor podría entregar el producto
+                cuando el jugador vuelva a entrar.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <div
+                class="faq-question"
+                onclick="toggleFAQ(this)">
+
+                ¿Esta tienda utiliza dinero real?
+
+            </div>
+
+            <div class="faq-answer">
+
+                No. Esta página es una demostración y
+                no realiza cobros reales.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <div
+                class="faq-question"
+                onclick="toggleFAQ(this)">
+
+                ¿Cuál es la IP del servidor?
+
+            </div>
+
+            <div class="faq-answer">
+
+                La IP configurada actualmente en esta
+                demostración es:
+
+                <br><br>
+
+                <strong>
+                    play.vexor.cl
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 <strong>VEXOR Network</strong>.
+        Todos los derechos reservados.
+    </p>
+
+    <br>
+
+    <p>
+        Tienda de demostración.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     MODAL COMPRA
+===================================================== -->
+
+<div
+    class="modal"
+    id="buyModal">
+
+    <div class="modal-box">
+
+        <span
+            class="close"
+            onclick="closeBuyModal()">
+
+            ×
+
+        </span>
+
+
+        <h2>
+            🛒 Confirmar compra
+        </h2>
+
+
+        <p id="selectedProduct">
+            Producto
+        </p>
+
+
+        <input
+            id="minecraftName"
+            type="text"
+            placeholder="Tu Nick de Minecraft">
+
+
+        <button
+            class="confirm"
+            onclick="simulatePurchase()">
+
+            Confirmar compra
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL CARRITO
+===================================================== -->
+
+<div
+    class="modal"
+    id="cartModal">
+
+    <div class="modal-box">
+
+        <span
+            class="close"
+            onclick="closeCart()">
+
+            ×
+
+        </span>
+
+
+        <h2>
+            🛒 Carrito
+        </h2>
+
+
+        <div
+            class="cart-items"
+            id="cartItems">
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Total
+            </span>
+
+            <span id="cartTotal">
+                $0 CLP
+            </span>
+
+        </div>
+
+
+        <br>
+
+
+        <button
+            class="confirm"
+            onclick="checkout()">
+
+            Continuar
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       CARRITO
+    ===================================================== */
+
+    let cart = [];
+
+    let selectedProduct = null;
+
+
+    /* =====================================================
+       FORMATO DE PRECIO
+    ===================================================== */
+
+    function formatPrice(price) {
+
+        return price.toLocaleString("es-CL");
+
+    }
+
+
+    /* =====================================================
+       AGREGAR AL CARRITO
+    ===================================================== */
+
+    function addToCart(name, price) {
+
+        cart.push({
+            name: name,
+            price: price
+        });
+
+        updateCart();
+
+        selectedProduct = {
+            name: name,
+            price: price
+        };
+
+        document.getElementById(
+            "selectedProduct"
+        ).innerHTML =
+
+            "<strong>" +
+            name +
+            "</strong><br><br>" +
+
+            "Precio: $" +
+            formatPrice(price) +
+            " CLP";
+
+
+        document
+            .getElementById("buyModal")
+            .classList
+            .add("active");
+
+    }
+
+
+    /* =====================================================
+       ACTUALIZAR CARRITO
+    ===================================================== */
+
+    function updateCart() {
+
+        document.getElementById(
+            "cartCount"
+        ).textContent = cart.length;
+
+
+        const container =
+            document.getElementById(
+                "cartItems"
+            );
+
+
+        container.innerHTML = "";
+
+
+        let total = 0;
+
+
+        cart.forEach(
+            function(item, index) {
+
+                total += item.price;
+
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "cart-item";
+
+
+                div.innerHTML = `
+
+                    <div>
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                        <br>
+
+                        <small>
+                            $${formatPrice(item.price)} CLP
+                        </small>
+
+                    </div>
+
+                    <button
+                        class="remove"
+                        onclick="removeItem(${index})">
+
+                        X
+
+                    </button>
+
+                `;
+
+
+                container.appendChild(div);
+
+            }
+        );
+
+
+        document.getElementById(
+            "cartTotal"
+        ).textContent =
+
+            "$" +
+            formatPrice(total) +
+            " CLP";
+
+    }
+
+
+    /* =====================================================
+       ELIMINAR
+    ===================================================== */
+
+    function removeItem(index) {
+
+        cart.splice(index, 1);
+
+        updateCart();
+
+    }
+
+
+    /* =====================================================
+       ABRIR CARRITO
+    ===================================================== */
+
+    function openCart() {
+
+        updateCart();
+
+        document
+            .getElementById("cartModal")
+            .classList
+            .add("active");
+
+    }
+
+
+    /* =====================================================
+       CERRAR CARRITO
+    ===================================================== */
+
+    function closeCart() {
+
+        document
+            .getElementById("cartModal")
+            .classList
+            .remove("active");
+
+    }
+
+
+    /* =====================================================
+       CERRAR COMPRA
+    ===================================================== */
+
+    function closeBuyModal() {
+
+        document
+            .getElementById("buyModal")
+            .classList
+            .remove("active");
+
+    }
+
+
+    /* =====================================================
+       COMPRA SIMULADA
+    ===================================================== */
+
+    function simulatePurchase() {
+
+        const nick =
+            document
+                .getElementById(
+                    "minecraftName"
+                )
+                .value
+                .trim();
+
+
+        if (!nick) {
+
+            alert(
+                "⚠️ Escribe tu Nick de Minecraft."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+
+            "✅ COMPRA SIMULADA\n\n" +
+
+            "Jugador: " +
+            nick +
+
+            "\nProducto: " +
+            selectedProduct.name +
+
+            "\nPrecio: $" +
+            formatPrice(
+                selectedProduct.price
+            ) +
+
+            " CLP\n\n" +
+
+            "Esta tienda no realiza cobros reales."
+
+        );
+
+
+        document.getElementById(
+            "minecraftName"
+        ).value = "";
+
+
+        closeBuyModal();
+
+    }
+
+
+    /* =====================================================
+       CHECKOUT
+    ===================================================== */
+
+    function checkout() {
+
+        if (cart.length === 0) {
+
+            alert(
+                "🛒 El carrito está vacío."
+            );
+
+            return;
+
+        }
+
+
+        const nick =
+            prompt(
+                "Escribe tu Nick de Minecraft:"
+            );
+
+
+        if (!nick) {
+            return;
+        }
+
+
+        let total = 0;
+
+
+        cart.forEach(
+            function(item) {
+                total += item.price;
+            }
+        );
+
+
+        alert(
+
+            "💳 PAGO SIMULADO\n\n" +
+
+            "Jugador: " +
+            nick +
+
+            "\nProductos: " +
+            cart.length +
+
+            "\nTotal: $" +
+            formatPrice(total) +
+
+            " CLP\n\n" +
+
+            "Esta tienda es solamente una demostración."
+
+        );
+
+
+        cart = [];
+
+        updateCart();
+
+        closeCart();
+
+    }
+
+
+    /* =====================================================
+       BUSCADOR
+    ===================================================== */
+
+    function searchProducts() {
+
+        const search =
+            document
+                .getElementById("search")
+                .value
+                .toLowerCase();
+
+
+        const products =
+            document.querySelectorAll(
+                ".product"
+            );
+
+
+        products.forEach(
+            function(product) {
+
+                const name =
+                    product
+                        .dataset
+                        .name
+                        .toLowerCase();
+
+
+                if (
+                    name.includes(search)
+                ) {
+
+                    product.style.display =
+                        "block";
+
+                } else {
+
+                    product.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       FAQ
+    ===================================================== */
+
+    function toggleFAQ(element) {
+
+        const item =
+            element.parentElement;
+
+
+        item.classList.toggle(
+            "open"
+        );
+
+    }
+
+
+    /* =====================================================
+       COPIAR IP
+    ===================================================== */
+
+    function copyIP() {
+
+        navigator.clipboard.writeText(
+            "play.vexor.cl"
+        );
+
+
+        alert(
+            "✅ IP copiada: play.vexor.cl"
+        );
+
+    }
+
+
+    /* =====================================================
+       CERRAR MODALES AL HACER CLICK FUERA
+    ===================================================== */
+
+    window.addEventListener(
+        "click",
+        function(event) {
+
+            const buyModal =
+                document.getElementById(
+                    "buyModal"
+                );
+
+            const cartModal =
+                document.getElementById(
+                    "cartModal"
+                );
+
+
+            if (
+                event.target === buyModal
+            ) {
+
+                closeBuyModal();
+
+            }
+
+
+            if (
+                event.target === cartModal
+            ) {
+
+                closeCart();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
