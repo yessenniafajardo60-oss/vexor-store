@@ -968,29 +968,32 @@ footer strong{
     <div class="orb three"></div>
 </div>
 
-<!-- HEADER -->
-
 <header>
+
     <a class="logo" href="#">
         <div class="logo-icon">V</div>
         VEXOR
     </a>
 
     <div class="header-actions">
-        <button class="header-btn login" onclick="showToast('El inicio de sesión estará disponible próximamente.')">
+
+        <button class="header-btn login"
+                onclick="showToast('El inicio de sesión estará disponible próximamente.')">
             Iniciar sesión
         </button>
 
-        <button class="header-btn cart-button" onclick="openCart()">
+        <button class="header-btn cart-button"
+                onclick="openCart()">
             🛒 Carrito
             <span class="cart-count" id="cartCount">0</span>
         </button>
+
     </div>
+
 </header>
 
-<!-- HERO -->
-
 <section class="hero">
+
     <div class="hero-content">
 
         <div class="shield">⚔</div>
@@ -1001,138 +1004,154 @@ footer strong{
 
         <div class="hero-buttons">
 
-            <button class="hero-btn primary" onclick="copyIP()">
+            <button class="hero-btn primary"
+                    onclick="copyIP()">
                 📋 Copiar IP
             </button>
 
-            <button class="hero-btn" onclick="openDiscord()">
+            <button class="hero-btn"
+                    onclick="openDiscord()">
                 💬 Discord
             </button>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- CONTENT -->
-
 <div class="layout">
-
-    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
         <div class="side-title">Tienda</div>
 
-        <button class="category active" onclick="filterProducts('all',this)">
+        <button class="category active"
+                onclick="filterProducts('all',this)">
             <span>🛍 Todo</span>
         </button>
 
-        <button class="category" onclick="filterProducts('rangos-global',this)">
+        <button class="category"
+                onclick="filterProducts('rangos-global',this)">
             <span>👑 Rangos</span>
             <span>GLOBAL</span>
         </button>
 
-        <!-- PRACTICE -->
-
-        <button class="category" onclick="toggleSub('practiceSub')">
+        <button class="category"
+                onclick="toggleSub('practiceSub')">
             <span>⚔ Practice</span>
             <span>+</span>
         </button>
 
         <div class="subcategories" id="practiceSub">
 
-            <button class="subcategory" onclick="filterProducts('practice-rango',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('practice-rango',this)">
                 Rangos
             </button>
 
-            <button class="subcategory" onclick="filterProducts('practice-coins',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('practice-coins',this)">
                 Coins
             </button>
 
-            <button class="subcategory" onclick="filterProducts('practice-kits',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('practice-kits',this)">
                 Kits
             </button>
 
-            <button class="subcategory" onclick="filterProducts('practice-llaves',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('practice-llaves',this)">
                 Llaves
             </button>
 
-            <button class="subcategory" onclick="filterProducts('practice-cosmeticos',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('practice-cosmeticos',this)">
                 Cosméticos
             </button>
 
-            <button class="subcategory" onclick="filterProducts('practice-extras',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('practice-extras',this)">
                 Extras
             </button>
 
         </div>
 
-        <!-- FULL PVP -->
-
-        <button class="category" onclick="toggleSub('pvpSub')">
+        <button class="category"
+                onclick="toggleSub('pvpSub')">
             <span>🔥 Full PvP</span>
             <span>+</span>
         </button>
 
         <div class="subcategories" id="pvpSub">
 
-            <button class="subcategory" onclick="filterProducts('pvp-rango',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('pvp-rango',this)">
                 Rangos
             </button>
 
-            <button class="subcategory" onclick="filterProducts('pvp-coins',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('pvp-coins',this)">
                 Coins
             </button>
 
-            <button class="subcategory" onclick="filterProducts('pvp-kits',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('pvp-kits',this)">
                 Kits
             </button>
 
-            <button class="subcategory" onclick="filterProducts('pvp-llaves',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('pvp-llaves',this)">
                 Llaves
             </button>
 
-            <button class="subcategory" onclick="filterProducts('pvp-cosmeticos',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('pvp-cosmeticos',this)">
                 Cosméticos
             </button>
 
-            <button class="subcategory" onclick="filterProducts('pvp-extras',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('pvp-extras',this)">
                 Extras
             </button>
 
         </div>
 
-        <!-- BEDWARS -->
-
-        <button class="category" onclick="toggleSub('bedSub')">
+        <button class="category"
+                onclick="toggleSub('bedSub')">
             <span>🛏 BedWars</span>
             <span>+</span>
         </button>
 
         <div class="subcategories" id="bedSub">
 
-            <button class="subcategory" onclick="filterProducts('bed-rango',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('bed-rango',this)">
                 Rangos
             </button>
 
-            <button class="subcategory" onclick="filterProducts('bed-coins',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('bed-coins',this)">
                 Coins
             </button>
 
-            <button class="subcategory" onclick="filterProducts('bed-kits',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('bed-kits',this)">
                 Kits
             </button>
 
-            <button class="subcategory" onclick="filterProducts('bed-llaves',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('bed-llaves',this)">
                 Llaves
             </button>
 
-            <button class="subcategory" onclick="filterProducts('bed-cosmeticos',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('bed-cosmeticos',this)">
                 Cosméticos
             </button>
 
-            <button class="subcategory" onclick="filterProducts('bed-extras',this)">
+            <button class="subcategory"
+                    onclick="filterProducts('bed-extras',this)">
                 Extras
             </button>
 
@@ -1160,11 +1179,7 @@ footer strong{
 
     </aside>
 
-    <!-- MAIN -->
-
     <main>
-
-        <!-- SALE BANNER -->
 
         <div class="banner">
 
@@ -1198,8 +1213,6 @@ footer strong{
             </div>
 
         </div>
-
-        <!-- WELCOME -->
 
         <section class="welcome">
 
@@ -1240,16 +1253,12 @@ footer strong{
 
         </section>
 
-        <!-- PRODUCTS -->
-
         <div class="products" id="products">
 
-            <!-- GORDITO -->
+            <!-- RANGOS GLOBALES -->
 
             <div class="product-card"
-                 data-category="rangos-global"
-                 data-modality="global"
-                 data-type="rango">
+                 data-category="rangos-global">
 
                 <div class="product-image">
                     <div class="rank-icon">👑</div>
@@ -1285,12 +1294,8 @@ footer strong{
 
             </div>
 
-            <!-- GORDITOPLUS -->
-
             <div class="product-card"
-                 data-category="rangos-global"
-                 data-modality="global"
-                 data-type="rango">
+                 data-category="rangos-global">
 
                 <div class="product-image">
                     <div class="rank-icon">⭐</div>
@@ -1325,12 +1330,8 @@ footer strong{
 
             </div>
 
-            <!-- GORDITOPREMIUM -->
-
             <div class="product-card"
-                 data-category="rangos-global"
-                 data-modality="global"
-                 data-type="rango">
+                 data-category="rangos-global">
 
                 <div class="product-image">
                     <div class="rank-icon">💎</div>
@@ -1365,12 +1366,8 @@ footer strong{
 
             </div>
 
-            <!-- GORDITOMATRIX -->
-
             <div class="product-card"
-                 data-category="rangos-global"
-                 data-modality="global"
-                 data-type="rango">
+                 data-category="rangos-global">
 
                 <div class="product-image">
                     <div class="rank-icon">👑</div>
@@ -1405,11 +1402,9 @@ footer strong{
 
             </div>
 
+            <!-- PRACTICE -->
 
-            <!-- PRACTICE COINS -->
-
-            <div class="product-card"
-                 data-category="practice-coins">
+            <div class="product-card" data-category="practice-coins">
 
                 <div class="product-image">
                     <div class="rank-icon">🪙</div>
@@ -1422,6 +1417,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$1.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - 1.000 Coins',1990)">
                             AÑADIR
@@ -1431,10 +1427,7 @@ footer strong{
 
             </div>
 
-            <!-- PRACTICE KITS -->
-
-            <div class="product-card"
-                 data-category="practice-kits">
+            <div class="product-card" data-category="practice-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">⚔️</div>
@@ -1447,6 +1440,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - Kit Gordito',3490)">
                             AÑADIR
@@ -1456,8 +1450,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="practice-kits">
+            <div class="product-card" data-category="practice-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">🔥</div>
@@ -1470,6 +1463,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$4.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - Kit Supremo',4990)">
                             AÑADIR
@@ -1479,8 +1473,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="practice-kits">
+            <div class="product-card" data-category="practice-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">🧱</div>
@@ -1493,6 +1486,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - Kit Constructor',3990)">
                             AÑADIR
@@ -1502,8 +1496,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="practice-kits">
+            <div class="product-card" data-category="practice-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">⛏️</div>
@@ -1516,6 +1509,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - Kit Minero',3490)">
                             AÑADIR
@@ -1525,8 +1519,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="practice-llaves">
+            <div class="product-card" data-category="practice-llaves">
 
                 <div class="product-image">
                     <div class="rank-icon">🔑</div>
@@ -1539,6 +1532,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$2.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - Legendary Key',2490)">
                             AÑADIR
@@ -1548,8 +1542,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="practice-cosmeticos">
+            <div class="product-card" data-category="practice-cosmeticos">
 
                 <div class="product-image">
                     <div class="rank-icon">✨</div>
@@ -1562,6 +1555,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$2.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - Aura Violeta',2990)">
                             AÑADIR
@@ -1571,8 +1565,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="practice-extras">
+            <div class="product-card" data-category="practice-extras">
 
                 <div class="product-image">
                     <div class="rank-icon">⚡</div>
@@ -1585,6 +1578,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$1.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Practice - XP Boost',1490)">
                             AÑADIR
@@ -1594,11 +1588,9 @@ footer strong{
 
             </div>
 
-
             <!-- FULL PVP -->
 
-            <div class="product-card"
-                 data-category="pvp-coins">
+            <div class="product-card" data-category="pvp-coins">
 
                 <div class="product-image">
                     <div class="rank-icon">🪙</div>
@@ -1611,6 +1603,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$1.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - 1.000 Coins',1990)">
                             AÑADIR
@@ -1620,8 +1613,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-kits">
+            <div class="product-card" data-category="pvp-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">⚔️</div>
@@ -1634,6 +1626,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - Kit Gordito',3490)">
                             AÑADIR
@@ -1643,8 +1636,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-kits">
+            <div class="product-card" data-category="pvp-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">🔥</div>
@@ -1657,6 +1649,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$4.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - Kit Supremo',4990)">
                             AÑADIR
@@ -1666,8 +1659,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-kits">
+            <div class="product-card" data-category="pvp-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">🧱</div>
@@ -1680,6 +1672,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - Kit Constructor',3990)">
                             AÑADIR
@@ -1689,8 +1682,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-kits">
+            <div class="product-card" data-category="pvp-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">⛏️</div>
@@ -1703,6 +1695,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - Kit Minero',3490)">
                             AÑADIR
@@ -1712,8 +1705,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-llaves">
+            <div class="product-card" data-category="pvp-llaves">
 
                 <div class="product-image">
                     <div class="rank-icon">🔑</div>
@@ -1726,6 +1718,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$2.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - Legendary Key',2490)">
                             AÑADIR
@@ -1735,8 +1728,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-cosmeticos">
+            <div class="product-card" data-category="pvp-cosmeticos">
 
                 <div class="product-image">
                     <div class="rank-icon">✨</div>
@@ -1749,6 +1741,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$2.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - Aura Violeta',2990)">
                             AÑADIR
@@ -1758,8 +1751,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="pvp-extras">
+            <div class="product-card" data-category="pvp-extras">
 
                 <div class="product-image">
                     <div class="rank-icon">⚡</div>
@@ -1772,6 +1764,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$1.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('Full PvP - XP Boost',1490)">
                             AÑADIR
@@ -1781,11 +1774,9 @@ footer strong{
 
             </div>
 
-
             <!-- BEDWARS -->
 
-            <div class="product-card"
-                 data-category="bed-coins">
+            <div class="product-card" data-category="bed-coins">
 
                 <div class="product-image">
                     <div class="rank-icon">🪙</div>
@@ -1798,6 +1789,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$1.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - 1.000 Coins',1990)">
                             AÑADIR
@@ -1807,8 +1799,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-kits">
+            <div class="product-card" data-category="bed-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">⚔️</div>
@@ -1821,6 +1812,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - Kit Gordito',3490)">
                             AÑADIR
@@ -1830,8 +1822,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-kits">
+            <div class="product-card" data-category="bed-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">🔥</div>
@@ -1844,6 +1835,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$4.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - Kit Supremo',4990)">
                             AÑADIR
@@ -1853,8 +1845,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-kits">
+            <div class="product-card" data-category="bed-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">🧱</div>
@@ -1867,6 +1858,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - Kit Constructor',3990)">
                             AÑADIR
@@ -1876,8 +1868,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-kits">
+            <div class="product-card" data-category="bed-kits">
 
                 <div class="product-image">
                     <div class="rank-icon">⛏️</div>
@@ -1890,6 +1881,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$3.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - Kit Minero',3490)">
                             AÑADIR
@@ -1899,8 +1891,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-llaves">
+            <div class="product-card" data-category="bed-llaves">
 
                 <div class="product-image">
                     <div class="rank-icon">🔑</div>
@@ -1913,6 +1904,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$2.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - Legendary Key',2490)">
                             AÑADIR
@@ -1922,8 +1914,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-cosmeticos">
+            <div class="product-card" data-category="bed-cosmeticos">
 
                 <div class="product-image">
                     <div class="rank-icon">✨</div>
@@ -1936,6 +1927,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$2.990</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - Aura Violeta',2990)">
                             AÑADIR
@@ -1945,8 +1937,7 @@ footer strong{
 
             </div>
 
-            <div class="product-card"
-                 data-category="bed-extras">
+            <div class="product-card" data-category="bed-extras">
 
                 <div class="product-image">
                     <div class="rank-icon">⚡</div>
@@ -1959,6 +1950,7 @@ footer strong{
 
                     <div class="product-bottom">
                         <div class="product-price">$1.490</div>
+
                         <button class="buy-btn"
                                 onclick="addToCart('BedWars - XP Boost',1490)">
                             AÑADIR
@@ -1969,8 +1961,6 @@ footer strong{
             </div>
 
         </div>
-
-        <!-- PAYMENT -->
 
         <div class="payment">
 
@@ -1997,19 +1987,28 @@ footer strong{
     o Microsoft.
 </footer>
 
-
 <!-- CART -->
 
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-overlay"
+     id="cartOverlay"
+     onclick="closeCart()">
+</div>
 
 <aside class="cart" id="cart">
 
     <div class="cart-header">
+
         <h2>🛒 Tu carrito</h2>
-        <button class="close" onclick="closeCart()">×</button>
+
+        <button class="close"
+                onclick="closeCart()">
+            ×
+        </button>
+
     </div>
 
-    <div class="cart-items" id="cartItems">
+    <div class="cart-items"
+         id="cartItems">
 
         <div class="empty">
             Tu carrito está vacío.
@@ -2020,11 +2019,17 @@ footer strong{
     <div class="cart-footer">
 
         <div class="total">
+
             <strong>Total</strong>
-            <strong id="cartTotal">$0</strong>
+
+            <strong id="cartTotal">
+                $0
+            </strong>
+
         </div>
 
-        <button class="checkout-btn" onclick="checkout()">
+        <button class="checkout-btn"
+                onclick="checkout()">
             CONTINUAR AL PAGO
         </button>
 
@@ -2032,10 +2037,10 @@ footer strong{
 
 </aside>
 
-
 <!-- MODAL -->
 
-<div class="modal-overlay" id="modal">
+<div class="modal-overlay"
+     id="modal">
 
     <div class="modal">
 
@@ -2055,11 +2060,13 @@ footer strong{
 
         <div class="modal-actions">
 
-            <button class="cancel" onclick="closeModal()">
+            <button class="cancel"
+                    onclick="closeModal()">
                 Cancelar
             </button>
 
-            <button class="confirm" onclick="confirmCheckout()">
+            <button class="confirm"
+                    onclick="confirmCheckout()">
                 Continuar
             </button>
 
@@ -2069,9 +2076,9 @@ footer strong{
 
 </div>
 
-
-<div class="toast" id="toast"></div>
-
+<div class="toast"
+     id="toast">
+</div>
 
 <script>
 
@@ -2080,31 +2087,27 @@ footer strong{
    ========================================================= */
 
 /*
-    PEGA AQUÍ EL LINK PÚBLICO DEL PAQUETE GORDITO DE TEBEX.
-
-    EJEMPLO:
-
-    const TEBEX_GORDITO_URL =
-        "https://vexor.tebex.store/package/gordito";
-
-    NO pongas aquí la Secret Key.
+   ENLACE PÚBLICO DEL PAQUETE GORDITO
 */
 
-const TEBEX_GORDITO_URL = "https://vexor.tebex.store/package/gordito";
+const TEBEX_GORDITO_URL =
+    "https://vexor.tebex.store/package/gordito";
 
 
 /*
-    DISCORD DE VEXOR
+   DISCORD
 */
 
-const DISCORD_URL = "https://discord.gg/4ZGCSY5pf";
+const DISCORD_URL =
+    "https://discord.gg/4ZGCSY5pf";
 
 
 /*
-    IP DEL SERVIDOR
+   IP DEL SERVIDOR
 */
 
-const SERVER_IP = "mc.vexors.live";
+const SERVER_IP =
+    "mc.vexors.live";
 
 
 /* =========================================================
@@ -2112,6 +2115,7 @@ const SERVER_IP = "mc.vexors.live";
    ========================================================= */
 
 let cart = [];
+
 
 function addToCart(name, price){
 
@@ -2122,9 +2126,12 @@ function addToCart(name, price){
 
     updateCart();
 
-    showToast("✅ " + name + " añadido al carrito.");
+    showToast(
+        "✅ " + name + " añadido al carrito."
+    );
 
 }
+
 
 function removeFromCart(index){
 
@@ -2134,13 +2141,21 @@ function removeFromCart(index){
 
 }
 
+
 function updateCart(){
 
-    const container = document.getElementById("cartItems");
-    const count = document.getElementById("cartCount");
-    const total = document.getElementById("cartTotal");
+    const container =
+        document.getElementById("cartItems");
 
-    count.textContent = cart.length;
+    const count =
+        document.getElementById("cartCount");
+
+    const total =
+        document.getElementById("cartTotal");
+
+    count.textContent =
+        cart.length;
+
 
     if(cart.length === 0){
 
@@ -2150,51 +2165,79 @@ function updateCart(){
             </div>
         `;
 
-        total.textContent = "$0";
+        total.textContent =
+            "$0";
 
         return;
     }
 
+
     let totalPrice = 0;
 
-    container.innerHTML = cart.map((item,index)=>{
 
-        totalPrice += item.price;
+    container.innerHTML =
+        cart.map((item,index)=>{
 
-        return `
-            <div class="cart-item">
+            totalPrice += item.price;
 
-                <div>
-                    <h4>${escapeHTML(item.name)}</h4>
-                    <span>$${item.price.toLocaleString("es-CL")}</span>
+            return `
+                <div class="cart-item">
+
+                    <div>
+
+                        <h4>
+                            ${escapeHTML(item.name)}
+                        </h4>
+
+                        <span>
+                            $${item.price.toLocaleString("es-CL")}
+                        </span>
+
+                    </div>
+
+                    <button class="remove"
+                            onclick="removeFromCart(${index})">
+                        Eliminar
+                    </button>
+
                 </div>
+            `;
 
-                <button class="remove"
-                        onclick="removeFromCart(${index})">
-                    Eliminar
-                </button>
+        }).join("");
 
-            </div>
-        `;
-
-    }).join("");
 
     total.textContent =
         "$" + totalPrice.toLocaleString("es-CL");
 
 }
 
+
 function openCart(){
 
-    document.getElementById("cart").classList.add("open");
-    document.getElementById("cartOverlay").classList.add("open");
+    document
+        .getElementById("cart")
+        .classList
+        .add("open");
+
+    document
+        .getElementById("cartOverlay")
+        .classList
+        .add("open");
 
 }
 
+
 function closeCart(){
 
-    document.getElementById("cart").classList.remove("open");
-    document.getElementById("cartOverlay").classList.remove("open");
+    document
+        .getElementById("cart")
+        .classList
+        .remove("open");
+
+    document
+        .getElementById("cartOverlay")
+        .classList
+        .remove("open");
 
 }
 
@@ -2207,52 +2250,80 @@ function checkout(){
 
     if(cart.length === 0){
 
-        showToast("🛒 Tu carrito está vacío.");
+        showToast(
+            "🛒 Tu carrito está vacío."
+        );
 
         return;
     }
 
-    document.getElementById("modal").classList.add("open");
 
-    document.getElementById("minecraftUsername").focus();
+    document
+        .getElementById("modal")
+        .classList
+        .add("open");
+
+
+    document
+        .getElementById("minecraftUsername")
+        .focus();
 
 }
+
 
 function closeModal(){
 
-    document.getElementById("modal").classList.remove("open");
+    document
+        .getElementById("modal")
+        .classList
+        .remove("open");
 
 }
+
 
 function confirmCheckout(){
 
     const username =
-        document.getElementById("minecraftUsername").value.trim();
+        document
+            .getElementById("minecraftUsername")
+            .value
+            .trim();
+
 
     if(!username){
 
-        showToast("❌ Introduce tu nombre de Minecraft.");
+        showToast(
+            "❌ Introduce tu nombre de Minecraft."
+        );
 
         return;
     }
+
 
     if(!/^[A-Za-z0-9_]{1,16}$/.test(username)){
 
-        showToast("❌ Nombre de Minecraft inválido.");
+        showToast(
+            "❌ Nombre de Minecraft inválido."
+        );
 
         return;
     }
 
-    /*
-        Aquí puedes conectar posteriormente
-        los productos de pago con Tebex.
 
-        NO pongas la Secret Key en este JavaScript.
+    /*
+       Los productos de pago todavía necesitan
+       ser conectados a Tebex mediante un checkout
+       seguro.
+
+       NO pongas la Secret Key aquí.
     */
 
     showToast(
-        "✅ Cuenta " + username + " preparada para el checkout."
+        "✅ Cuenta " +
+        username +
+        " preparada para el checkout."
     );
+
 
     setTimeout(()=>{
 
@@ -2269,49 +2340,72 @@ function confirmCheckout(){
 
 function claimGordito(){
 
+    /*
+       Comprobamos que exista una URL válida.
+    */
+
     if(
         !TEBEX_GORDITO_URL ||
-        TEBEX_GORDITO_URL === "https://vexor.tebex.store/package/gordito"
+        TEBEX_GORDITO_URL.trim() === ""
     ){
 
         showToast(
-            "⚠️ Primero configura el enlace de Gordito de Tebex."
+            "⚠️ El enlace de Gordito no está configurado."
         );
 
         return;
     }
 
-    const username =
-        prompt("🎮 Escribe tu nombre de Minecraft:");
 
-    if(!username){
+    const username =
+        prompt(
+            "🎮 Escribe tu nombre de Minecraft:"
+        );
+
+
+    if(username === null){
 
         return;
     }
 
-    const cleanUsername = username.trim();
+
+    const cleanUsername =
+        username.trim();
+
 
     if(!/^[A-Za-z0-9_]{1,16}$/.test(cleanUsername)){
 
-        alert("❌ El nombre de Minecraft no es válido.");
+        alert(
+            "❌ El nombre de Minecraft no es válido."
+        );
 
         return;
     }
 
-    /*
-        Redirige al paquete público de Tebex.
 
-        La Secret Key NO se utiliza aquí.
+    /*
+       Guardamos temporalmente el nombre.
     */
 
-    const separator =
-        TEBEX_GORDITO_URL.includes("?") ? "&" : "?";
+    try{
+
+        localStorage.setItem(
+            "vexor_minecraft_username",
+            cleanUsername
+        );
+
+    }catch(error){}
+
+
+    /*
+       Abrimos la página pública de Tebex.
+
+       NO se utiliza ninguna Secret Key
+       en el navegador.
+    */
 
     window.location.href =
-        TEBEX_GORDITO_URL +
-        separator +
-        "username=" +
-        encodeURIComponent(cleanUsername);
+        TEBEX_GORDITO_URL;
 
 }
 
@@ -2323,7 +2417,10 @@ function claimGordito(){
 function filterProducts(category, button){
 
     const products =
-        document.querySelectorAll(".product-card");
+        document.querySelectorAll(
+            ".product-card"
+        );
+
 
     products.forEach(product=>{
 
@@ -2332,35 +2429,42 @@ function filterProducts(category, button){
 
         let show = false;
 
+
         if(category === "all"){
 
             show = true;
 
-        }else if(
-            category === "rangos-global"
-        ){
+        }
+
+        else if(category === "rangos-global"){
 
             show =
-                productCategory === "rangos-global";
+                productCategory ===
+                "rangos-global";
 
-        }else if(
-            category.endsWith("-rango")
-        ){
+        }
+
+        else if(category.endsWith("-rango")){
 
             /*
-                Los rangos de Practice,
-                Full PvP y BedWars son globales.
+               Los rangos de Practice,
+               Full PvP y BedWars son globales.
             */
 
             show =
-                productCategory === "rangos-global";
-
-        }else{
-
-            show =
-                productCategory === category;
+                productCategory ===
+                "rangos-global";
 
         }
+
+        else{
+
+            show =
+                productCategory ===
+                category;
+
+        }
+
 
         product.style.display =
             show ? "block" : "none";
@@ -2368,17 +2472,24 @@ function filterProducts(category, button){
     });
 
 
-    document.querySelectorAll(
-        ".category,.subcategory"
-    ).forEach(el=>{
+    document
+        .querySelectorAll(
+            ".category,.subcategory"
+        )
+        .forEach(el=>{
 
-        el.classList.remove("active");
+            el.classList.remove(
+                "active"
+            );
 
-    });
+        });
+
 
     if(button){
 
-        button.classList.add("active");
+        button.classList.add(
+            "active"
+        );
 
     }
 
@@ -2394,16 +2505,21 @@ function toggleSub(id){
     const element =
         document.getElementById(id);
 
+
     if(
         element.style.display === "none" ||
         !element.style.display
     ){
 
-        element.style.display = "block";
+        element.style.display =
+            "block";
 
-    }else{
+    }
 
-        element.style.display = "none";
+    else{
+
+        element.style.display =
+            "none";
 
     }
 
@@ -2416,21 +2532,38 @@ function toggleSub(id){
 
 function copyIP(){
 
-    navigator.clipboard.writeText(SERVER_IP)
-        .then(()=>{
+    if(
+        navigator.clipboard &&
+        window.isSecureContext
+    ){
 
-            showToast(
-                "📋 IP copiada: " + SERVER_IP
-            );
+        navigator.clipboard
+            .writeText(SERVER_IP)
+            .then(()=>{
 
-        })
-        .catch(()=>{
+                showToast(
+                    "📋 IP copiada: " +
+                    SERVER_IP
+                );
 
-            showToast(
-                "IP: " + SERVER_IP
-            );
+            })
+            .catch(()=>{
 
-        });
+                showToast(
+                    "IP: " + SERVER_IP
+                );
+
+            });
+
+    }
+
+    else{
+
+        showToast(
+            "IP: " + SERVER_IP
+        );
+
+    }
 
 }
 
@@ -2443,7 +2576,8 @@ function openDiscord(){
 
     window.open(
         DISCORD_URL,
-        "_blank"
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
@@ -2455,21 +2589,35 @@ function openDiscord(){
 
 let toastTimeout;
 
+
 function showToast(message){
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
-    toast.textContent = message;
 
-    toast.classList.add("show");
+    toast.textContent =
+        message;
 
-    clearTimeout(toastTimeout);
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimeout
+    );
+
 
     toastTimeout =
         setTimeout(()=>{
 
-            toast.classList.remove("show");
+            toast.classList.remove(
+                "show"
+            );
 
         },3000);
 
@@ -2483,9 +2631,14 @@ function showToast(message){
 function escapeHTML(text){
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    div.textContent = text;
+
+    div.textContent =
+        text;
+
 
     return div.innerHTML;
 
@@ -2500,13 +2653,16 @@ const saleEnd =
     new Date().getTime() +
     (2 * 24 * 60 * 60 * 1000);
 
+
 function updateTimer(){
 
     const now =
         new Date().getTime();
 
+
     let distance =
         saleEnd - now;
+
 
     if(distance < 0){
 
@@ -2514,40 +2670,58 @@ function updateTimer(){
 
     }
 
+
     const days =
         Math.floor(
-            distance / (1000*60*60*24)
+            distance /
+            (1000*60*60*24)
         );
+
 
     const hours =
         Math.floor(
-            (distance % (1000*60*60*24))
-            / (1000*60*60)
+            (
+                distance %
+                (1000*60*60*24)
+            ) /
+            (1000*60*60)
         );
+
 
     const minutes =
         Math.floor(
-            (distance % (1000*60*60))
-            / (1000*60)
+            (
+                distance %
+                (1000*60*60)
+            ) /
+            (1000*60)
         );
+
 
     const seconds =
         Math.floor(
-            (distance % (1000*60))
-            / 1000
+            (
+                distance %
+                (1000*60)
+            ) /
+            1000
         );
+
 
     document.getElementById("days")
         .textContent =
         String(days).padStart(2,"0");
 
+
     document.getElementById("hours")
         .textContent =
         String(hours).padStart(2,"0");
 
+
     document.getElementById("minutes")
         .textContent =
         String(minutes).padStart(2,"0");
+
 
     document.getElementById("seconds")
         .textContent =
@@ -2555,7 +2729,12 @@ function updateTimer(){
 
 }
 
-setInterval(updateTimer,1000);
+
+setInterval(
+    updateTimer,
+    1000
+);
+
 
 updateTimer();
 
@@ -2564,16 +2743,19 @@ updateTimer();
    ESCAPE KEY
    ========================================================= */
 
-document.addEventListener("keydown",event=>{
+document.addEventListener(
+    "keydown",
+    event=>{
 
-    if(event.key === "Escape"){
+        if(event.key === "Escape"){
 
-        closeCart();
-        closeModal();
+            closeCart();
+            closeModal();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
