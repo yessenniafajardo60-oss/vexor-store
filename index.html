@@ -1,5074 +1,797 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PixelWorld | Tienda</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-<style>
-
-/* =========================================================
-   PIXELWORLD — TEMA DARK BLUE / PURPLE
-   ========================================================= */
-
-:root{
-    --bg:#03050a;
-    --bg2:#070a12;
-
-    --panel:#090d17;
-    --panel2:#0d1220;
-
-    --purple:#6d28d9;
-    --purple2:#8b5cf6;
-    --blue:#2563eb;
-    --blue2:#3b82f6;
-
-    --text:#f8fafc;
-    --muted:#8b95a7;
-
-    --border:rgba(139,92,246,.14);
-
-    --green:#22c55e;
-    --red:#ef4444;
-
-    --glow-purple:rgba(109,40,217,.35);
-    --glow-blue:rgba(37,99,235,.30);
-}
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Inter,Arial,sans-serif;
-
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(109,40,217,.14),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 85% 20%,
-            rgba(37,99,235,.12),
-            transparent 30%
-        ),
-        linear-gradient(
-            180deg,
-            #03050a 0%,
-            #050812 50%,
-            #03050a 100%
-        );
-
-    color:var(--text);
-    min-height:100vh;
-    overflow-x:hidden;
-}
-
-button{
-    font-family:inherit;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-/* =========================================================
-   BACKGROUND
-   ========================================================= */
-
-.bg{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-    z-index:-2;
-}
-
-.orb{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    filter:blur(120px);
-    opacity:.13;
-    animation:float 14s ease-in-out infinite;
-}
-
-.orb.one{
-    background:#5b21b6;
-    left:-250px;
-    top:100px;
-}
-
-.orb.two{
-    background:#1d4ed8;
-    right:-250px;
-    top:400px;
-    animation-delay:-5s;
-}
-
-.orb.three{
-    background:#4338ca;
-    left:40%;
-    bottom:-350px;
-    animation-delay:-9s;
-}
-
-@keyframes float{
-
-    0%,100%{
-        transform:translate(0,0);
-    }
-
-    50%{
-        transform:translate(40px,-35px);
-    }
-}
-
-/* =========================================================
-   PARTICLES
-   ========================================================= */
-
-#particles-canvas{
-    position:fixed;
-    inset:0;
-    width:100vw;
-    height:100vh;
-    pointer-events:none;
-    z-index:-1;
-    opacity:.35;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-header{
-    height:76px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 38px;
-
-    border-bottom:1px solid var(--border);
-
-    background:rgba(3,5,10,.84);
-
-    backdrop-filter:blur(20px);
-
-    position:sticky;
-    top:0;
-
-    z-index:100;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    font-weight:900;
-    letter-spacing:2px;
-    font-size:21px;
-}
-
-.logo-icon{
-    width:40px;
-    height:40px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4c1d95,
-            #2563eb
-        );
-
-    box-shadow:
-        0 0 25px rgba(109,40,217,.35);
-
-    transition:.3s;
-}
-
-.logo:hover .logo-icon{
-    transform:rotate(-8deg) scale(1.08);
-
-    box-shadow:
-        0 0 35px rgba(37,99,235,.45);
-}
-
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.header-btn{
-    border:1px solid var(--border);
-
-    background:rgba(255,255,255,.035);
-
-    color:#fff;
-
-    padding:11px 16px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    transition:.25s;
-}
-
-.header-btn:hover{
-    border-color:rgba(139,92,246,.5);
-
-    background:rgba(109,40,217,.13);
-
-    transform:translateY(-2px);
-}
-
-.cart-button{
-    position:relative;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b21b6,
-            #2563eb
-        );
-
-    border:0;
-
-    color:#fff;
-
-    font-weight:800;
-}
-
-.cart-count{
-    position:absolute;
-
-    top:-7px;
-    right:-7px;
-
-    min-width:20px;
-    height:20px;
-
-    padding:0 5px;
-
-    border-radius:20px;
-
-    background:#fff;
-
-    color:#4c1d95;
-
-    font-size:11px;
-
-    display:grid;
-    place-items:center;
-
-    font-weight:900;
-}
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero{
-    min-height:500px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:70px 20px;
-}
-
-.hero::before{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(3,5,10,.1),
-            #03050a
-        ),
-
-        radial-gradient(
-            circle at center,
-            rgba(109,40,217,.14),
-            transparent 48%
-        );
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-
-    animation:heroIn .8s ease;
-}
-
-@keyframes heroIn{
-
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.shield{
-    width:90px;
-    height:90px;
-
-    margin:auto;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4c1d95,
-            #1d4ed8
-        );
-
-    box-shadow:
-        0 0 45px rgba(109,40,217,.4),
-        0 0 80px rgba(37,99,235,.15),
-        inset 0 0 30px rgba(255,255,255,.07);
-
-    font-size:40px;
-
-    transform:rotate(-3deg);
-
-    transition:.35s;
-}
-
-.shield:hover{
-    transform:rotate(3deg) scale(1.08);
-
-    box-shadow:
-        0 0 65px rgba(109,40,217,.5),
-        0 0 100px rgba(37,99,235,.2);
-}
-
-.hero h1{
-    margin-top:25px;
-
-    font-size:clamp(42px,7vw,82px);
-
-    font-weight:900;
-
-    letter-spacing:-4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #c4b5fd,
-            #93c5fd
-        );
-
-    -webkit-background-clip:text;
-
-    color:transparent;
-}
-
-.hero p{
-    margin-top:10px;
-
-    color:#94a3b8;
-
-    font-weight:700;
-
-    letter-spacing:4px;
-
-    font-size:13px;
-}
-
-.hero-buttons{
-    display:flex;
-    justify-content:center;
-
-    gap:12px;
-
-    margin-top:30px;
-
-    flex-wrap:wrap;
-}
-
-.hero-btn{
-    position:relative;
-    overflow:hidden;
-
-    padding:13px 20px;
-
-    border-radius:11px;
-
-    border:1px solid var(--border);
-
-    background:rgba(255,255,255,.04);
-
-    color:#fff;
-
-    cursor:pointer;
-
-    font-weight:700;
-
-    transition:.25s;
-}
-
-.hero-btn:hover{
-    transform:translateY(-3px);
-
-    border-color:#7c3aed;
-
-    box-shadow:
-        0 8px 25px rgba(37,99,235,.16);
-}
-
-.hero-btn.primary{
-    border:0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b21b6,
-            #2563eb
-        );
-}
-
-/* =========================================================
-   LAYOUT
-   ========================================================= */
-
-.layout{
-    max-width:1450px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:260px 1fr;
-
-    gap:25px;
-
-    padding:25px;
-}
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-.sidebar{
-    position:sticky;
-
-    top:101px;
-
-    height:max-content;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(9,13,23,.92),
-            rgba(5,8,15,.92)
-        );
-
-    border:1px solid var(--border);
-
-    border-radius:17px;
-
-    padding:16px;
-
-    backdrop-filter:blur(18px);
-
-    transition:.3s;
-}
-
-.sidebar:hover{
-    border-color:rgba(109,40,217,.28);
-}
-
-.side-title{
-    font-size:11px;
-
-    text-transform:uppercase;
-
-    color:#64748b;
-
-    font-weight:900;
-
-    letter-spacing:1.5px;
-
-    padding:8px 10px;
-}
-
-.category{
-    width:100%;
-
-    border:0;
-
-    background:transparent;
-
-    color:#9ca3af;
-
-    padding:11px 12px;
-
-    border-radius:9px;
-
-    text-align:left;
-
-    cursor:pointer;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    transition:.2s;
-
-    font-weight:600;
-}
-
-.category:hover{
-    color:#fff;
-
-    background:rgba(109,40,217,.09);
-
-    transform:translateX(4px);
-}
-
-.category.active{
-    background:
-        linear-gradient(
-            90deg,
-            rgba(109,40,217,.23),
-            rgba(37,99,235,.08)
-        );
-
-    color:#fff;
-
-    box-shadow:
-        inset 2px 0 0 #7c3aed;
-}
-
-.subcategories{
-    padding-left:10px;
-
-    margin-bottom:5px;
-}
-
-.subcategory{
-    width:100%;
-
-    border:0;
-
-    background:none;
-
-    color:#697386;
-
-    padding:8px 12px;
-
-    text-align:left;
-
-    cursor:pointer;
-
-    border-radius:7px;
-
-    font-size:12px;
-
-    transition:.2s;
-}
-
-.subcategory:hover,
-.subcategory.active{
-    color:#c4b5fd;
-
-    background:rgba(109,40,217,.08);
-
-    transform:translateX(4px);
-}
-
-/* =========================================================
-   DONOR
-   ========================================================= */
-
-.sidebar-card{
-    margin-top:18px;
-
-    border-top:1px solid var(--border);
-
-    padding-top:18px;
-}
-
-.donor{
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(37,99,235,.12),
-            transparent 50%
-        ),
-
-        linear-gradient(
-            135deg,
-            rgba(109,40,217,.12),
-            rgba(37,99,235,.05)
-        );
-
-    border:1px solid rgba(109,40,217,.18);
-
-    border-radius:12px;
-
-    padding:15px;
-
-    transition:.25s;
-}
-
-.donor:hover{
-    transform:translateY(-3px);
-
-    box-shadow:
-        0 14px 35px rgba(0,0,0,.2);
-}
-
-.donor small{
-    color:#64748b;
-}
-
-.progress{
-    height:6px;
-
-    border-radius:10px;
-
-    background:#151b2a;
-
-    overflow:hidden;
-
-    margin:10px 0 7px;
-}
-
-.progress span{
-    display:block;
-
-    height:100%;
-
-    width:72%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6d28d9,
-            #2563eb
-        );
-}
-
-/* =========================================================
-   BANNER
-   ========================================================= */
-
-.banner{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    padding:22px;
-
-    border-radius:17px;
-
-    border:1px solid rgba(109,40,217,.22);
-
-    background:
-        radial-gradient(
-            circle at right,
-            rgba(37,99,235,.12),
-            transparent 40%
-        ),
-
-        linear-gradient(
-            135deg,
-            rgba(109,40,217,.12),
-            rgba(37,99,235,.04)
-        );
-
-    margin-bottom:20px;
-
-    transition:.25s;
-}
-
-.banner:hover{
-    transform:translateY(-3px);
-
-    box-shadow:
-        0 14px 35px rgba(0,0,0,.18);
-}
-
-.banner h2{
-    font-size:25px;
-
-    font-weight:900;
-}
-
-.banner p{
-    color:var(--muted);
-
-    margin-top:5px;
-
-    font-size:13px;
-}
-
-.timer{
-    display:flex;
-
-    gap:7px;
-}
-
-.time-box{
-    min-width:52px;
-
-    padding:8px;
-
-    text-align:center;
-
-    background:rgba(0,0,0,.3);
-
-    border:1px solid var(--border);
-
-    border-radius:9px;
-}
-
-.time-box strong{
-    display:block;
-
-    font-size:18px;
-}
-
-.time-box span{
-    font-size:9px;
-
-    color:#64748b;
-}
-
-/* =========================================================
-   WELCOME
-   ========================================================= */
-
-.welcome{
-    margin-bottom:25px;
-}
-
-.welcome h2{
-    font-size:29px;
-
-    font-weight:900;
-}
-
-.welcome p{
-    color:var(--muted);
-
-    margin-top:7px;
-}
-
-.features{
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:10px;
-
-    margin-top:17px;
-}
-
-.feature{
-    padding:17px;
-
-    background:rgba(255,255,255,.018);
-
-    border:1px solid var(--border);
-
-    border-radius:12px;
-
-    transition:.25s;
-}
-
-.feature:hover{
-    transform:translateY(-5px);
-
-    border-color:rgba(109,40,217,.35);
-
-    background:rgba(109,40,217,.06);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.18);
-}
-
-.feature-icon{
-    font-size:22px;
-
-    transition:.3s;
-}
-
-.feature:hover .feature-icon{
-    transform:
-        scale(1.18)
-        rotate(-6deg);
-}
-
-.feature strong{
-    display:block;
-
-    margin-top:9px;
-
-    font-size:13px;
-}
-
-.feature span{
-    display:block;
-
-    color:#64748b;
-
-    margin-top:5px;
-
-    font-size:11px;
-}
-
-/* =========================================================
-   PRODUCTS
-   ========================================================= */
-
-.products{
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:16px;
-}
-
-.product-card{
-    position:relative;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(13,18,32,.96),
-            rgba(5,8,15,.96)
-        );
-
-    border:1px solid var(--border);
-
-    border-radius:15px;
-
-    transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
-
-    animation:cardIn .45s ease both;
-}
-
-@keyframes cardIn{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.product-card::before{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    opacity:0;
-
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(109,40,217,.20),
-            transparent 50%
-        );
-
-    transition:.3s;
-}
-
-.product-card:hover{
-    transform:
-        translateY(-9px)
-        scale(1.015);
-
-    border-color:
-        rgba(99,102,241,.48);
-
-    box-shadow:
-        0 18px 45px rgba(0,0,0,.4),
-        0 0 35px rgba(37,99,235,.10);
-}
-
-.product-card:hover::before{
-    opacity:1;
-}
-
-/* =========================================================
-   PRODUCT IMAGE
-   ========================================================= */
-
-.product-image{
-    height:175px;
-
-    display:grid;
-
-    place-items:center;
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(109,40,217,.15),
-            transparent 58%
-        ),
-
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(37,99,235,.10),
-            transparent 45%
-        ),
-
-        rgba(255,255,255,.018);
-
-    border-bottom:1px solid var(--border);
-}
-
-.product-image::after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            120deg,
-            transparent 30%,
-            rgba(255,255,255,.08) 50%,
-            transparent 70%
-        );
-
-    transform:translateX(-120%);
-
-    transition:
-        transform .7s ease;
-
-    pointer-events:none;
-}
-
-.product-card:hover .product-image::after{
-    transform:translateX(120%);
-}
-
-/* =========================================================
-   CUSTOM PRODUCT IMAGE
-   ========================================================= */
-
-.custom-product-image{
-    width:100%;
-
-    height:100%;
-
-    max-width:220px;
-
-    max-height:155px;
-
-    object-fit:contain;
-
-    display:block;
-
-    position:relative;
-
-    z-index:2;
-
-    filter:
-        drop-shadow(
-            0 10px 22px rgba(0,0,0,.5)
-        );
-
-    transition:
-        transform .4s cubic-bezier(.2,.8,.2,1),
-        filter .4s ease;
-}
-
-.product-card:hover .custom-product-image{
-    transform:
-        scale(1.10)
-        translateY(-4px);
-
-    filter:
-        drop-shadow(
-            0 15px 28px rgba(109,40,217,.45)
-        )
-        brightness(1.08);
-}
-
-/* =========================================================
-   DEFAULT ICON
-   ========================================================= */
-
-.rank-icon{
-    width:78px;
-    height:78px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:22px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4c1d95,
-            #1d4ed8
-        );
-
-    box-shadow:
-        0 0 35px rgba(37,99,235,.25);
-
-    font-size:36px;
-
-    transition:.35s;
-}
-
-.product-card:hover .rank-icon{
-    transform:
-        scale(1.12)
-        rotate(4deg);
-
-    box-shadow:
-        0 0 45px rgba(109,40,217,.45);
-}
-
-.product-image.has-custom-image .rank-icon{
-    display:none;
-}
-
-/* =========================================================
-   PRODUCT INFO
-   ========================================================= */
-
-.product-info{
-    padding:18px;
-
-    position:relative;
-
-    z-index:2;
-}
-
-.product-badge{
-    display:inline-block;
-
-    padding:5px 8px;
-
-    border-radius:6px;
-
-    background:
-        rgba(109,40,217,.13);
-
-    color:#c4b5fd;
-
-    font-size:9px;
-
-    font-weight:900;
-
-    text-transform:uppercase;
-
-    letter-spacing:.5px;
-}
-
-.product-badge.free{
-    color:#86efac;
-
-    background:
-        rgba(34,197,94,.11);
-}
-
-.product-info h3{
-    margin-top:10px;
-
-    font-size:18px;
-}
-
-.product-info p{
-    color:#707b8f;
-
-    font-size:12px;
-
-    line-height:1.6;
-
-    min-height:39px;
-
-    margin-top:7px;
-}
-
-.product-bottom{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    margin-top:17px;
-}
-
-.product-price{
-    font-size:17px;
-
-    font-weight:900;
-}
-
-.price-free{
-    color:#4ade80;
-}
-
-.buy-btn{
-    position:relative;
-
-    overflow:hidden;
-
-    border:0;
-
-    padding:10px 13px;
-
-    border-radius:9px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b21b6,
-            #2563eb
-        );
-
-    color:#fff;
-
-    cursor:pointer;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    transition:.25s;
-}
-
-.buy-btn:hover{
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 8px 22px rgba(37,99,235,.25);
-}
-
-.free-btn{
-    background:
-        linear-gradient(
-            135deg,
-            #15803d,
-            #22c55e
-        );
-}
-
-/* =========================================================
-   PAYMENT
-   ========================================================= */
-
-.payment{
-    margin-top:25px;
-
-    padding:22px;
-
-    border:1px solid var(--border);
-
-    border-radius:15px;
-
-    background:rgba(255,255,255,.018);
-}
-
-.payment h3{
-    font-size:14px;
-}
-
-.payment-methods{
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:8px;
-
-    margin-top:13px;
-}
-
-.payment-method{
-    padding:9px 13px;
-
-    border:1px solid var(--border);
-
-    border-radius:8px;
-
-    color:#727d90;
-
-    font-size:11px;
-
-    font-weight:700;
-
-    transition:.2s;
-}
-
-.payment-method:hover{
-    transform:translateY(-3px);
-
-    color:#fff;
-
-    border-color:
-        rgba(109,40,217,.4);
-}
-
-/* =========================================================
-   SERVER STATUS
-   ========================================================= */
-
-.server-status-bar{
-    position:fixed;
-
-    bottom:22px;
-    right:22px;
-
-    background:
-        rgba(7,10,18,.94);
-
-    backdrop-filter:blur(14px);
-
-    border:
-        1px solid rgba(109,40,217,.5);
-
-    padding:11px 18px;
-
-    border-radius:40px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.5);
-
-    z-index:90;
-
-    animation:
-        statusPulse 2.8s infinite alternate;
-}
-
-.status-dot{
-    width:11px;
-    height:11px;
-
-    border-radius:50%;
-
-    background:#22c55e;
-
-    box-shadow:
-        0 0 12px #22c55e;
-
-    animation:
-        statusBlink 1.5s infinite;
-}
-
-@keyframes statusPulse{
-
-    from{
-        box-shadow:
-            0 0 10px rgba(109,40,217,.15);
-    }
-
-    to{
-        box-shadow:
-            0 0 28px rgba(37,99,235,.25);
-    }
-}
-
-@keyframes statusBlink{
-
-    50%{
-        opacity:.45;
-        transform:scale(.8);
-    }
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer{
-    max-width:1450px;
-
-    margin:30px auto;
-
-    padding:25px;
-
-    color:#4b5563;
-
-    font-size:11px;
-
-    text-align:center;
-}
-
-footer strong{
-    color:#818cf8;
-}
-
-/* =========================================================
-   CART
-   ========================================================= */
-
-.cart-overlay{
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.72);
-
-    opacity:0;
-
-    visibility:hidden;
-
-    transition:.25s;
-
-    z-index:199;
-}
-
-.cart-overlay.open{
-    opacity:1;
-
-    visibility:visible;
-}
-
-.cart{
-    position:fixed;
-
-    top:0;
-    right:-430px;
-
-    width:min(420px,100%);
-
-    height:100vh;
-
-    background:#070a12;
-
-    border-left:1px solid var(--border);
-
-    z-index:200;
-
-    transition:.3s;
-
-    display:flex;
-
-    flex-direction:column;
-}
-
-.cart.open{
-    right:0;
-}
-
-.cart-header{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:22px;
-
-    border-bottom:1px solid var(--border);
-}
-
-.cart-header h2{
-    font-size:18px;
-}
-
-.close{
-    border:0;
-
-    background:none;
-
-    color:#94a3b8;
-
-    cursor:pointer;
-
-    font-size:22px;
-}
-
-.cart-items{
-    flex:1;
-
-    overflow:auto;
-
-    padding:20px;
-}
-
-.empty{
-    text-align:center;
-
-    color:#596579;
-
-    padding-top:80px;
-}
-
-.cart-item{
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-    padding:13px 0;
-
-    border-bottom:1px solid var(--border);
-}
-
-.cart-item h4{
-    font-size:13px;
-}
-
-.cart-item span{
-    display:block;
-
-    color:#7b8799;
-
-    font-size:11px;
-
-    margin-top:4px;
-}
-
-.remove{
-    border:0;
-
-    background:none;
-
-    color:#ef4444;
-
-    cursor:pointer;
-}
-
-.cart-footer{
-    padding:20px;
-
-    border-top:1px solid var(--border);
-}
-
-.total{
-    display:flex;
-
-    justify-content:space-between;
-
-    margin-bottom:14px;
-}
-
-.checkout-btn{
-    width:100%;
-
-    padding:13px;
-
-    border:0;
-
-    border-radius:10px;
-
-    color:#fff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b21b6,
-            #2563eb
-        );
-
-    font-weight:900;
-
-    cursor:pointer;
-}
-
-/* =========================================================
-   MODAL
-   ========================================================= */
-
-.modal-overlay{
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.78);
-
-    display:grid;
-
-    place-items:center;
-
-    padding:20px;
-
-    opacity:0;
-
-    visibility:hidden;
-
-    transition:.2s;
-
-    z-index:300;
-}
-
-.modal-overlay.open{
-    opacity:1;
-
-    visibility:visible;
-}
-
-.modal{
-    width:min(430px,100%);
-
-    background:#090d17;
-
-    border:1px solid var(--border);
-
-    border-radius:18px;
-
-    padding:25px;
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.6);
-
-    transform:translateY(20px);
-
-    transition:.25s;
-}
-
-.modal-overlay.open .modal{
-    transform:translateY(0);
-}
-
-.modal h2{
-    font-size:21px;
-}
-
-.modal p{
-    color:#788397;
-
-    font-size:12px;
-
-    line-height:1.6;
-
-    margin-top:8px;
-}
-
-.input{
-    width:100%;
-
-    margin-top:18px;
-
-    padding:13px;
-
-    border:1px solid var(--border);
-
-    border-radius:9px;
-
-    background:#03050a;
-
-    color:#fff;
-
-    outline:none;
-}
-
-.input:focus{
-    border-color:#7c3aed;
-
-    box-shadow:
-        0 0 0 3px rgba(109,40,217,.10);
-}
-
-.modal-actions{
-    display:flex;
-
-    gap:9px;
-
-    margin-top:14px;
-}
-
-.modal-actions button{
-    flex:1;
-
-    padding:12px;
-
-    border-radius:9px;
-
-    cursor:pointer;
-
-    font-weight:800;
-}
-
-.cancel{
-    border:1px solid var(--border);
-
-    background:rgba(255,255,255,.04);
-
-    color:#fff;
-}
-
-.confirm{
-    border:0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b21b6,
-            #2563eb
-        );
-
-    color:#fff;
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-.toast{
-    position:fixed;
-
-    bottom:25px;
-
-    left:50%;
-
-    transform:
-        translate(-50%,20px);
-
-    background:#0d1220;
-
-    border:1px solid var(--border);
-
-    padding:12px 18px;
-
-    border-radius:10px;
-
-    color:#fff;
-
-    font-size:12px;
-
-    opacity:0;
-
-    visibility:hidden;
-
-    transition:.25s;
-
-    z-index:500;
-}
-
-.toast.show{
-    opacity:1;
-
-    visibility:visible;
-
-    transform:
-        translate(-50%,0);
-}
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        transition-duration:.01ms !important;
-
-        scroll-behavior:auto !important;
-    }
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media(max-width:1050px){
-
-    .layout{
-        grid-template-columns:220px 1fr;
-    }
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .features{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(max-width:760px){
-
-    header{
-        padding:0 15px;
-    }
-
-    .layout{
-        grid-template-columns:1fr;
-
-        padding:15px;
-    }
-
-    .sidebar{
-        position:static;
-    }
-
-    .products{
-        grid-template-columns:1fr;
-    }
-
-    .banner{
-        flex-direction:column;
-
-        align-items:flex-start;
-    }
-
-    .hero h1{
-        letter-spacing:-2px;
-    }
-
-    .features{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .header-btn.login{
-        display:none;
-    }
-
-    .server-status-bar{
-        right:10px;
-        bottom:10px;
-    }
-}
-
-@media(max-width:450px){
-
-    .features{
-        grid-template-columns:1fr;
-    }
-
-    .timer{
-        width:100%;
-    }
-
-    .time-box{
-        flex:1;
-    }
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Mítica | Pixel World Network</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0c0e14;
+            --bg-card: rgba(26, 31, 46, 0.75);
+            --bg-sidebar: rgba(20, 24, 36, 0.85);
+            --primary-gold: #ffd700;
+            --gold-glow: #f3ad2e;
+            --accent-green: #38a169;
+            --accent-blue: #3182ce;
+            --text-main: #e2e8f0;
+            --text-muted: #a0aec0;
+            --border-color: rgba(243, 173, 46, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- CANVAS PARA PARTÍCULAS DE FONDO --- */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- HEADER Y LOGO ANIMADO --- */
+        header {
+            background: linear-gradient(180deg, rgba(12, 14, 20, 0.95) 0%, rgba(19, 23, 34, 0.8) 100%),
+                        url('https://i.imgur.com/8Q9Z4yX.jpg') center/cover no-repeat;
+            padding: 25px 20px;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+        }
+
+        .top-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-panel, .cart-panel, .discord-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(30, 35, 48, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .user-panel:hover, .cart-panel:hover, .discord-btn:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 20px rgba(243, 173, 46, 0.3);
+        }
+
+        /* CABEZA ANIMADA JUGADOR */
+        .user-avatar-head {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-gold);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px var(--gold-glow); }
+            100% { box-shadow: 0 0 18px var(--primary-gold); }
+        }
+
+        .logo-container {
+            text-align: center;
+            cursor: pointer;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .logo-title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-gold) 50%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.4)); }
+            100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); }
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 5px;
+        }
+
+        /* --- LAYOUT PRINCIPAL --- */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            padding: 0 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* SIDEBAR (MENÚ LATERAL) */
+        .sidebar {
+            background: var(--bg-sidebar);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            height: fit-content;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .sidebar-header {
+            background: linear-gradient(90deg, rgba(243, 173, 46, 0.15) 0%, rgba(0,0,0,0.4) 100%);
+            padding: 16px 20px;
+            font-weight: bold;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s;
+        }
+
+        .category-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover .category-link, .category-item.active .category-link {
+            background: linear-gradient(90deg, rgba(243, 173, 46, 0.2) 0%, transparent 100%);
+            color: #fff;
+            padding-left: 24px;
+        }
+
+        .category-item.active .category-link {
+            border-left: 4px solid var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        /* CABEZAS MC ROTATORIAS / ANIMADAS */
+        .head-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            transition: transform 0.4s ease;
+        }
+
+        .category-item:hover .head-icon {
+            transform: rotateY(360deg) scale(1.2);
+        }
+
+        /* CONTENT AREA & VISTAS */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .banner-welcome {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .banner-welcome::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(243, 173, 46, 0.1) 0%, transparent 60%);
+            animation: rotateBG 15s linear infinite;
+        }
+
+        @keyframes rotateBG {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .banner-welcome h1 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-welcome p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* TARJETAS DE PRODUCTOS EN TIENDA ANIMADAS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--primary-gold);
+            box-shadow: 0 15px 35px rgba(243, 173, 46, 0.25);
+        }
+
+        .product-card-head {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px auto;
+            border-radius: 12px;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        .product-card:hover .product-card-head {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .product-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(56, 161, 105, 0.4);
+        }
+
+        /* BOTÓN DE COMPRA CON DESTELLO LÁSER */
+        .btn-add {
+            background: linear-gradient(135deg, #f3ad2e 0%, #b37b12 100%);
+            color: #000;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+
+        .btn-add::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -60%;
+            width: 40px; height: 200%;
+            background: rgba(255,255,255,0.6);
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
+        }
+
+        .btn-add:hover::after {
+            left: 140%;
+        }
+
+        .btn-add:hover {
+            box-shadow: 0 0 20px rgba(243, 173, 46, 0.8);
+            transform: scale(1.03);
+        }
+
+        /* FLOATING IP BAR */
+        .server-status-bar {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(26, 31, 46, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--primary-gold);
+            padding: 12px 22px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 100;
+            animation: pulseBorder 3s infinite alternate;
+        }
+
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 0 10px rgba(243, 173, 46, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(243, 173, 46, 0.8); }
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #48bb78;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* MODALES ANIMADOS */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: rgba(26, 31, 46, 0.95);
+            border: 1px solid var(--primary-gold);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            transform: scale(0.7) translateY(-30px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover { color: #fff; }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            background: rgba(12, 14, 20, 0.8);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            border-radius: 8px;
+            margin: 15px 0;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(243, 173, 46, 0.3);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+    </style>
 </head>
-
 <body>
 
-<canvas id="particles-canvas" aria-hidden="true"></canvas>
-
-<div class="bg">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-</div>
-
-
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
-
-<header>
-
-    <a class="logo" href="#">
-
-        <div class="logo-icon">
-            P
-        </div>
-
-        PIXELWORLD
-
-    </a>
-
-    <div class="header-actions">
-
-        <button
-            class="header-btn login"
-            onclick="showToast('El inicio de sesión estará disponible próximamente.')">
-
-            Iniciar sesión
-
-        </button>
-
-        <button
-            class="header-btn cart-button"
-            onclick="openCart()">
-
-            🛒 Carrito
-
-            <span
-                class="cart-count"
-                id="cartCount">
-
-                0
-
-            </span>
-
-        </button>
-
-    </div>
-
-</header>
-
-
-<!-- =========================================================
-     HERO
-     ========================================================= -->
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <div class="shield">
-            ⚔
-        </div>
-
-        <h1>
-            PIXELWORLD
-        </h1>
-
-        <p>
-            SOBREVIVE · COMPITE · DOMINA
-        </p>
-
-        <div class="hero-buttons">
-
-            <button
-                class="hero-btn primary"
-                onclick="copyIP()">
-
-                📋 Copiar IP
-
-            </button>
-
-            <button
-                class="hero-btn"
-                onclick="openDiscord()">
-
-                💬 Discord
-
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     LAYOUT
-     ========================================================= -->
-
-<div class="layout">
-
-
-<!-- =========================================================
-     SIDEBAR
-     ========================================================= -->
-
-<aside class="sidebar">
-
-    <div class="side-title">
-        Tienda
-    </div>
-
-
-    <button
-        class="category active"
-        onclick="filterProducts('all',this)">
-
-        <span>
-            🛍 Todo
-        </span>
-
-    </button>
-
-
-    <button
-        class="category"
-        onclick="filterProducts('rangos-global',this)">
-
-        <span>
-            👑 Rangos
-        </span>
-
-        <span>
-            GLOBAL
-        </span>
-
-    </button>
-
-
-    <!-- PRACTICE -->
-
-    <button
-        class="category"
-        onclick="toggleSub('practiceSub')">
-
-        <span>
-            ⚔ Practice
-        </span>
-
-        <span>
-            +
-        </span>
-
-    </button>
-
-    <div
-        class="subcategories"
-        id="practiceSub"
-        style="display:none;">
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('practice-rango',this)">
-            Rangos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('practice-coins',this)">
-            Coins
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('practice-kits',this)">
-            Kits
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('practice-llaves',this)">
-            Llaves
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('practice-cosmeticos',this)">
-            Cosméticos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('practice-extras',this)">
-            Extras
-        </button>
-
-    </div>
-
-
-    <!-- FULL PVP -->
-
-    <button
-        class="category"
-        onclick="toggleSub('pvpSub')">
-
-        <span>
-            🔥 Full PvP
-        </span>
-
-        <span>
-            +
-        </span>
-
-    </button>
-
-    <div
-        class="subcategories"
-        id="pvpSub"
-        style="display:none;">
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('pvp-rango',this)">
-            Rangos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('pvp-coins',this)">
-            Coins
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('pvp-kits',this)">
-            Kits
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('pvp-llaves',this)">
-            Llaves
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('pvp-cosmeticos',this)">
-            Cosméticos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('pvp-extras',this)">
-            Extras
-        </button>
-
-    </div>
-
-
-    <!-- BOX PVP -->
-
-    <button
-        class="category"
-        onclick="toggleSub('boxSub')">
-
-        <span>
-            📦 BoxPvP
-        </span>
-
-        <span>
-            +
-        </span>
-
-    </button>
-
-    <div
-        class="subcategories"
-        id="boxSub"
-        style="display:none;">
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('box-rango',this)">
-            Rangos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('box-coins',this)">
-            Coins
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('box-kits',this)">
-            Kits
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('box-llaves',this)">
-            Llaves
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('box-cosmeticos',this)">
-            Cosméticos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('box-extras',this)">
-            Extras
-        </button>
-
-    </div>
-
-
-    <!-- BEDWARS -->
-
-    <button
-        class="category"
-        onclick="toggleSub('bedSub')">
-
-        <span>
-            🛏 BedWars
-        </span>
-
-        <span>
-            +
-        </span>
-
-    </button>
-
-    <div
-        class="subcategories"
-        id="bedSub"
-        style="display:none;">
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('bed-rango',this)">
-            Rangos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('bed-coins',this)">
-            Coins
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('bed-kits',this)">
-            Kits
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('bed-llaves',this)">
-            Llaves
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('bed-cosmeticos',this)">
-            Cosméticos
-        </button>
-
-        <button
-            class="subcategory"
-            onclick="filterProducts('bed-extras',this)">
-            Extras
-        </button>
-
-    </div>
-
-
-    <div class="sidebar-card">
-
-        <div class="donor">
-
-            <strong>
-                💜 APOYA A PIXELWORLD
-            </strong>
-
-            <p
-                style="
-                font-size:11px;
-                color:#64748b;
-                margin-top:7px;
-                ">
-
-                Tu apoyo nos ayuda a mantener
-                y mejorar la network.
-
-            </p>
-
-            <div class="progress">
-                <span></span>
-            </div>
-
-            <small>
-                72% del objetivo
-            </small>
-
-        </div>
-
-    </div>
-
-</aside>
-
-
-<!-- =========================================================
-     MAIN
-     ========================================================= -->
-
-<main>
-
-
-<!-- OFERTA -->
-
-<div class="banner">
-
-    <div>
-
-        <h2>
-            ⚡ HASTA 40% OFF
-        </h2>
-
-        <p>
-            Ofertas especiales por tiempo limitado.
-        </p>
-
-    </div>
-
-    <div class="timer">
-
-        <div class="time-box">
-            <strong id="days">00</strong>
-            <span>DÍAS</span>
-        </div>
-
-        <div class="time-box">
-            <strong id="hours">00</strong>
-            <span>HORAS</span>
-        </div>
-
-        <div class="time-box">
-            <strong id="minutes">00</strong>
-            <span>MIN</span>
-        </div>
-
-        <div class="time-box">
-            <strong id="seconds">00</strong>
-            <span>SEG</span>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- BIENVENIDA -->
-
-<section class="welcome">
-
-    <h2>
-        Bienvenido a PixelWorld
-    </h2>
-
-    <p>
-        Compra rangos, monedas, kits y objetos
-        exclusivos para disfrutar de nuestra network.
-    </p>
-
-
-    <div class="features">
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                ⚡
-            </div>
-
-            <strong>
-                Entrega rápida
-            </strong>
-
-            <span>
-                Los productos se entregan automáticamente.
-            </span>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                🔒
-            </div>
-
-            <strong>
-                Compra segura
-            </strong>
-
-            <span>
-                Procesamiento mediante Tebex.
-            </span>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                🎁
-            </div>
-
-            <strong>
-                Ofertas
-            </strong>
-
-            <span>
-                Promociones especiales para la comunidad.
-            </span>
-
-        </div>
-
-
-        <div class="feature">
-
-            <div class="feature-icon">
-                💬
-            </div>
-
-            <strong>
-                Soporte
-            </strong>
-
-            <span>
-                Únete a nuestro Discord.
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     PRODUCTS
-     ========================================================= -->
-
-<div
-    class="products"
-    id="products">
-
-
-<!-- =========================================================
-     RANGOS
-     ========================================================= -->
-
-<div
-    class="product-card"
-    data-category="rangos-global">
-
-    <div class="product-image">
-
-        <div class="rank-icon">
-            👑
-        </div>
-
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge free">
-            GRATIS
-        </span>
-
-        <h3>
-            Gordito
-        </h3>
-
-        <p>
-            Obtén el rango Gordito completamente
-            gratis en PixelWorld.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                <span class="price-free">
-                    GRATIS
-                </span>
-            </div>
-
-            <button
-                class="buy-btn free-btn"
-                onclick="claimGordito()">
-
-                OBTENER GRATIS
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div
-    class="product-card"
-    data-category="rangos-global">
-
-    <div class="product-image">
-
-        <div class="rank-icon">
-            ⭐
-        </div>
-
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            GLOBAL
-        </span>
-
-        <h3>
-            GorditoPlus
-        </h3>
-
-        <p>
-            Mejora tu experiencia con beneficios exclusivos.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $7.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('GorditoPlus',7990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div
-    class="product-card"
-    data-category="rangos-global">
-
-    <div class="product-image">
-
-        <div class="rank-icon">
-            💎
-        </div>
-
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            GLOBAL
-        </span>
-
-        <h3>
-            GorditoPremium
-        </h3>
-
-        <p>
-            Beneficios premium para destacar dentro
-            de PixelWorld.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $12.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('GorditoPremium',12990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div
-    class="product-card"
-    data-category="rangos-global">
-
-    <div class="product-image">
-
-        <div class="rank-icon">
-            👑
-        </div>
-
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            GLOBAL
-        </span>
-
-        <h3>
-            GorditoMatrix
-        </h3>
-
-        <p>
-            El rango definitivo para los jugadores
-            más exclusivos.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $19.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('GorditoMatrix',19990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     PRACTICE
-     ========================================================= -->
-
-<div class="product-card" data-category="practice-coins">
-
-    <div class="product-image">
-        <div class="rank-icon">🪙</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            1.000 Coins
-        </h3>
-
-        <p>
-            Obtén 1.000 coins para Practice.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - 1.000 Coins',1990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⚔️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            Kit Gordito
-        </h3>
-
-        <p>
-            Desbloquea el Kit Gordito.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - Kit Gordito',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🔥</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            Kit Supremo
-        </h3>
-
-        <p>
-            Desbloquea el Kit Supremo.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $4.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - Kit Supremo',4990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🧱</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            Kit Constructor
-        </h3>
-
-        <p>
-            Desbloquea el Kit Constructor.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - Kit Constructor',3990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⛏️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            Kit Minero
-        </h3>
-
-        <p>
-            Desbloquea el Kit Minero.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - Kit Minero',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-llaves">
-
-    <div class="product-image">
-        <div class="rank-icon">🔑</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            Legendary Key
-        </h3>
-
-        <p>
-            Consigue una llave Legendary.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - Legendary Key',2490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-cosmeticos">
-
-    <div class="product-image">
-        <div class="rank-icon">✨</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            Aura Violeta
-        </h3>
-
-        <p>
-            Cosmético exclusivo para tu personaje.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - Aura Violeta',2990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="practice-extras">
-
-    <div class="product-image">
-        <div class="rank-icon">⚡</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            PRACTICE
-        </span>
-
-        <h3>
-            XP Boost
-        </h3>
-
-        <p>
-            Aumenta tu experiencia dentro de Practice.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Practice - XP Boost',1490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     FULL PVP
-     ========================================================= -->
-
-<div class="product-card" data-category="pvp-coins">
-
-    <div class="product-image">
-        <div class="rank-icon">🪙</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            1.000 Coins
-        </h3>
-
-        <p>
-            Obtén 1.000 coins para Full PvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - 1.000 Coins',1990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⚔️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            Kit Gordito
-        </h3>
-
-        <p>
-            Desbloquea el Kit Gordito.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - Kit Gordito',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🔥</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            Kit Supremo
-        </h3>
-
-        <p>
-            Desbloquea el Kit Supremo.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $4.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - Kit Supremo',4990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🧱</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            Kit Constructor
-        </h3>
-
-        <p>
-            Desbloquea el Kit Constructor.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - Kit Constructor',3990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⛏️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            Kit Minero
-        </h3>
-
-        <p>
-            Desbloquea el Kit Minero.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - Kit Minero',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-llaves">
-
-    <div class="product-image">
-        <div class="rank-icon">🔑</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            Legendary Key
-        </h3>
-
-        <p>
-            Consigue una llave Legendary.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - Legendary Key',2490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-cosmeticos">
-
-    <div class="product-image">
-        <div class="rank-icon">✨</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            Aura Violeta
-        </h3>
-
-        <p>
-            Cosmético exclusivo.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - Aura Violeta',2990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="pvp-extras">
-
-    <div class="product-image">
-        <div class="rank-icon">⚡</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            FULL PVP
-        </span>
-
-        <h3>
-            XP Boost
-        </h3>
-
-        <p>
-            Aumenta tu experiencia.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('Full PvP - XP Boost',1490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     BEDWARS
-     ========================================================= -->
-
-<div class="product-card" data-category="bed-coins">
-
-    <div class="product-image">
-        <div class="rank-icon">🪙</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            1.000 Coins
-        </h3>
-
-        <p>
-            Obtén 1.000 coins para BedWars.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - 1.000 Coins',1990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⚔️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            Kit Gordito
-        </h3>
-
-        <p>
-            Desbloquea el Kit Gordito.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - Kit Gordito',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🔥</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            Kit Supremo
-        </h3>
-
-        <p>
-            Desbloquea el Kit Supremo.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $4.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - Kit Supremo',4990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🧱</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            Kit Constructor
-        </h3>
-
-        <p>
-            Desbloquea el Kit Constructor.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - Kit Constructor',3990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⛏️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            Kit Minero
-        </h3>
-
-        <p>
-            Desbloquea el Kit Minero.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - Kit Minero',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-llaves">
-
-    <div class="product-image">
-        <div class="rank-icon">🔑</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            Legendary Key
-        </h3>
-
-        <p>
-            Consigue una llave Legendary.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - Legendary Key',2490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-cosmeticos">
-
-    <div class="product-image">
-        <div class="rank-icon">✨</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            Aura Violeta
-        </h3>
-
-        <p>
-            Cosmético exclusivo.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - Aura Violeta',2990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="bed-extras">
-
-    <div class="product-image">
-        <div class="rank-icon">⚡</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BEDWARS
-        </span>
-
-        <h3>
-            XP Boost
-        </h3>
-
-        <p>
-            Aumenta tu experiencia.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BedWars - XP Boost',1490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     BOX PVP
-     ========================================================= -->
-
-<div class="product-card" data-category="box-rango">
-
-    <div class="product-image">
-        <div class="rank-icon">📦</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            Rango BoxPvP
-        </h3>
-
-        <p>
-            Rango exclusivo para destacar dentro
-            de la modalidad BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $7.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - Rango',7990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="box-coins">
-
-    <div class="product-image">
-        <div class="rank-icon">🪙</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            1.000 Coins BoxPvP
-        </h3>
-
-        <p>
-            Obtén 1.000 coins para utilizar en BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - 1.000 Coins',1990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="box-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">⚔️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            Kit BoxPvP
-        </h3>
-
-        <p>
-            Kit especial para comenzar a combatir
-            en BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $3.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - Kit',3490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="box-kits">
-
-    <div class="product-image">
-        <div class="rank-icon">🔥</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            Kit Supremo BoxPvP
-        </h3>
-
-        <p>
-            Un kit mejorado para la modalidad BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $4.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - Kit Supremo',4990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="box-llaves">
-
-    <div class="product-image">
-        <div class="rank-icon">🗝️</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            Legendary Key BoxPvP
-        </h3>
-
-        <p>
-            Llave especial para las recompensas
-            de BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - Legendary Key',2490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="box-cosmeticos">
-
-    <div class="product-image">
-        <div class="rank-icon">💜</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            Aura Violeta BoxPvP
-        </h3>
-
-        <p>
-            Cosmético visual para destacar en BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $2.990
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - Aura Violeta',2990)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="product-card" data-category="box-extras">
-
-    <div class="product-image">
-        <div class="rank-icon">⚡</div>
-    </div>
-
-    <div class="product-info">
-
-        <span class="product-badge">
-            BOXPVP
-        </span>
-
-        <h3>
-            XP Boost BoxPvP
-        </h3>
-
-        <p>
-            Potenciador de experiencia para BoxPvP.
-        </p>
-
-        <div class="product-bottom">
-
-            <div class="product-price">
-                $1.490
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="addToCart('BoxPvP - XP Boost',1490)">
-
-                AÑADIR
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     PAYMENT
-     ========================================================= -->
-
-<div class="payment">
-
-    <h3>
-        💳 Métodos de pago
-    </h3>
-
-    <div class="payment-methods">
-
-        <div class="payment-method">
-            VISA
-        </div>
-
-        <div class="payment-method">
-            MASTERCARD
-        </div>
-
-        <div class="payment-method">
-            WEBPAY
-        </div>
-
-        <div class="payment-method">
-            MACH
-        </div>
-
-        <div class="payment-method">
-            PAYPAL
-        </div>
-
-    </div>
-
-</div>
-
-</main>
-
-</div>
-
-
-<!-- =========================================================
-     FOOTER
-     ========================================================= -->
-
-<footer>
-
-    © 2026
-    <strong>
-        PixelWorld
-    </strong>.
-    Todos los derechos reservados.
-
-    <br><br>
-
-    PixelWorld no está afiliado, respaldado ni asociado
-    con Mojang Studios o Microsoft.
-
-</footer>
-
-
-<!-- =========================================================
-     SERVER STATUS
-     ========================================================= -->
-
-<div class="server-status-bar">
-
-    <div class="status-dot"></div>
-
-    <div>
-
-        <div
-            style="
-            font-weight:800;
-            color:#fff;
-            font-size:12px;
-            ">
-
-            mc.vexors.live
-
-        </div>
-
-        <div
-            style="
-            color:#a5b4fc;
-            font-size:10px;
-            font-weight:800;
-            ">
-
-            SERVIDOR ONLINE
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     CART
-     ========================================================= -->
-
-<div
-    class="cart-overlay"
-    id="cartOverlay"
-    onclick="closeCart()">
-</div>
-
-
-<aside
-    class="cart"
-    id="cart">
-
-    <div class="cart-header">
-
-        <h2>
-            🛒 Tu carrito
-        </h2>
-
-        <button
-            class="close"
-            onclick="closeCart()">
-
-            ×
-
-        </button>
-
-    </div>
-
-
-    <div
-        class="cart-items"
-        id="cartItems">
-
-        <div class="empty">
-
-            Tu carrito está vacío.
-
-        </div>
-
-    </div>
-
-
-    <div class="cart-footer">
-
-        <div class="total">
-
-            <strong>
-                Total
-            </strong>
-
-            <strong id="cartTotal">
-                $0
-            </strong>
-
-        </div>
-
-        <button
-            class="checkout-btn"
-            onclick="checkout()">
-
-            CONTINUAR AL PAGO
-
-        </button>
-
-    </div>
-
-</aside>
-
-
-<!-- =========================================================
-     MODAL
-     ========================================================= -->
-
-<div
-    class="modal-overlay"
-    id="modal">
-
-    <div class="modal">
-
-        <h2>
-            🎮 Identifica tu cuenta
-        </h2>
-
-        <p>
-            Introduce tu nombre de Minecraft para continuar.
-        </p>
-
-        <input
-            class="input"
-            id="minecraftUsername"
-            maxlength="16"
-            placeholder="TuNick"
-            autocomplete="off"
-        >
-
-        <div class="modal-actions">
-
-            <button
-                class="cancel"
-                onclick="closeModal()">
-
-                Cancelar
-
-            </button>
-
-            <button
-                class="confirm"
-                onclick="confirmCheckout()">
-
-                Continuar
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     TOAST
-     ========================================================= -->
-
-<div
-    class="toast"
-    id="toast">
-</div>
-
-
-<script>
-
-/* =========================================================
-   CONFIGURACIÓN
-   ========================================================= */
-
-const TEBEX_GORDITO_URL =
-    "https://vexor.tebex.store/package/gordito";
-
-const DISCORD_URL =
-    "https://discord.gg/4ZGCSY5pf";
-
-const SERVER_IP =
-    "mc.vexors.live";
-
-
-/* =========================================================
-   CARRITO
-   ========================================================= */
-
-let cart = [];
-
-
-function addToCart(name,price){
-
-    cart.push({
-        name:name,
-        price:price
-    });
-
-    updateCart();
-
-    showToast(
-        "✅ " +
-        name +
-        " añadido al carrito."
-    );
-}
-
-
-function removeFromCart(index){
-
-    cart.splice(index,1);
-
-    updateCart();
-}
-
-
-function updateCart(){
-
-    const container =
-        document.getElementById("cartItems");
-
-    const count =
-        document.getElementById("cartCount");
-
-    const total =
-        document.getElementById("cartTotal");
-
-
-    count.textContent =
-        cart.length;
-
-
-    if(cart.length === 0){
-
-        container.innerHTML = `
-            <div class="empty">
-                Tu carrito está vacío.
-            </div>
-        `;
-
-        total.textContent =
-            "$0";
-
-        return;
-    }
-
-
-    let totalPrice = 0;
-
-
-    container.innerHTML =
-        cart.map((item,index)=>{
-
-            totalPrice += item.price;
-
-            return `
-                <div class="cart-item">
-
-                    <div>
-
-                        <h4>
-                            ${escapeHTML(item.name)}
-                        </h4>
-
-                        <span>
-                            $${item.price.toLocaleString("es-CL")}
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="remove"
-                        onclick="removeFromCart(${index})">
-
-                        Eliminar
-
-                    </button>
-
+    <!-- PARTICULAS MÍTICAS EN EL FONDO -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- HEADER / BANNER -->
+    <header>
+        <div class="top-bar">
+            <!-- PANEL DE USUARIO -->
+            <div class="user-panel" onclick="openModal('loginModal')">
+                <div id="userHeadContainer">
+                    <i class="fa-solid fa-cube" style="font-size: 28px; color: var(--primary-gold);"></i>
                 </div>
-            `;
-
-        }).join("");
-
-
-    total.textContent =
-        "$" +
-        totalPrice.toLocaleString("es-CL");
-}
-
-
-/* =========================================================
-   CART OPEN/CLOSE
-   ========================================================= */
-
-function openCart(){
-
-    document
-        .getElementById("cart")
-        .classList
-        .add("open");
-
-    document
-        .getElementById("cartOverlay")
-        .classList
-        .add("open");
-}
-
-
-function closeCart(){
-
-    document
-        .getElementById("cart")
-        .classList
-        .remove("open");
-
-    document
-        .getElementById("cartOverlay")
-        .classList
-        .remove("open");
-}
-
-
-/* =========================================================
-   CHECKOUT
-   ========================================================= */
-
-function checkout(){
-
-    if(cart.length === 0){
-
-        showToast(
-            "🛒 Tu carrito está vacío."
-        );
-
-        return;
-    }
-
-
-    document
-        .getElementById("modal")
-        .classList
-        .add("open");
-
-
-    document
-        .getElementById("minecraftUsername")
-        .focus();
-}
-
-
-function closeModal(){
-
-    document
-        .getElementById("modal")
-        .classList
-        .remove("open");
-}
-
-
-function confirmCheckout(){
-
-    const username =
-        document
-            .getElementById("minecraftUsername")
-            .value
-            .trim();
-
-
-    if(!username){
-
-        showToast(
-            "❌ Introduce tu nombre de Minecraft."
-        );
-
-        return;
-    }
-
-
-    if(!/^[A-Za-z0-9_]{1,16}$/.test(username)){
-
-        showToast(
-            "❌ Nombre de Minecraft inválido."
-        );
-
-        return;
-    }
-
-
-    try{
-
-        localStorage.setItem(
-            "pixelworld_minecraft_username",
-            username
-        );
-
-    }catch(error){}
-
-
-    showToast(
-        "✅ Cuenta " +
-        username +
-        " preparada para el checkout."
-    );
-
-
-    setTimeout(()=>{
-
-        closeModal();
-
-    },1000);
-}
-
-
-/* =========================================================
-   GORDITO GRATIS
-   ========================================================= */
-
-function claimGordito(){
-
-    if(
-        !TEBEX_GORDITO_URL ||
-        TEBEX_GORDITO_URL.trim() === ""
-    ){
-
-        showToast(
-            "⚠️ El enlace de Gordito no está configurado."
-        );
-
-        return;
-    }
-
-
-    const username =
-        prompt(
-            "🎮 Escribe tu nombre de Minecraft:"
-        );
-
-
-    if(username === null){
-
-        return;
-    }
-
-
-    const cleanUsername =
-        username.trim();
-
-
-    if(!/^[A-Za-z0-9_]{1,16}$/.test(cleanUsername)){
-
-        alert(
-            "❌ El nombre de Minecraft no es válido."
-        );
-
-        return;
-    }
-
-
-    try{
-
-        localStorage.setItem(
-            "pixelworld_minecraft_username",
-            cleanUsername
-        );
-
-    }catch(error){}
-
-
-    window.location.href =
-        TEBEX_GORDITO_URL;
-}
-
-
-/* =========================================================
-   IMÁGENES PERSONALIZADAS
-   ========================================================= */
-
-/*
-
-    CREA ESTA CARPETA:
-
-    images/
-
-    Y COLOCA TUS IMÁGENES:
-
-    images/gordito.png
-    images/gorditoplus.png
-    images/gorditopremium.png
-    images/gorditomatrix.png
-
-    images/coins.png
-    images/kit-gordito.png
-    images/kit-supremo.png
-    images/kit-constructor.png
-    images/kit-minero.png
-    images/legendary-key.png
-    images/aura-violeta.png
-    images/xp-boost.png
-
-*/
-
-
-const PRODUCT_IMAGES = {
-
-    "Gordito":
-        "images/gordito.png",
-
-    "GorditoPlus":
-        "images/gorditoplus.png",
-
-    "GorditoPremium":
-        "images/gorditopremium.png",
-
-    "GorditoMatrix":
-        "images/gorditomatrix.png",
-
-    "1.000 Coins":
-        "images/coins.png",
-
-    "1.000 Coins BoxPvP":
-        "images/coins.png",
-
-    "Kit Gordito":
-        "images/kit-gordito.png",
-
-    "Kit Supremo":
-        "images/kit-supremo.png",
-
-    "Kit Constructor":
-        "images/kit-constructor.png",
-
-    "Kit Minero":
-        "images/kit-minero.png",
-
-    "Legendary Key":
-        "images/legendary-key.png",
-
-    "Legendary Key BoxPvP":
-        "images/legendary-key.png",
-
-    "Aura Violeta":
-        "images/aura-violeta.png",
-
-    "Aura Violeta BoxPvP":
-        "images/aura-violeta.png",
-
-    "XP Boost":
-        "images/xp-boost.png",
-
-    "XP Boost BoxPvP":
-        "images/xp-boost.png"
-
-};
-
-
-function applyCustomProductImages(){
-
-    document
-        .querySelectorAll(".product-card")
-        .forEach(card=>{
-
-            const title =
-                card.querySelector("h3");
-
-            const imageBox =
-                card.querySelector(".product-image");
-
-
-            if(!title || !imageBox){
+                <div>
+                    <div id="userDisplayName" style="font-size: 14px; font-weight: bold; color: #fff;">Comprando como Invitado</div>
+                    <div id="userSubText" style="font-size: 12px; color: var(--primary-gold);"><i class="fa-solid fa-right-to-bracket"></i> Inicia sesión aquí</div>
+                </div>
+            </div>
+
+            <!-- LOGO CENTRAL ANIMADO -->
+            <div class="logo-container" onclick="showTab('inicio')">
+                <div class="logo-title">PIXEL WORLD</div>
+                <div class="logo-sub">NETWORK TIENDA OFICIAL</div>
+            </div>
+
+            <!-- BOTÓN DE DISCORD Y CARRITO DE COMPRAS -->
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <a href="https://discord.gg/dYE6MunAJ" target="_blank" class="discord-btn">
+                    <i class="fa-brands fa-discord" style="color: #5865F2; font-size: 24px;"></i>
+                    <div>
+                        <div style="font-size: 14px; font-weight: bold; color: #fff;">DISCORD</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Comunidad</div>
+                    </div>
+                </a>
+
+                <div class="cart-panel" onclick="openModal('cartModal')">
+                    <i class="fa-solid fa-cart-shopping" style="color: var(--primary-gold); font-size: 22px;"></i>
+                    <div>
+                        <div style="font-size: 14px; font-weight: bold; color: #fff;">MI CESTA (<span id="cartCount">0</span>)</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Total: $<span id="cartTotal">0.00</span> USD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- LAYOUT PRINCIPAL -->
+    <div class="main-container">
+        
+        <!-- SIDEBAR DE CATEGORÍAS CON CABEZAS ANIMADAS -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-bars"></i> Categorías Míticas
+            </div>
+            <ul class="category-list">
+                <li class="category-item active" onclick="switchCategory(this, 'inicio')">
+                    <a href="javascript:void(0)" class="category-link">
+                        <img src="https://mc-heads.net/avatar/MHO/24" class="head-icon">
+                        Inicio / Info
+                    </a>
+                </li>
+                <li class="category-item" onclick="switchCategory(this, 'rangos')">
+                    <a href="javascript:void(0)" class="category-link">
+                        <img src="https://mc-heads.net/avatar/King/24" class="head-icon">
+                        Rangos Exclusivos
+                    </a>
+                </li>
+                <li class="category-item" onclick="switchCategory(this, 'boxpvp')">
+                    <a href="javascript:void(0)" class="category-link">
+                        <img src="https://mc-heads.net/avatar/Chest/24" class="head-icon">
+                        Box PvP
+                    </a>
+                </li>
+                <li class="category-item" onclick="switchCategory(this, 'practice')">
+                    <a href="javascript:void(0)" class="category-link">
+                        <img src="https://mc-heads.net/avatar/Warrior/24" class="head-icon">
+                        Practice
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- SECCIÓN DE CONTENIDO -->
+        <main class="content-area">
+            
+            <!-- VISTA: INICIO -->
+            <div id="tab-inicio" class="tab-content active">
+                <div class="banner-welcome">
+                    <h1>Bienvenido a Pixel World</h1>
+                    <p>Adquiere tus Rangos, Kits y Cosméticos Divinos para dominar nuestro servidor de Minecraft. Selecciona tu Nickname en la parte superior para empezar.</p>
+                </div>
+            </div>
+
+            <!-- VISTA: RANGOS -->
+            <div id="tab-rangos" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--primary-gold);">Rangos Exclusivos</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <img src="https://mc-heads.net/avatar/Warrior/80" class="product-card-head">
+                            <div class="product-title">Rango HÉROE</div>
+                            <div class="product-price">$5.00 USD</div>
+                        </div>
+                        <button class="btn-add" onclick="addToCart('Rango HÉROE', 5.00)">Añadir a la Cesta</button>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <img src="https://mc-heads.net/avatar/King/80" class="product-card-head">
+                            <div class="product-title">Rango LEYENDA</div>
+                            <div class="product-price">$8.50 USD</div>
+                        </div>
+                        <button class="btn-add" onclick="addToCart('Rango LEYENDA', 8.50)">Añadir a la Cesta</button>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <img src="https://mc-heads.net/avatar/Zeus/80" class="product-card-head">
+                            <div class="product-title">Rango MAESTRO</div>
+                            <div class="product-price">$12.50 USD</div>
+                        </div>
+                        <button class="btn-add" onclick="addToCart('Rango MAESTRO', 12.50)">Añadir a la Cesta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA: BOX PVP -->
+            <div id="tab-boxpvp" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--primary-gold);">Box PvP Perks</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <img src="https://mc-heads.net/avatar/Chest/80" class="product-card-head">
+                            <div class="product-title">Kit Box PvP Inicial</div>
+                            <div class="product-price">$4.99 USD</div>
+                        </div>
+                        <button class="btn-add" onclick="addToCart('Kit Box PvP Inicial', 4.99)">Añadir a la Cesta</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA: PRACTICE -->
+            <div id="tab-practice" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--primary-gold);">Practice Perks</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <img src="https://mc-heads.net/avatar/Builder/80" class="product-card-head">
+                            <div class="product-title">Pase Practice VIP</div>
+                            <div class="product-price">$3.50 USD</div>
+                        </div>
+                        <button class="btn-add" onclick="addToCart('Pase Practice VIP', 3.50)">Añadir a la Cesta</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- FLOATING STATUS BAR ANIMADA -->
+    <div class="server-status-bar">
+        <div class="status-dot"></div>
+        <div>
+            <div style="font-weight: bold; color: #fff; font-size: 13px;">MC.PIXELWORLD.NET</div>
+            <div style="color: var(--primary-gold); font-size: 11px; font-weight: bold;">838 JUGADORES ONLINE</div>
+        </div>
+    </div>
+
+    <!-- MODAL DE LOGIN DE JUGADOR -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('loginModal')"></i>
+            <h3 style="color: var(--primary-gold); margin-bottom: 10px;">Vincular Jugador</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">Escribe tu Nickname de Minecraft para cargar tu avatar 3D.</p>
+            <input type="text" id="usernameInput" class="input-field" placeholder="Tu Nickname exacto..." autocomplete="off">
+            <button class="btn-add" style="width: 100%; padding: 14px;" onclick="saveUser()">Cargar Jugador</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE CESTA -->
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('cartModal')"></i>
+            <h3 style="color: var(--primary-gold); margin-bottom: 15px;">Tu Cesta Divina</h3>
+            <div id="cartItemsList" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
+                <p style="color: var(--text-muted); text-align: center;">Tu cesta está vacía.</p>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+                <span>Total:</span>
+                <span style="color: var(--accent-green);">$<span id="modalCartTotal">0.00</span> USD</span>
+            </div>
+            <button class="btn-add" style="width: 100%; padding: 14px;" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE ANIMACIONES Y LOGICA -->
+    <script>
+        // --- SCRIPT DE SISTEMA DE TIENDA Y NICKNAME ---
+        let currentUser = "";
+        let cart = [];
+
+        function switchCategory(element, tabId) {
+            document.querySelectorAll('.category-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function saveUser() {
+            const input = document.getElementById('usernameInput').value.trim();
+            if(!input) return alert("Ingresa un Nickname válido.");
+            
+            currentUser = input;
+            document.getElementById('userDisplayName').innerText = currentUser;
+            document.getElementById('userSubText').innerText = 'Jugador Conectado';
+            document.getElementById('userHeadContainer').innerHTML = `<img src="https://mc-heads.net/avatar/${currentUser}/42" class="user-avatar-head">`;
+            closeModal('loginModal');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cartTotal').innerText = total.toFixed(2);
+            document.getElementById('modalCartTotal').innerText = total.toFixed(2);
+
+            const cartList = document.getElementById('cartItemsList');
+            if(cart.length === 0) {
+                cartList.innerHTML = `<p style="color: var(--text-muted); text-align: center;">Tu cesta está vacía.</p>`;
+            } else {
+                cartList.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div>
+                            <div style="font-weight: bold; color: #fff;">${item.name}</div>
+                            <div style="font-size: 12px; color: var(--accent-green);">$${item.price.toFixed(2)} USD</div>
+                        </div>
+                        <i class="fa-solid fa-trash" style="color: #e53e3e; cursor: pointer;" onclick="removeFromCart(${index})"></i>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function checkout() {
+            if(!currentUser) {
+                alert("Por favor ingresa tu Nickname antes de comprar.");
+                closeModal('cartModal');
+                openModal('loginModal');
                 return;
             }
-
-
-            const baseName =
-                title.textContent.trim();
-
-
-            const imagePath =
-                PRODUCT_IMAGES[baseName];
-
-
-            if(!imagePath){
-                return;
-            }
-
-
-            const img =
-                document.createElement("img");
-
-
-            img.className =
-                "custom-product-image";
-
-
-            img.alt =
-                baseName;
-
-
-            img.src =
-                imagePath;
-
-
-            img.onload = ()=>{
-
-                imageBox
-                    .classList
-                    .add("has-custom-image");
-
-            };
-
-
-            img.onerror = ()=>{
-
-                img.remove();
-
-                imageBox
-                    .classList
-                    .remove(
-                        "has-custom-image"
-                    );
-
-            };
-
-
-            imageBox.prepend(img);
-
-        });
-}
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    applyCustomProductImages
-);
-
-
-/* =========================================================
-   FILTROS
-   ========================================================= */
-
-function filterProducts(category,button){
-
-    const products =
-        document.querySelectorAll(
-            ".product-card"
-        );
-
-
-    products.forEach(product=>{
-
-        const productCategory =
-            product.dataset.category;
-
-
-        let show = false;
-
-
-        if(category === "all"){
-
-            show = true;
-
+            if(cart.length === 0) return alert("Tu cesta está vacía.");
+            alert(`¡Gracias ${currentUser}! Redirigiendo a la pasarela de pago...`);
+            cart = [];
+            updateCartUI();
+            closeModal('cartModal');
         }
 
-        else if(category === "rangos-global"){
+        // --- SISTEMA DE PARTÍCULAS DORADAS FLOTANTES ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
 
-            show =
-                productCategory ===
-                "rangos-global";
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
+        const particles = [];
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                speedY: Math.random() * -0.8 - 0.2,
+                opacity: Math.random()
+            });
         }
 
-        else if(category.endsWith("-rango")){
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(243, 173, 46, 0.6)';
 
-            show =
-                productCategory ===
-                "rangos-global";
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
 
-        }
-
-        else{
-
-            show =
-                productCategory ===
-                category;
-
-        }
-
-
-        product.style.display =
-            show ? "block" : "none";
-
-    });
-
-
-    document
-        .querySelectorAll(
-            ".category,.subcategory"
-        )
-        .forEach(el=>{
-
-            el.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    if(button){
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-}
-
-
-/* =========================================================
-   SUBCATEGORÍAS
-   ========================================================= */
-
-function toggleSub(id){
-
-    const element =
-        document.getElementById(id);
-
-
-    if(
-        element.style.display === "none" ||
-        !element.style.display
-    ){
-
-        element.style.display =
-            "block";
-
-    }
-
-    else{
-
-        element.style.display =
-            "none";
-
-    }
-}
-
-
-/* =========================================================
-   COPIAR IP
-   ========================================================= */
-
-function copyIP(){
-
-    if(
-        navigator.clipboard &&
-        window.isSecureContext
-    ){
-
-        navigator.clipboard
-            .writeText(SERVER_IP)
-            .then(()=>{
-
-                showToast(
-                    "📋 IP copiada: " +
-                    SERVER_IP
-                );
-
-            })
-            .catch(()=>{
-
-                showToast(
-                    "IP: " +
-                    SERVER_IP
-                );
-
+                p.y += p.speedY;
+                if (p.y < 0) {
+                    p.y = canvas.height;
+                    p.x = Math.random() * canvas.width;
+                }
             });
 
-    }
-
-    else{
-
-        showToast(
-            "IP: " +
-            SERVER_IP
-        );
-
-    }
-}
-
-
-/* =========================================================
-   DISCORD
-   ========================================================= */
-
-function openDiscord(){
-
-    window.open(
-        DISCORD_URL,
-        "_blank",
-        "noopener,noreferrer"
-    );
-}
-
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-let toastTimeout;
-
-
-function showToast(message){
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        toastTimeout
-    );
-
-
-    toastTimeout =
-        setTimeout(()=>{
-
-            toast.classList.remove(
-                "show"
-            );
-
-        },3000);
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHTML(text){
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
-}
-
-
-/* =========================================================
-   TEMPORIZADOR
-   ========================================================= */
-
-const saleEnd =
-    new Date().getTime() +
-    (2 * 24 * 60 * 60 * 1000);
-
-
-function updateTimer(){
-
-    const now =
-        new Date().getTime();
-
-
-    let distance =
-        saleEnd - now;
-
-
-    if(distance < 0){
-
-        distance = 0;
-
-    }
-
-
-    const days =
-        Math.floor(
-            distance /
-            (1000*60*60*24)
-        );
-
-
-    const hours =
-        Math.floor(
-            (
-                distance %
-                (1000*60*60*24)
-            ) /
-            (1000*60*60)
-        );
-
-
-    const minutes =
-        Math.floor(
-            (
-                distance %
-                (1000*60*60)
-            ) /
-            (1000*60)
-        );
-
-
-    const seconds =
-        Math.floor(
-            (
-                distance %
-                (1000*60)
-            ) /
-            1000
-        );
-
-
-    document.getElementById("days")
-        .textContent =
-        String(days).padStart(2,"0");
-
-
-    document.getElementById("hours")
-        .textContent =
-        String(hours).padStart(2,"0");
-
-
-    document.getElementById("minutes")
-        .textContent =
-        String(minutes).padStart(2,"0");
-
-
-    document.getElementById("seconds")
-        .textContent =
-        String(seconds).padStart(2,"0");
-}
-
-
-setInterval(
-    updateTimer,
-    1000
-);
-
-
-updateTimer();
-
-
-/* =========================================================
-   ESCAPE
-   ========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event=>{
-
-        if(event.key === "Escape"){
-
-            closeCart();
-
-            closeModal();
-
+            requestAnimationFrame(animateParticles);
         }
-
-    }
-);
-
-
-/* =========================================================
-   INIT
-   ========================================================= */
-
-updateCart();
-
-
-/* =========================================================
-   PARTICLES
-   ========================================================= */
-
-(function(){
-
-    const canvas =
-        document.getElementById(
-            "particles-canvas"
-        );
-
-
-    if(!canvas){
-        return;
-    }
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    let w;
-    let h;
-    let pts = [];
-
-
-    function resize(){
-
-        w =
-            canvas.width =
-            innerWidth;
-
-
-        h =
-            canvas.height =
-            innerHeight;
-
-
-        pts =
-            Array.from(
-                {length:70},
-                ()=>({
-
-                    x:
-                        Math.random()*w,
-
-                    y:
-                        Math.random()*h,
-
-                    r:
-                        Math.random()*1.8+.4,
-
-                    vx:
-                        (Math.random()-.5)*.35,
-
-                    vy:
-                        (Math.random()-.5)*.35
-
-                })
-            );
-    }
-
-
-    function draw(){
-
-        ctx.clearRect(
-            0,
-            0,
-            w,
-            h
-        );
-
-
-        ctx.fillStyle =
-            "rgba(147,197,253,.65)";
-
-
-        for(const p of pts){
-
-            p.x += p.vx;
-            p.y += p.vy;
-
-
-            if(
-                p.x < 0 ||
-                p.x > w
-            ){
-
-                p.vx *= -1;
-
-            }
-
-
-            if(
-                p.y < 0 ||
-                p.y > h
-            ){
-
-                p.vy *= -1;
-
-            }
-
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.r,
-                0,
-                Math.PI*2
-            );
-
-            ctx.fill();
-
-        }
-
-
-        requestAnimationFrame(draw);
-    }
-
-
-    addEventListener(
-        "resize",
-        resize
-    );
-
-
-    resize();
-
-    draw();
-
-})();
-
-</script>
-
+        animateParticles();
+    </script>
 </body>
 </html>
